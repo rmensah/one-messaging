@@ -32,10 +32,8 @@ NodeJs
 
 #API's To be used: (To be determined)
 
-
-
--
--
+- http://www.programmableweb.com/api/att-app-messaging
+- http://developer.verizon.com/content/vdc/en/verizon-tools-apis/verizon_apis/network-api.html
 
 
 #Trello Link: https://trello.com/b/OgBJEBXY
