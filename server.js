@@ -10,7 +10,7 @@ var bcrypt = require('bcryptjs');
 var expressSession = require('express-session');
 var mongoose = require('mongoose');
 var app = express();
-var PORT = process.env.PORT||3000;
+var PORT = process.env.PORT||3001;
 
 
 app.use(express.static(__dirname+"/public"));
