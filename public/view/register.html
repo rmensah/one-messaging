@@ -1,0 +1,11 @@
+<div>
+
+  <form ng-submit="regC.register()">  
+    <input placeholder="Enter username" ng-model="regC.username"> 
+    <input placeholder="Enter password" ng-model="regC.password"> 
+    <input placeholder="Confirm password" ng-model="regC.verifyPassword">
+    <p ng-show="regC.showRegErrs">Please make sure that all fields are filled and that your password matches</p>
+    <button type="submit" name="action">Submit</button>
+  </form>
+
+</div>
