@@ -1,0 +1,26 @@
+<!--TODO: Thinking of making this operate by using ui-router. A routing can be set such that the home will be a
+    TODO: login page and another route will be a registration page.-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <base href="/">
+</head>
+<body ng-app="messagingApp">
+
+  <div ui-view></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-route.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
+  <script src="../js/config/router.js"></script>
+  <script src="../js/services/userService.js"></script>
+  <script src="../js/controller/loginController.js"></script>
+  <script src="../js/controller/registrationController.js"></script>
+
+
+</body>
+</html>

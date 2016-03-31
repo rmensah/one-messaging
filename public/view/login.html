@@ -1,0 +1,11 @@
+<div>
+
+  <form ng-submit="loginC.login()">  
+    <input placeholder="Enter username" ng-model="loginC.username"> 
+    <input placeholder="Enter password" ng-model="loginC.password"> 
+    <p ng-show="loginC.showLoginErrs">Username or password is incorrect</p>
+    <a href="/register">Sign Up!</a>
+    <button type="submit" name="action">Submit</button>
+  </form>
+
+</div>
