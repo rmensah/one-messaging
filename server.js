@@ -12,6 +12,13 @@ var mongoose = require('mongoose');
 var app = express();
 var PORT = process.env.PORT||3001;
 
+//database connection
+
+var uri = 'mongodb://heroku_80c4pl5t:1pkn0mmchnqm34rf4c6lgkruf7@ds051720.mlab.com:51720/heroku_80c4pl5t';
+
+mongodb.MongoClient.connect(uri, function(err, db) {
+  
+  if(err) throw err;
 
 app.use(express.static(__dirname+"/public"));
 app.use(bodyparser.urlencoded({extended:false}));
