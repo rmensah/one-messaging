@@ -10,30 +10,27 @@ var bcrypt = require('bcryptjs');
 var expressSession = require('express-session');
 var mongoose = require('mongoose');
 var app = express();
-var PORT = process.env.PORT||3001;
+var PORT = process.env.PORT || 3001;
 
-//database connection
 
-var uri = 'mongodb://heroku_80c4pl5t:1pkn0mmchnqm34rf4c6lgkruf7@ds051720.mlab.com:51720/heroku_80c4pl5t';
+app.use(express.static(__dirname + "/public"));
 
-mongodb.MongoClient.connect(uri, function(err, db) {
-  
-  if(err) throw err;
-
-app.use(express.static(__dirname+"/public"));
 app.use(bodyparser.urlencoded({extended:false}));
-app.use(bodyparser.json())
+app.use(bodyparser.json());
+
 app.use(expressSession({
   secret: '5cc36237fef6d88c39476da6b5e9a2f7',
-  resave:true,
+  resave: true,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: {
+    secure: true
+  }
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-var User = require(__dirname+"/public/js/User.js");
+var User = require(__dirname + "/public/js/User.js");
 
 passport.use(new LocalStrategy({
     usernameField:"username",
@@ -72,9 +69,11 @@ passport.use(new LocalStrategy({
 
 ));
 
+
 passport.serializeUser(function(user, done){
   done(null, user._id);
 });
+
 
 passport.deserializeUser(function(id, done){
   User.findOne({_id:id}, function(err, user){
@@ -85,8 +84,9 @@ passport.deserializeUser(function(id, done){
 
 app.get("/", function(req,res){
 
-  res.sendFile(__dirname+"/public/view/index.html");
+  res.sendFile(__dirname + "/public/view/index.html");
 });
+
 
 app.post("/login", function(req, res, next){
   passport.authenticate('local', function(err, user){
