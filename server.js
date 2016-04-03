@@ -211,7 +211,19 @@ app.get("/slackAuth", function(req, res){
       function(error, response, body){
         if (!error && response.statusCode == 200) {
           console.log(body);
-          res.redirect("/");
+          User.findOneAndUpdate({username:req.user.username},{slackToken:body.access_token},{new:true},
+          function(err, doc){
+            if(err){
+              console.log(err);
+              return res.redirect("/");
+            }
+            else{
+              console.log(doc);
+              req.user.slackToken = body.access_token;
+              return res.redirect("/");
+            }
+          });
+
         }
         else{
           console.log(error);
