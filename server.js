@@ -202,7 +202,7 @@ app.post("/updateUser", function(req, res){
 app.get("/slackAuth", function(req, res){
 
   console.log("/slackAuth");
-  console.log(req);
+  console.log(req.query);
   res.redirect("/");
 
 });
