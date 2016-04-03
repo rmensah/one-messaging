@@ -210,9 +210,9 @@ app.get("/slackAuth", function(req, res){
       "client_secret=09490261d44c791db569237175161947&code="+req.query.code,
       function(error, response, body){
         if (!error && response.statusCode == 200) {
-          console.log(body);
-          console.log(body["access_token"]);
-          User.findOneAndUpdate({username:req.user.username},{slackToken:body.access_token},{new:true},
+          var slackBody = JSON.parse(body);
+          console.log(slackBody["access_token"]);
+          User.findOneAndUpdate({username:req.user.username},{slackToken:slackBody.access_token},{new:true},
           function(err, doc){
             if(err){
               console.log(err);
