@@ -171,25 +171,22 @@ app.post('/register', function(req, res){
 
   });
 
+});
 
-  app.post("/updateUser", function(req, res){
+app.post("/updateUser", function(req, res){
 
-    User.findOneAndUpdate(req.body.user._id, req.body.user, {new:true},
-      function(err, doc){
-         if(err){
-           return res.status(404).send(err);
-         }
-         else{
-           console.log(doc);
-           return res.send(doc);
-         }
-
+  User.findOneAndUpdate(req.body.user._id, req.body.user, {new:true},
+    function(err, doc){
+      if(err){
+        return res.status(404).send(err);
       }
-    );
+      else{
+        console.log(doc);
+        return res.send(doc);
+      }
 
-
-  });
-
+    }
+  );
 
 
 });
