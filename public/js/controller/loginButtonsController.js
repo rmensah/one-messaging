@@ -3,7 +3,7 @@
  */
 var app = angular.module('messagingApp');
 
-app.controller('loginButtonsController', ['$userService', function($userService){
+app.controller('loginButtonsController', ['$userService','$http','$window', function($userService, $http, $window){
 
   var lBC = this;
   lBC.user = $userService.user;
@@ -43,7 +43,9 @@ app.controller('loginButtonsController', ['$userService', function($userService)
 
     else{
 
+
       //TODO: login the user to facebook and save the token to the userservice
+
 
     }
 
@@ -66,6 +68,8 @@ app.controller('loginButtonsController', ['$userService', function($userService)
     else{
 
       //TODO: login the user to slack and save the token to the userservice
+      $window.open("https://slack.com/oauth/authorize?client_id="+"9328545702.31568401990"+"&state="+$userService.user.username+"&scope=read"
+      ,"_self");
 
     }
 
