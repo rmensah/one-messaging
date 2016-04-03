@@ -6,6 +6,13 @@ var express = require('express');
 var bodyparser = require('body-parser');
 var LocalStrategy = require('passport-local').Strategy;
 var passport = require('passport');
+
+
+//var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var google = require('googleapis');
+var urlshortener = google.urlshortener('v1');
+
+
 var bcrypt = require('bcryptjs');
 var expressSession = require('express-session');
 var mongoose = require('mongoose');
@@ -78,6 +85,40 @@ passport.deserializeUser(function(id, done){
     done(err,user);
   })
 });
+
+
+
+//passport.use(new GoogleStrategy({
+//    clientID: "984356963831-bfopktf477vk9akub40aji76p53s0v7l.apps.googleusercontent.com",
+//    clientSecret: "w-HGMzuyzC-8G_4sFKLIrbBa",
+//    callbackURL: "https://fast-gorge-90415.herokuapp.com/gmailAuth"
+//  },
+//  function(accessToken, refreshToken, profile, done) {
+//    //User.findOrCreate({ googleId: profile.id }, function (err, user) {
+//    //  return done(err, user);
+//    //});
+//
+//    console.log("Access: " + accessToken);
+//    console.log("Refresh: " + refreshToken);
+//  }
+//));
+
+var OAuth2 = google.auth.OAuth2;
+
+var oauth2Client = new OAuth2("984356963831-bfopktf477vk9akub40aji76p53s0v7l.apps.googleusercontent.com", "w-HGMzuyzC-8G_4sFKLIrbBa", "https://fast-gorge-90415.herokuapp.com/gmailAuth");
+// generate a url that asks permissions for Google+ and Google Calendar scopes
+var scopes = [
+  'https://www.googleapis.com/auth/gmail.readonly'
+];
+
+var url = oauth2Client.generateAuthUrl({
+  access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
+  scope: scopes // If you only need one scope you can pass it as string
+});
+
+
+
+
 
 
 app.get("/", function(req,res){
@@ -205,6 +246,36 @@ app.get("/slackAuth", function(req, res){
   console.log(req.data);
 
 });
+
+
+
+// GET /auth/google
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  The first step in Google authentication will involve
+//   redirecting the user to google.com.  After authorization, Google
+//   will redirect the user back to this application at /auth/google/callback
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
+
+
+app.get("/gmailAuth", function(req, res){
+
+  console.log("/gmailAuth");
+  console.log(req.data);
+
+  oauth2Client.getToken(code, function(err, tokens) {
+    // Now tokens contains an access_token and an optional refresh_token. Save them.
+    //if(!err) {
+    //  oauth2Client.setCredentials(tokens);
+    //}
+    console.log(tokens);
+
+  });
+
+});
+
+
 
 app.listen(PORT, function(){
   console.log("listening on ", PORT);
