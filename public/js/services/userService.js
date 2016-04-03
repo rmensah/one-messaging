@@ -64,6 +64,25 @@ app.factory('$userService',['$http', function($http){
           }
         )
 
+    },
+
+    updateUser: function(user, callback){
+      $http({
+
+        url:"/updateUser",
+        method:"POST",
+        data:user
+      })
+        .then(function successCallBack(response){
+          self.user = response.data;
+          callback(self.user);
+        }
+          ,
+          function errorCallBack(response){
+            console.log(response);
+            callback(undefined);
+          }
+        )
     }
 
   }
