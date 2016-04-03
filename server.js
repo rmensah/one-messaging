@@ -207,7 +207,7 @@ app.get("/slackAuth", function(req, res){
   console.log(req.query);
   if(req.query.state === req.user.username){
     request("https://slack.com/api/oauth.access?client_id="+"9328545702.31568401990&"+
-      "client_sercret=09490261d44c791db569237175161947&code="+req.query.code,
+      "client_secret=09490261d44c791db569237175161947&code="+req.query.code,
       function(error, response, body){
         if (!error && response.statusCode == 200) {
           console.log(body);
