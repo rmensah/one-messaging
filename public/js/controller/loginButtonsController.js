@@ -93,7 +93,7 @@ app.controller('loginButtonsController', ['$userService','$http','$window', func
       //TODO: login the user to gmail and save the token to the userservice
       $http({
         method: 'GET',
-        url:'/auth/google'
+        url:'/gmailAuth'
       }).then(function (result){
         console.log("Back From user Auth")
       });
