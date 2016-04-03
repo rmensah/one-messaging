@@ -15,10 +15,7 @@ var PORT = process.env.PORT || 3001;
 app.use(express.static(__dirname + "/public"));
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());
-<<<<<<< HEAD
-=======
 
->>>>>>> 37faa0dbac77a12954f82dce9aa7469147560a29
 app.use(expressSession({
   secret: '5cc36237fef6d88c39476da6b5e9a2f7',
   resave: true,
