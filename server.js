@@ -15,7 +15,7 @@ var PORT = process.env.PORT||3001;
 
 app.use(express.static(__dirname+"/public"));
 app.use(bodyparser.urlencoded({extended:false}));
-app.use(bodyparser.json())
+app.use(bodyparser.json());
 app.use(expressSession({
   secret: '5cc36237fef6d88c39476da6b5e9a2f7',
   resave:true,
@@ -163,6 +163,25 @@ app.post('/register', function(req, res){
 
       });
     }
+
+  });
+
+
+  app.post("/updateUser", function(req, res){
+
+    User.findOneAndUpdate(req.body.user._id, req.body.user, {new:true},
+      function(err, doc){
+         if(err){
+           return res.status(404).send(err);
+         }
+         else{
+           console.log(doc);
+           return res.send(doc);
+         }
+
+      }
+    );
+
 
   });
 

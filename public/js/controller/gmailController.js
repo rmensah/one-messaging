@@ -9,7 +9,7 @@ var app = angular.module('messagingApp');
  * login and registration functions for the user. for more info look at userService.js
  */
 app.controller('gmailController', ['$userService', function($userService){
-
+    var gC = this;
 
 
 }]);
