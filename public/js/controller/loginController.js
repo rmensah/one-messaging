@@ -3,7 +3,7 @@
  */
 var app = angular.module('messagingApp');
 
-app.controller('loginController', ['$userService','$location', function($userService,$location){
+app.controller('loginController', ['$userService','$location','$cookies', function($userService,$location, $cookies){
 
   console.log("in loginController");
   var loginC = this;
@@ -13,6 +13,8 @@ app.controller('loginController', ['$userService','$location', function($userSer
 
   loginC.login = function(){
     $userService.login(loginC.username,loginC.password, function(response){
+      console.log("logging");
+
 
       var user = response;
       if(!user){
@@ -21,7 +23,9 @@ app.controller('loginController', ['$userService','$location', function($userSer
 
       else{
         var username = loginC.username;
-
+        var date = new Date();
+        date.setDate(date.getDate()+1);
+        $cookies.put('user', user.username, {secure:true, expires:date});
         loginC.username="";
         loginC.password="";
 

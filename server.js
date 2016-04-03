@@ -10,7 +10,7 @@ var bcrypt = require('bcryptjs');
 var expressSession = require('express-session');
 var mongoose = require('mongoose');
 var app = express();
-var PORT = process.env.PORT || 3001;
+var PORT = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyparser.urlencoded({extended:false}));
@@ -21,7 +21,7 @@ app.use(expressSession({
   resave: true,
   saveUninitialized: true,
   cookie: {
-    secure: true
+    secure: false
   }
 }));
 
@@ -82,7 +82,15 @@ passport.deserializeUser(function(id, done){
 
 app.get("/", function(req,res){
 
+  console.log("at index");
+  console.log("cookie: "+JSON.stringify(req.user));
   res.sendFile(__dirname + "/public/view/index.html");
+});
+
+app.get("/loginStatus", function(req, res){
+  console.log("getting logging status");
+  console.log(req.user);
+  res.send(req.user);
 });
 
 
@@ -110,6 +118,7 @@ app.post("/login", function(req, res, next){
         return res.status(404).send(err1);
       }
       else{
+
         return res.status(200).send(user);
       }
     })
@@ -188,10 +197,17 @@ app.post("/updateUser", function(req, res){
     }
   );
 
+});
+
+app.get("/slackAuth", function(req, res){
+
+  console.log("/slackAuth");
+  console.log(req.data);
 
 });
 
 app.listen(PORT, function(){
   console.log("listening on ", PORT);
-  mongoose.connect('mongodb://heroku_80c4pl5t:1pkn0mmchnqm34rf4c6lgkruf7@ds051720.mlab.com:51720/heroku_80c4pl5t');
+  //mongoose.connect('mongodb://heroku_80c4pl5t:1pkn0mmchnqm34rf4c6lgkruf7@ds051720.mlab.com:51720/heroku_80c4pl5t');
+  mongoose.connect('mongodb://localhost/onemessaging');
 });
