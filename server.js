@@ -28,7 +28,7 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-var User = require(__dirname + "/public/js/User.js");
+var User = require(__dirname + "/public/js/schemas/User.js");
 
 passport.use(new LocalStrategy({
     usernameField:"username",
