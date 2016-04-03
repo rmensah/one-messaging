@@ -16,6 +16,8 @@ var urlshortener = google.urlshortener('v1');
 var bcrypt = require('bcryptjs');
 var expressSession = require('express-session');
 var mongoose = require('mongoose');
+var express = require('express');
+var request = require('request');
 var app = express();
 var PORT = process.env.PORT || 3000;
 
@@ -243,7 +245,35 @@ app.post("/updateUser", function(req, res){
 app.get("/slackAuth", function(req, res){
 
   console.log("/slackAuth");
-  console.log(req.data);
+  console.log(req.query);
+  if(req.query.state === req.user.username){
+    request("https://slack.com/api/oauth.access?client_id="+"9328545702.31568401990&"+
+      "client_secret=09490261d44c791db569237175161947&code="+req.query.code,
+      function(error, response, body){
+        if (!error && response.statusCode == 200) {
+          var slackBody = JSON.parse(body);
+          console.log(slackBody["access_token"]);
+          User.findOneAndUpdate({username:req.user.username},{slackToken:slackBody.access_token},{new:true},
+          function(err, doc){
+            if(err){
+              console.log(err);
+              return res.redirect("/");
+            }
+            else{
+              console.log(doc);
+              req.user.slackToken = body.access_token;
+              return res.redirect("/");
+            }
+          });
+
+        }
+        else{
+          console.log(error);
+          res.redirect("/");
+        }
+      })
+  }
+
 
 });
 
