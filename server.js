@@ -275,7 +275,7 @@ app.get("/gmailAuth", function(req, res){
             }
             else{
               console.log(doc);
-              req.user.gmailToken = body.access_token;
+              req.user.gmailToken = data.access_token;
               return res.redirect("/");
             }
           });
