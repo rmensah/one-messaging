@@ -14,7 +14,9 @@ var request = require('request');
 var app = express();
 var PORT = process.env.PORT || 3000;
 
+
 app.use(express.static(__dirname + "/public"));
+
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());
 
