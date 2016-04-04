@@ -258,13 +258,13 @@ app.get("/gmailAuth", function(req, res){
   //    }
   //
   //  });
-  var url = "https://www.googleapis.com/oauth2/v4/token"
+  var url = "https://www.googleapis.com/oauth2/v4/token";
   var oauth = {
     code: req.query.code,
     client_id: "984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com",
     client_secret: "VgS92n51AtwiYQCimdUYw9B2",
     grant_type: 'authorization_code',
-    redirect_uri: "https://fast-gorge-90415.herokuapp.com/theAuth"
+    redirect_uri: "https://fast-gorge-90415.herokuapp.com/gmailAuth"
   }
 
   request.post(url, {form: oauth},
