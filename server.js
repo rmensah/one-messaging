@@ -262,8 +262,6 @@ app.get("/gmailAuth", function(req, res){
 
       if(!error && response.statusCode == 200) {
         console.log("DATA: " + data);
-        console.log("HELLOOOOOOOOOOOOOOOOO");
-
 
         var gmailBody = JSON.parse(data);
         console.log(gmailBody["access_token"]);
