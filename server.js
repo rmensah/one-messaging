@@ -247,7 +247,8 @@ app.get("/gmailAuth", function(req, res){
 
   request.post({url:"https://www.googleapis.com/oauth2/v4/token?code="+req.query.code+"&client_id=984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com&client_secret=VgS92n51AtwiYQCimdUYw9B2&grant_type=authorization_code"}
       ,
-    function callBack(error, response, data){
+    function optionalCallback(error, response, data){
+      console.log("in optionalCallBack");
       if(!error && response.statusCode == 200) {
         console.log(data);
         res.redirect("/");
