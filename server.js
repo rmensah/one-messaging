@@ -243,6 +243,8 @@ app.get("/gmailAuth", function(req, res){
 
   console.log("/gmailAuth");
   console.log(req.query);
+  console.log(req.body);
+  console.log(req.params);
 
   res.redirect("/");
 
