@@ -257,9 +257,6 @@ app.get("/gmailAuth", function(req, res){
 
   request.post(url, {form: oauth},
     function (error, response, data){
-      console.log("in optionalCallBack");
-      console.log(error);
-      console.log(response);
       console.log(response.statusMessage);
 
       if(!error && response.statusCode == 200) {
