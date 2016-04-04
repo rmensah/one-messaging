@@ -91,12 +91,9 @@ app.controller('loginButtonsController', ['$userService','$http','$window', func
     else{
 
       //TODO: login the user to gmail and save the token to the userservice
-      $http({
-        method: 'GET',
-        url:'/gmailAuth'
-      }).then(function (result){
-        console.log("Back From user Auth")
-      });
+      $window.open("https://accounts.google.com/o/oauth2/auth?access_type=offline&scope=https://www.googleapis.com/auth/gmail.readonly&response_type=code&client_id="+"984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com&state="+$userService.user.username,"_self");
+
+
     }
 
   }
