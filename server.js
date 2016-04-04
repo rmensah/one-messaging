@@ -245,7 +245,7 @@ app.get("/gmailAuth", function(req, res){
   console.log(req.query);
 
 
-  request.post({url:"https://www.googleapis.com/oauth2/v4/token?code="+req.query.code+"&client_id=984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com&client_secret=VgS92n51AtwiYQCimdUYw9B2&grant_type=authorization_code"}
+  request.post({url:"https://www.googleapis.com/oauth2/v4/token?code="+req.query.code+"&client_id=984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com&client_secret=VgS92n51AtwiYQCimdUYw9B2&grant_type=authorization_code&redirect_uri=https://fast-gorge-90415.herokuapp.com/theAuth"}
       ,
     function optionalCallback(error, response, data){
       console.log("in optionalCallBack");
@@ -258,9 +258,15 @@ app.get("/gmailAuth", function(req, res){
       }
 
     });
+});
 
 
 
+app.get("/theAuth", function(req, res){
+
+  console.log("/theAuth");
+
+  res.redirect("/");
 
 });
 
