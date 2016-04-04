@@ -11,10 +11,23 @@
   <base href="/">
 </head>
 <body ng-app="messagingApp">
+ <!--Nav Bar-->   
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo center">1View</a>
+    </div>
+  </nav>
+  
 
   <div ui-view></div>
-
-
+  
+   <footer>
+      <div class="footer-copyright">
+        <div class="container center">
+        © 2016 Copyright 
+        </div>
+      </div>
+    </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-route.js"></script>
@@ -27,5 +40,10 @@
   <script src="../js/services/userService.js"></script>
   <script src="../js/controller/loginController.js"></script>
   <script src="../js/controller/registrationController.js"></script>
+  <script src="../js/controller/loginButtonsController.js"></script>
+  <script src="../js/controller/fbController.js"></script>
+  <script src="../js/controller/gmailController.js"></script>
+  <script src="../js/controller/slackController.js"></script>
+
 </body>
 </html>

@@ -30,7 +30,7 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-var User = require(__dirname + "/public/js/User.js");
+var User = require(__dirname + "/public/js/schemas/User.js");
 
 passport.use(new LocalStrategy({
     usernameField:"username",
@@ -173,12 +173,27 @@ app.post('/register', function(req, res){
 
   });
 
+});
+
+app.post("/updateUser", function(req, res){
+
+  User.findOneAndUpdate(req.body.user._id, req.body.user, {new:true},
+    function(err, doc){
+      if(err){
+        return res.status(404).send(err);
+      }
+      else{
+        console.log(doc);
+        return res.send(doc);
+      }
+
+    }
+  );
 
 
 });
 
 app.listen(PORT, function(){
   console.log("listening on ", PORT);
-  mongoose.connect('mongodb://localhost/onemessaging');
+  mongoose.connect('mongodb://heroku_80c4pl5t:1pkn0mmchnqm34rf4c6lgkruf7@ds051720.mlab.com:51720/heroku_80c4pl5t');
 });
-

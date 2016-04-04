@@ -1,1 +1,14 @@
-<h1>Congrats you logged in!!</h1>
+<div>
+
+  <button ng-click="lBC.changeFacebookStatus()">{{lBC.facebookLoginStatus}}</button>
+  <button ng-click="lBC.changeSlackStatus()">{{lBC.slackLoginStatus}}</button>
+  <button ng-click="lBC.changeGmailStatus()">{{lBC.gmailLoginStatus}}</button>
+
+</div>
+
+
+<div>
+  <div ui-view="slack"></div>
+  <div ui-view="facebook"></div>
+  <div ui-view="gmail"></div>
+</div>

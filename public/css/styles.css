@@ -1,3 +1,14 @@
 .col{
   min-height: 1px;
 }
+
+nav {
+	background-color: red;
+}
+
+ footer {
+    background-color: red;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+  }
