@@ -245,8 +245,28 @@ app.get("/gmailAuth", function(req, res){
   console.log(req.query);
 
 
-  request.post({url:"https://www.googleapis.com/oauth2/v4/token?code="+req.query.code+"&client_id=984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com&client_secret=VgS92n51AtwiYQCimdUYw9B2&grant_type=authorization_code&redirect_uri=https://fast-gorge-90415.herokuapp.com/theAuth"}
-      ,
+  //request.post({url:"https://www.googleapis.com/oauth2/v4/token?code="+req.query.code+"&client_id=984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com&client_secret=VgS92n51AtwiYQCimdUYw9B2&grant_type=authorization_code&redirect_uri=https://fast-gorge-90415.herokuapp.com/theAuth"}
+  //    ,
+  //  function optionalCallback(error, response, data){
+  //    console.log("in optionalCallBack");
+  //    console.log(error);
+  //    console.log(response.statusCode);
+  //    console.log(response.statusMessage);
+  //    if(!error && response.statusCode == 200) {
+  //      console.log(data);
+  //      res.redirect("/");
+  //    }
+  //
+  //  });
+
+  request({
+    url: "https://www.googleapis.com/oauth2/v4/token?code="+req.query.code+"&client_id=984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com&client_secret=VgS92n51AtwiYQCimdUYw9B2&grant_type=authorization_code",
+    //qs: {from: 'blog example', time: +new Date()}, //Query string data
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  },
     function optionalCallback(error, response, data){
       console.log("in optionalCallBack");
       console.log(error);
@@ -258,6 +278,7 @@ app.get("/gmailAuth", function(req, res){
       }
 
     });
+
 });
 
 
