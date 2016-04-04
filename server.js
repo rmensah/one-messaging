@@ -239,7 +239,7 @@ app.get("/slackAuth", function(req, res){
 
 
 
-app.get("/gmailAuth", function(req, res){
+app.get("/gmailAuth/:code", function(req, res){
 
   console.log("/gmailAuth");
   console.log(req.data);
