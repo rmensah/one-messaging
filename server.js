@@ -210,7 +210,7 @@ app.get("/slackAuth", function(req, res){
     request("https://slack.com/api/oauth.access?client_id="+"9328545702.31568401990&"+
       "client_secret=09490261d44c791db569237175161947&code="+req.query.code,
       function(error, response, body){
-        if (!error && response.statusCode == 200) {
+        if(!error && response.statusCode == 200) {
           var slackBody = JSON.parse(body);
           console.log(slackBody["access_token"]);
           User.findOneAndUpdate({username:req.user.username},{slackToken:slackBody.access_token},{new:true},
@@ -244,7 +244,18 @@ app.get("/gmailAuth", function(req, res){
   console.log("/gmailAuth");
   console.log(req.query);
 
-  res.redirect("/");
+
+  request.post({url:"https://www.googleapis.com/oauth2/v4/token?code="+req.query.code+"&client_id=984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com&client_secret=VgS92n51AtwiYQCimdUYw9B2&grant_type=authorization_code"}
+      ,
+    function callBack(error, response, data){
+      if(!error && response.statusCode == 200) {
+        console.log(data);
+        res.redirect("/");
+      }
+
+    });
+
+
 
 
 });
