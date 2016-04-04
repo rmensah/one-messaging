@@ -3,7 +3,7 @@
  */
 var app = angular.module('messagingApp');
 
-app.controller('loginButtonsController', ['$userService', function($userService){
+app.controller('loginButtonsController', ['$userService','$http','$window', function($userService, $http, $window){
 
   var lBC = this;
   lBC.user = $userService.user;
@@ -43,7 +43,9 @@ app.controller('loginButtonsController', ['$userService', function($userService)
 
     else{
 
+
       //TODO: login the user to facebook and save the token to the userservice
+
 
     }
 
@@ -65,7 +67,9 @@ app.controller('loginButtonsController', ['$userService', function($userService)
 
     else{
 
-      //TODO: login the user to slack and save the token to the userservice
+      //TODO: login the user to slack
+      $window.open("https://slack.com/oauth/authorize?client_id="+"9328545702.31568401990"+"&state="+$userService.user.username+"&scope=read"
+      ,"_self");
 
     }
 
@@ -87,6 +91,9 @@ app.controller('loginButtonsController', ['$userService', function($userService)
     else{
 
       //TODO: login the user to gmail and save the token to the userservice
+      $window.open("https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/gmail.readonly&response_type=code&client_id="+"984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com&state="+$userService.user.username+"&redirect_uri=https://fast-gorge-90415.herokuapp.com/gmailAuth"
+        ,"_self");
+
 
     }
 

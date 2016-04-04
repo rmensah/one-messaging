@@ -9,8 +9,10 @@ var passport = require('passport');
 var bcrypt = require('bcryptjs');
 var expressSession = require('express-session');
 var mongoose = require('mongoose');
+var express = require('express');
+var request = require('request');
 var app = express();
-var PORT = process.env.PORT || 3001;
+var PORT = process.env.PORT || 3000;
 
 
 app.use(express.static(__dirname + "/public"));
@@ -23,7 +25,7 @@ app.use(expressSession({
   resave: true,
   saveUninitialized: true,
   cookie: {
-    secure: true
+    secure: false
   }
 }));
 
@@ -82,9 +84,18 @@ passport.deserializeUser(function(id, done){
 });
 
 
+
 app.get("/", function(req,res){
 
+  console.log("at index");
+  console.log("cookie: "+JSON.stringify(req.user));
   res.sendFile(__dirname + "/public/view/index.html");
+});
+
+app.get("/loginStatus", function(req, res){
+  console.log("getting logging status");
+  console.log(req.user);
+  res.send(req.user);
 });
 
 
@@ -112,6 +123,7 @@ app.post("/login", function(req, res, next){
         return res.status(404).send(err1);
       }
       else{
+
         return res.status(200).send(user);
       }
     })
@@ -190,10 +202,102 @@ app.post("/updateUser", function(req, res){
     }
   );
 
+});
+
+app.get("/slackAuth", function(req, res){
+
+  console.log("/slackAuth");
+  console.log(req.query);
+  if(req.query.state === req.user.username){
+    request("https://slack.com/api/oauth.access?client_id="+"9328545702.31568401990&"+
+      "client_secret=09490261d44c791db569237175161947&code="+req.query.code,
+      function(error, response, body){
+        if(!error && response.statusCode == 200) {
+          var slackBody = JSON.parse(body);
+          console.log(slackBody["access_token"]);
+          User.findOneAndUpdate({username:req.user.username},{slackToken:slackBody.access_token},{new:true},
+          function(err, doc){
+            if(err){
+              console.log(err);
+              return res.redirect("/");
+            }
+            else{
+              console.log(doc);
+              req.user.slackToken = body.access_token;
+              return res.redirect("/");
+            }
+          });
+
+        }
+        else{
+          console.log(error);
+          res.redirect("/");
+        }
+      })
+  }
+
 
 });
+
+
+
+app.get("/gmailAuth", function(req, res){
+
+  console.log("/gmailAuth");
+  console.log(req.query);
+
+
+  //request.post({url:"https://www.googleapis.com/oauth2/v4/token?code="+req.query.code+"&client_id=984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com&client_secret=VgS92n51AtwiYQCimdUYw9B2&grant_type=authorization_code&redirect_uri=https://fast-gorge-90415.herokuapp.com/theAuth"}
+  //    ,
+  //  function optionalCallback(error, response, data){
+  //    console.log("in optionalCallBack");
+  //    console.log(error);
+  //    console.log(response.statusCode);
+  //    console.log(response.statusMessage);
+  //    if(!error && response.statusCode == 200) {
+  //      console.log(data);
+  //      res.redirect("/");
+  //    }
+  //
+  //  });
+  var url = "https://www.googleapis.com/oauth2/v4/token"
+  var oauth = {
+    code: req.query.code,
+    client_id: "984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com",
+    client_secret: "VgS92n51AtwiYQCimdUYw9B2",
+    grant_type: 'authorization_code',
+    redirect_uri: "https://fast-gorge-90415.herokuapp.com/theAuth"
+  }
+
+  request.post(url, {form: oauth},
+    function (error, response, data){
+      console.log("in optionalCallBack");
+      console.log(error);
+      console.log(response);
+      console.log(response.statusMessage);
+      if(!error && response.statusCode == 200) {
+        console.log(data);
+        res.redirect("/");
+      }
+
+    });
+
+});
+
+
+
+app.get("/theAuth", function(req, res){
+
+  console.log("/theAuth");
+
+  res.redirect("/");
+
+});
+
+
 
 app.listen(PORT, function(){
   console.log("listening on ", PORT);
   mongoose.connect('mongodb://heroku_80c4pl5t:1pkn0mmchnqm34rf4c6lgkruf7@ds051720.mlab.com:51720/heroku_80c4pl5t');
+  //mongoose.connect('mongodb://localhost/onemessaging');
 });
