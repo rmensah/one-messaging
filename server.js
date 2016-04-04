@@ -264,9 +264,10 @@ app.get("/gmailAuth", function(req, res){
     method: 'POST',
     form: {
       code: req.query.code,
-        client_id: "984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com",
+      client_id: "984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com",
       client_secret: "VgS92n51AtwiYQCimdUYw9B2",
-      grant_type: "authorization_code"
+      grant_type: "authorization_code",
+      redirect_uri: "https://fast-gorge-90415.herokuapp.com/theAuth"
     }
   },
     function (error, response, data){
