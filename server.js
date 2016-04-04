@@ -284,7 +284,7 @@ app.get("/gmailAuth", function(req, res){
 
 
 
-app.get("/theAuth", function(req, res){
+app.post("/theAuth", function(req, res){
 
   console.log("/theAuth");
 
