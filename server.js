@@ -245,19 +245,48 @@ app.get("/gmailAuth", function(req, res){
   console.log(req.query);
 
 
-  request.post({url:"https://www.googleapis.com/oauth2/v4/token?code="+req.query.code+"&client_id=984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com&client_secret=VgS92n51AtwiYQCimdUYw9B2&grant_type=authorization_code"}
-      ,
-    function optionalCallback(error, response, data){
+  //request.post({url:"https://www.googleapis.com/oauth2/v4/token?code="+req.query.code+"&client_id=984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com&client_secret=VgS92n51AtwiYQCimdUYw9B2&grant_type=authorization_code"}
+  //    ,
+  //  function optionalCallback(error, response, data){
+  //    console.log("in optionalCallBack");
+  //    console.log(error);
+  //    console.log(response);
+  //    if(!error && response.statusCode == 200) {
+  //      console.log(data);
+  //      res.redirect("/");
+  //    }
+  //
+  //  });
+
+
+  request("https://www.googleapis.com/oauth2/v4/token?code="+req.query.code+"&client_id=984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com&client_secret=VgS92n51AtwiYQCimdUYw9B2&grant_type=authorization_code",
+    function(error, response, body){
       console.log("in optionalCallBack");
       console.log(error);
-      console.log(response);
-      if(!error && response.statusCode == 200) {
-        console.log(data);
-        res.redirect("/");
-      }
+      console.log(response.statusCode);
 
-    });
-
+      //if(!error && response.statusCode == 200) {
+      //  var slackBody = JSON.parse(body);
+      //  console.log(slackBody["access_token"]);
+      //  User.findOneAndUpdate({username:req.user.username},{slackToken:slackBody.access_token},{new:true},
+      //    function(err, doc){
+      //      if(err){
+      //        console.log(err);
+      //        return res.redirect("/");
+      //      }
+      //      else{
+      //        console.log(doc);
+      //        req.user.slackToken = body.access_token;
+      //        return res.redirect("/");
+      //      }
+      //    });
+      //
+      //}
+      //else{
+      //  console.log(error);
+      //  res.redirect("/");
+      //}
+    })
 
 
 
