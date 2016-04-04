@@ -262,8 +262,13 @@ app.get("/gmailAuth", function(req, res){
   request("https://www.googleapis.com/oauth2/v4/token?code="+req.query.code+"&client_id=984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com&client_secret=VgS92n51AtwiYQCimdUYw9B2&grant_type=authorization_code",
     function(error, response, body){
       console.log("in optionalCallBack");
+      console.log("HELLOOOOOOOOOOOOOOOOOOO");
       console.log(error);
-      console.log(response.statusCode);
+      console.log(response);
+      if(!error && response.statusCode == 200) {
+              console.log(data);
+              res.redirect("/");
+            }
 
       //if(!error && response.statusCode == 200) {
       //  var slackBody = JSON.parse(body);
