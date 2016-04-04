@@ -1,12 +1,14 @@
 /**
  * Created by alemjc on 3/30/16.
  */
-var app = angular.module('messagingApp', ['ngRoute','ui.router']);
+var app = angular.module('messagingApp', ['ngRoute','ngCookies','ui.router']);
 
 app.config(['$stateProvider','$locationProvider', '$urlRouterProvider',
   function($stateProvider, $locationProvider, $urlRouterProvider){
 
     $urlRouterProvider.otherwise("/login");
+
+    //console.log($cookies.getAll());
 
     $stateProvider
       .state('login',{
@@ -45,4 +47,34 @@ app.config(['$stateProvider','$locationProvider', '$urlRouterProvider',
 
     $locationProvider.html5Mode(true);
 
+}]);
+
+app.run(['$http','$rootScope','$location','$userService', function($http, $rootScope, $location, $userService){
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options){
+    $http({
+      method:"GET",
+      url:"/loginStatus"
+
+    })
+      .then(
+        function successCallBack(response){
+          console.log("checking if user is logged in");
+
+
+          var user = response.data;
+          console.log(user);
+          console.log("toState: "+JSON.stringify(toState));
+
+          if(user.username !== undefined && toState.name === 'login'){
+            event.preventDefault();
+            $userService.user = user;
+            $location.path("/user/"+$userService.user.username);
+          }
+
+        },
+        function errorCallBack(response){
+          console.log(response);
+        }
+      );
+  });
 }]);
