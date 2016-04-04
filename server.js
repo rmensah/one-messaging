@@ -242,8 +242,6 @@ app.get("/slackAuth", function(req, res){
 app.get("/gmailAuth", function(req, res){
 
   console.log("/gmailAuth");
-  console.log(req.body);
-  console.log(req.params);
   console.log(req.query);
 
   res.redirect("/");
