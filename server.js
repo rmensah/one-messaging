@@ -262,13 +262,34 @@ app.get("/gmailAuth", function(req, res){
   request({
     url: "https://www.googleapis.com/oauth2/v4/token?",
     method: 'POST',
-    form: {
-      code: req.query.code,
-      client_id: "984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com",
-      client_secret: "VgS92n51AtwiYQCimdUYw9B2",
-      grant_type: "authorization_code",
-      redirect_uri: "https://fast-gorge-90415.herokuapp.com/theAuth"
-    }
+    headers: [
+      {
+        name: 'content-type',
+        value: 'application/x-www-form-urlencoded'
+      }
+    ],
+    params: [
+      {
+        name: 'code',
+        value: req.query.code
+      },
+      {
+        name: 'client_id',
+        value: "984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com"
+      },
+      {
+        name: 'client_secret',
+        value: "VgS92n51AtwiYQCimdUYw9B2"
+      },
+      {
+        name: 'grant_type',
+        value: "authorization_code"
+      },
+      {
+        name: 'redirect_uri',
+        value: "https://fast-gorge-90415.herokuapp.com/theAuth"
+      }
+    ]
   },
     function (error, response, data){
       console.log("in optionalCallBack");
