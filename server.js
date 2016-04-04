@@ -249,6 +249,8 @@ app.get("/gmailAuth", function(req, res){
       ,
     function optionalCallback(error, response, data){
       console.log("in optionalCallBack");
+      console.log(error);
+      console.log(response);
       if(!error && response.statusCode == 200) {
         console.log(data);
         res.redirect("/");
