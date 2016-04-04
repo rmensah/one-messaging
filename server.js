@@ -259,10 +259,27 @@ app.get("/gmailAuth", function(req, res){
       console.log(error);
       console.log(response);
       console.log(response.statusMessage);
+
       if(!error && response.statusCode == 200) {
         console.log("DATA: " + data);
         console.log("HELLOOOOOOOOOOOOOOOOO");
-        res.redirect("/");
+
+
+        var gmailBody = JSON.parse(data);
+        console.log(gmailBody["access_token"]);
+        User.findOneAndUpdate({username:req.user.username},{gmailToken:gmailBody.access_token},{new:true},
+          function(err, doc){
+            if(err){
+              console.log(err);
+              return res.redirect("/");
+            }
+            else{
+              console.log(doc);
+              req.user.gmailToken = body.access_token;
+              return res.redirect("/");
+            }
+          });
+
       }
 
     });
@@ -270,14 +287,6 @@ app.get("/gmailAuth", function(req, res){
 });
 
 
-
-app.post("/theAuth", function(req, res){
-
-  console.log("/theAuth");
-
-  res.redirect("/");
-
-});
 
 
 
