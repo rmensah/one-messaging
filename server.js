@@ -296,6 +296,8 @@ if(req.query.state === req.user.username){
         console.log(error)
         console.log(response.statusCode)
         if(!error && response.statusCode == 200) {
+
+          console.log("DATA: " + body);
          /* var slackBody = JSON.parse(body);
           console.log(slackBody["access_token"]);
           User.findOneAndUpdate({username:req.user.username},{slackToken:slackBody.access_token},{new:true},
