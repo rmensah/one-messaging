@@ -257,15 +257,10 @@ app.get("/gmailAuth", function(req, res){
 
   request.post(url, {form: oauth},
     function (error, response, data){
-      console.log("in optionalCallBack");
-      console.log(error);
-      console.log(response);
       console.log(response.statusMessage);
 
       if(!error && response.statusCode == 200) {
         console.log("DATA: " + data);
-        console.log("HELLOOOOOOOOOOOOOOOOO");
-
 
         var gmailBody = JSON.parse(data);
         console.log(gmailBody["access_token"]);
@@ -277,7 +272,7 @@ app.get("/gmailAuth", function(req, res){
             }
             else{
               console.log(doc);
-              req.user.gmailToken = body.access_token;
+              req.user.gmailToken = data.access_token;
               return res.redirect("/");
             }
           });
