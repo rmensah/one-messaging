@@ -298,9 +298,9 @@ if(req.query.state === req.user.username){
         if(!error && response.statusCode == 200) {
 
           console.log("DATA: " + body);
-         /* var slackBody = JSON.parse(body);
-          console.log(slackBody["access_token"]);
-          User.findOneAndUpdate({username:req.user.username},{slackToken:slackBody.access_token},{new:true},
+var faceBookBody = JSON.parse(data);
+        console.log(faceBookBody["access_token"]);
+        User.findOneAndUpdate({username:req.user.username},{faceBookToken:faceBookBody.access_token},{new:true},
           function(err, doc){
             if(err){
               console.log(err);
@@ -308,13 +308,10 @@ if(req.query.state === req.user.username){
             }
             else{
               console.log(doc);
-              req.user.slackToken = body.access_token;
+              req.user.faceBookToken = body.access_token;
               return res.redirect("/");
             }
-            
-
-          });*/
-
+          });
 
         }
         else{
@@ -323,47 +320,7 @@ if(req.query.state === req.user.username){
         }
       })
   }
-  // var url = "https://www.facebook.com/dialog/oauth?";
-  // var oauth = {
-  //   code: req.query.code,
-  //   client_id: "597182890448198",
-  //   client_secret: "f8090cc7be5e3b79f77e118eb8920a58",
-  //   grant_type: 'authorization_code',
-  //   redirect_uri: "https://fast-gorge-90415.herokuapp.com/faceBookAuth"
-  // }
 
-
-
-  // request.post(url, {form: oauth},
-  //   function (error, response, data){
-  //     console.log("in optionalCallBack");
-  //     console.log(error);
-  //     console.log(response);
-  //     console.log(response.statusMessage);
-
-  //     if(!error && response.statusCode == 200) {
-  //       console.log("DATA: " + data);
-  //       console.log("HELLOOOOOOOOOOOOOOOOO");
-
-
-  //       var faceBookBody = JSON.parse(data);
-  //       console.log(gmailBody["access_token"]);
-  //       User.findOneAndUpdate({username:req.user.username},{faceBookToken:faceBookBody.access_token},{new:true},
-  //         function(err, doc){
-  //           if(err){
-  //             console.log(err);
-  //             return res.redirect("/");
-  //           }
-  //           else{
-  //             console.log(doc);
-  //             req.user.gmailToken = body.access_token;
-  //             return res.redirect("/");
-  //           }
-  //         });
-
-  //     }
-
-  //   });
 
 });
 
