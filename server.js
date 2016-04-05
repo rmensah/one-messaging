@@ -289,6 +289,38 @@ app.get("/faceBookAuth", function(req, res){
   console.log("/faceBookAuth");
   console.log(req.query);
 res.redirect("/")
+if(req.query.state === req.user.username){
+    request("https://graph.facebook.com/v2.3/oauth/access_token?client_id=597182890448198&redirect_uri=https://fast-gorge-90415.herokuapp.com/faceBookAuth&client_secret=f8090cc7be5e3b79f77e118eb8920a58&code="+req.query.code,
+      function(error, response, body){
+
+        console.log(error)
+        console.log(response.statusCode)
+        if(!error && response.statusCode == 200) {
+         /* var slackBody = JSON.parse(body);
+          console.log(slackBody["access_token"]);
+          User.findOneAndUpdate({username:req.user.username},{slackToken:slackBody.access_token},{new:true},
+          function(err, doc){
+            if(err){
+              console.log(err);
+              return res.redirect("/");
+            }
+            else{
+              console.log(doc);
+              req.user.slackToken = body.access_token;
+              return res.redirect("/");
+            }
+            
+
+          });*/
+
+
+        }
+        else{
+          console.log(error);
+          res.redirect("/");
+        }
+      })
+  }
   // var url = "https://www.facebook.com/dialog/oauth?";
   // var oauth = {
   //   code: req.query.code,
