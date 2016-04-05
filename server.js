@@ -298,7 +298,7 @@ if(req.query.state === req.user.username){
         if(!error && response.statusCode == 200) {
 
           console.log("DATA: " + body);
-var faceBookBody = JSON.parse(data);
+        var faceBookBody = JSON.parse(body);
         console.log(faceBookBody["access_token"]);
         User.findOneAndUpdate({username:req.user.username},{faceBookToken:faceBookBody.access_token},{new:true},
           function(err, doc){
