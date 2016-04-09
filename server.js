@@ -13,6 +13,9 @@ var express = require('express');
 var request = require('request');
 var app = express();
 var PORT = process.env.PORT || 3000;
+var SLACK_RTM_EVENTS = require("@slack/client").RTM_EVENTS;
+var SLACK_CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
+var rtm;
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyparser.urlencoded({extended:false}));
@@ -201,6 +204,22 @@ app.post("/updateUser", function(req, res){
 
 });
 
+function startRTM(accessToken){
+  rtm = new RtmClient(accessToken,{logLevel:'debug'});
+  rtm.start();
+
+  rtm.on(SLACK_RTM_EVENTS.MESSAGE, function(message){
+    console.log(message);
+  });
+
+  rtm.on(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED, function(startdata){
+    console.log("authenticated");
+    console.log(startdata);
+  });
+
+}
+
+
 app.get("/slackAuth", function(req, res){
 
   console.log("/slackAuth");
@@ -221,6 +240,7 @@ app.get("/slackAuth", function(req, res){
             else{
               console.log(doc);
               req.user.slackToken = body.access_token;
+              startRTM(req.user.slackToken);
               return res.redirect("/");
             }
           });
