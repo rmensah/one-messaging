@@ -283,7 +283,7 @@ app.get("/gmailAuth", function(req, res){
 
   var url = oauth2Client.generateAuthUrl({
     access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-    scope: 'https://www.googleapis.com/auth/gmail.readonly', // If you only need one scope you can pass it as string
+    scope: 'https://www.googleapis.com/auth/gmail.readonly' // If you only need one scope you can pass it as string
   });
 
   console.log(url);
@@ -328,7 +328,18 @@ app.get("/gmailAuth", function(req, res){
 
 app.get('/oauthcallback', function(req, res){
   console.log('/oauthcallback');
-  console.log(req.query);
+  console.log(req.query.code);
+
+  oauth2Client.getToken(req.query.code, function(err, tokens) {
+    // Now tokens contains an access_token and an optional refresh_token. Save them.
+    //if(!err) {
+    //  oauth2Client.setCredentials(tokens);
+    //  req.user.gmailToken = data.access_token;
+    //}
+    console.log(tokens);
+  });
+
+
 });
 
 
