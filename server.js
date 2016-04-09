@@ -11,6 +11,7 @@ var expressSession = require('express-session');
 var mongoose = require('mongoose');
 var express = require('express');
 var request = require('request');
+var sorts = require(__dirname+"/public/js/sortAlgorithms/sorts.js");
 var app = express();
 var PORT = process.env.PORT || 3000;
 var RtmClient = require('@slack/client').RtmClient;
@@ -21,7 +22,10 @@ var rtm;
 var google = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
 var urlshortener = google.urlshortener('v1');
+
 var oauth2Client = new OAuth2("984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com", "VgS92n51AtwiYQCimdUYw9B2", "https://fast-gorge-90415.herokuapp.com/oauthcallback");
+var slackUsers = [];
+
 
 
 
@@ -217,16 +221,27 @@ app.post("/updateUser", function(req, res){
 function startRTM(accessToken){
   console.log("startRTM");
   console.log("accessToken is: "+accessToken);
-  rtm = new RtmClient(accessToken,{logLevel:'debug'});
+  rtm = new RtmClient(accessToken,{logLevel:'error'});
   rtm.start();
 
   rtm.on(SLACK_RTM_EVENTS.MESSAGE, function(message){
-    console.log(message);
+    //console.log(message);
   });
 
   rtm.on(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED, function(startdata){
     console.log("authenticated");
-    console.log(startdata);
+    console.log(startdata.users);
+    for(var i = 0; i < startdata.users.length; i++){
+      slackUsers.push({id:startdata.users[i].id, name: startdata.users[i].name});
+    }
+    console.log("slackUsers: ", JSON.stringify(slackUsers));
+    slackUsers = sorts.mergeSort(slackUsers);
+    console.log("slackUsers: ", JSON.stringify(slackUsers));
+    console.log("authenticated done");
+  });
+
+  rtm.on(SLACK_CLIENT_EVENTS.RTM_CONNECTION_OPENED, function(){
+    console.log("slack rtm connection opened");
   });
 
 }
@@ -242,7 +257,7 @@ app.get("/slackAuth", function(req, res){
       function(error, response, body){
         if(!error && response.statusCode == 200) {
           var slackBody = JSON.parse(body);
-          console.log(slackBody["access_token"]);
+          console.log(slackBody);
           User.findOneAndUpdate({username:req.user.username},{slackToken:slackBody.access_token},{new:true},
           function(err, doc){
             if(err){
