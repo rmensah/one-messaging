@@ -280,25 +280,13 @@ app.get("/gmailAuth", function(req, res){
   console.log("/gmailAuth");
   console.log(req.query);
 
-  var params = { shortUrl: 'http://goo.gl/xKbRu3' };
-
-// get the long url of a shortened url
-  urlshortener.url.get(params, function (err, response) {
-    if (err) {
-      console.log('Encountered error', err);
-    } else {
-      console.log('Long url is', response.longUrl);
-    }
-  });
-
 
   var url = oauth2Client.generateAuthUrl({
     access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
     scope: 'https://www.googleapis.com/auth/gmail.readonly', // If you only need one scope you can pass it as string
-    state: req.user.username, //check username output
-    response_type: "code"
   });
 
+  console.log(url);
   res.send(url);
 
   //var url = "https://www.googleapis.com/oauth2/v4/token";
