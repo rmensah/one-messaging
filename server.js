@@ -276,7 +276,6 @@ app.get("/gmailAuth", function(req, res){
 
   //after oauth save the token in the database, just return res.redirect("/");
   //and make sure you req.user.gmailToken = data.access_token;
-
   console.log("/gmailAuth");
   console.log(req.query);
 
@@ -326,21 +325,42 @@ app.get("/gmailAuth", function(req, res){
 
 });
 
+
+
 app.get('/oauthcallback', function(req, res){
   console.log('/oauthcallback');
   console.log(req.query.code);
 
   oauth2Client.getToken(req.query.code, function(err, tokens) {
     // Now tokens contains an access_token and an optional refresh_token. Save them.
-    //if(!err) {
-    //  oauth2Client.setCredentials(tokens);
-    //  req.user.gmailToken = data.access_token;
-    //}
-    console.log(tokens);
+
+    if(req.user.gmailToken !== ''){
+      console.log("HELLO");
+      res.redirect("/");
+    }else{
+      if(!err) {
+        oauth2Client.setCredentials(tokens);
+        console.log(tokens);
+        console.log(tokens.access_token);
+        User.findOneAndUpdate({username:req.user.username},{gmailToken:tokens.refresh_token},{new:true},
+          function(err, doc){
+            if(err){
+              console.log(err);
+              return res.redirect("/");
+            }
+            else{
+              console.log(doc);
+              req.user.gmailToken = tokens.refresh_token;
+              return res.redirect("/");
+            }
+          });
+      }
+    }
   });
 
-
 });
+
+
 
 
 app.get("/faceBookAuth", function(req, res){
