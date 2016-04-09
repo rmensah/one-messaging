@@ -296,7 +296,7 @@ app.get("/gmailAuth", function(req, res){
     access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
     scope: 'https://www.googleapis.com/auth/gmail.readonly', // If you only need one scope you can pass it as string
     state: req.user.username, //check username output
-    response_type: code
+    response_type: "code"
   });
 
   res.send(url);
