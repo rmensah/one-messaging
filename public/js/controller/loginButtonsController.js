@@ -69,6 +69,7 @@ app.controller('loginButtonsController', ['$userService','$http','$window', func
     else{
 
       //TODO: login the user to slack
+
       $window.open("https://slack.com/oauth/authorize?client_id="+"9328545702.31568401990"+"&state="+$userService.user.username+"&scope=identify,channels:history,channels:read,groups:history,groups:read,im:history,im:read,mpim:history,mpim:read"
       ,"_self");
 
