@@ -236,9 +236,9 @@ function startRTM(accessToken){
         slackUsers.push({id:startdata.users[i].id, name: startdata.users[i].name});
       }
     }
-    console.log("slackUsers: ", JSON.stringify(slackUsers));
+    console.log("slackUsers: ", slackUsers.length);
     slackUsers = sorts.mergeSort(slackUsers);
-    console.log("slackUsers: ", JSON.stringify(slackUsers));
+    console.log("slackUsers: ", slackUsers.length);
     console.log("authenticated done");
   });
 
