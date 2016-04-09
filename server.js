@@ -17,7 +17,9 @@ var SLACK_RTM_EVENTS = require("@slack/client").RTM_EVENTS;
 var SLACK_CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
 var rtm;
 
+
 app.use(express.static(__dirname + "/public"));
+
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());
 
@@ -83,6 +85,7 @@ passport.deserializeUser(function(id, done){
     done(err,user);
   })
 });
+
 
 
 app.get("/", function(req,res){
@@ -228,7 +231,7 @@ app.get("/slackAuth", function(req, res){
     request("https://slack.com/api/oauth.access?client_id="+"9328545702.31568401990&"+
       "client_secret=09490261d44c791db569237175161947&code="+req.query.code,
       function(error, response, body){
-        if (!error && response.statusCode == 200) {
+        if(!error && response.statusCode == 200) {
           var slackBody = JSON.parse(body);
           console.log(slackBody["access_token"]);
           User.findOneAndUpdate({username:req.user.username},{slackToken:slackBody.access_token},{new:true},
@@ -255,6 +258,92 @@ app.get("/slackAuth", function(req, res){
 
 
 });
+
+
+
+app.get("/gmailAuth", function(req, res){
+
+  console.log("/gmailAuth");
+  console.log(req.query);
+
+  var url = "https://www.googleapis.com/oauth2/v4/token";
+  var oauth = {
+    code: req.query.code,
+    client_id: "984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com",
+    client_secret: "VgS92n51AtwiYQCimdUYw9B2",
+    grant_type: 'authorization_code',
+    redirect_uri: "https://fast-gorge-90415.herokuapp.com/gmailAuth"
+  }
+
+  request.post(url, {form: oauth},
+    function (error, response, data){
+      console.log(response.statusMessage);
+
+      if(!error && response.statusCode == 200) {
+        console.log("DATA: " + data);
+
+        var gmailBody = JSON.parse(data);
+        console.log(gmailBody["access_token"]);
+        User.findOneAndUpdate({username:req.user.username},{gmailToken:gmailBody.access_token},{new:true},
+          function(err, doc){
+            if(err){
+              console.log(err);
+              return res.redirect("/");
+            }
+            else{
+              console.log(doc);
+              req.user.gmailToken = data.access_token;
+              return res.redirect("/");
+            }
+          });
+
+      }
+
+    });
+
+});
+
+
+app.get("/faceBookAuth", function(req, res){
+
+  console.log("/faceBookAuth");
+  console.log(req.query);
+res.redirect("/")
+if(req.query.state === req.user.username){
+    request("https://graph.facebook.com/v2.3/oauth/access_token?client_id=597182890448198&redirect_uri=https://fast-gorge-90415.herokuapp.com/faceBookAuth&client_secret=f8090cc7be5e3b79f77e118eb8920a58&code="+req.query.code,
+      function(error, response, body){
+
+        console.log(error)
+        console.log(response.statusCode)
+        if(!error && response.statusCode == 200) {
+
+          console.log("DATA: " + body);
+        var faceBookBody = JSON.parse(body);
+        console.log(faceBookBody["access_token"]);
+        User.findOneAndUpdate({username:req.user.username},{faceBookToken:faceBookBody.access_token},{new:true},
+          function(err, doc){
+            if(err){
+              console.log(err);
+              return res.redirect("/");
+            }
+            else{
+              console.log(doc);
+              req.user.faceBookToken = body.access_token;
+              return res.redirect("/");
+            }
+          });
+
+        }
+        else{
+          console.log(error);
+          res.redirect("/");
+        }
+      })
+  }
+
+
+});
+
 
 app.listen(PORT, function(){
   console.log("listening on ", PORT);
