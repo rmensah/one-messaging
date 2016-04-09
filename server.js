@@ -232,7 +232,9 @@ function startRTM(accessToken){
     console.log("authenticated");
     //console.log(startdata.users);
     for(var i = 0; i < startdata.users.length; i++){
-      slackUsers.push({id:startdata.users[i].id, name: startdata.users[i].name});
+      if(!startdata.users[i].deleted){
+        slackUsers.push({id:startdata.users[i].id, name: startdata.users[i].name});
+      }
     }
     console.log("slackUsers: ", JSON.stringify(slackUsers));
     slackUsers = sorts.mergeSort(slackUsers);
