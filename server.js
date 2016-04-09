@@ -14,6 +14,11 @@ var request = require('request');
 var app = express();
 var PORT = process.env.PORT || 3000;
 
+var google = require('googleapis');
+var urlshortener = google.urlshortener('v1');
+var oauth2Client = new OAuth2("984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com", "VgS92n51AtwiYQCimdUYw9B2", "https://fast-gorge-90415.herokuapp.com/gmailAuth");
+
+
 
 app.use(express.static(__dirname + "/public"));
 
@@ -243,44 +248,74 @@ app.get("/slackAuth", function(req, res){
 
 app.get("/gmailAuth", function(req, res){
 
+
+  //after oauth save the token in the database, just return res.redirect("/");
+  //and make sure you req.user.gmailToken = data.access_token;
+
   console.log("/gmailAuth");
   console.log(req.query);
 
-  var url = "https://www.googleapis.com/oauth2/v4/token";
-  var oauth = {
-    code: req.query.code,
-    client_id: "984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com",
-    client_secret: "VgS92n51AtwiYQCimdUYw9B2",
-    grant_type: 'authorization_code',
-    redirect_uri: "https://fast-gorge-90415.herokuapp.com/gmailAuth"
-  }
+  var params = { shortUrl: 'http://goo.gl/xKbRu3' };
 
-  request.post(url, {form: oauth},
-    function (error, response, data){
-      console.log(response.statusMessage);
+// get the long url of a shortened url
+  urlshortener.url.get(params, function (err, response) {
+    if (err) {
+      console.log('Encountered error', err);
+    } else {
+      console.log('Long url is', response.longUrl);
+    }
+  });
 
-      if(!error && response.statusCode == 200) {
-        console.log("DATA: " + data);
 
-        var gmailBody = JSON.parse(data);
-        console.log(gmailBody["access_token"]);
-        User.findOneAndUpdate({username:req.user.username},{gmailToken:gmailBody.access_token},{new:true},
-          function(err, doc){
-            if(err){
-              console.log(err);
-              return res.redirect("/");
-            }
-            else{
-              console.log(doc);
-              req.user.gmailToken = data.access_token;
-              return res.redirect("/");
-            }
-          });
+  var url = oauth2Client.generateAuthUrl({
+    access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
+    scope: 'https://www.googleapis.com/auth/gmail.readonly', // If you only need one scope you can pass it as string
+    state: req.user.username, //check username output
+    response_type: code
+  });
 
-      }
+  res.send(url);
 
-    });
+  //var url = "https://www.googleapis.com/oauth2/v4/token";
+  //var oauth = {
+  //  code: req.query.code,
+  //  client_id: "984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com",
+  //  client_secret: "VgS92n51AtwiYQCimdUYw9B2",
+  //  grant_type: 'authorization_code',
+  //  redirect_uri: "https://fast-gorge-90415.herokuapp.com/gmailAuth"
+  //}
+  //
+  //request.post(url, {form: oauth},
+  //  function (error, response, data){
+  //    console.log(response.statusMessage);
+  //
+  //    if(!error && response.statusCode == 200) {
+  //      console.log("DATA: " + data);
+  //
+  //      var gmailBody = JSON.parse(data);
+  //      console.log(gmailBody["access_token"]);
+  //      User.findOneAndUpdate({username:req.user.username},{gmailToken:gmailBody.access_token},{new:true},
+  //        function(err, doc){
+  //          if(err){
+  //            console.log(err);
+  //            return res.redirect("/");
+  //          }
+  //          else{
+  //            console.log(doc);
+  //            req.user.gmailToken = data.access_token;
+  //            return res.redirect("/");
+  //          }
+  //        });
+  //
+  //    }
+  //
+  //  });
 
+});
+
+app.get('/oauthcallback', function(req, res){
+  console.log('/oauthcallback');
+  console.log(req.query);
 });
 
 
@@ -288,8 +323,8 @@ app.get("/faceBookAuth", function(req, res){
 
   console.log("/faceBookAuth");
   console.log(req.query);
-res.redirect("/")
-if(req.query.state === req.user.username){
+
+  if(req.query.state === req.user.username){
     request("https://graph.facebook.com/v2.3/oauth/access_token?client_id=597182890448198&redirect_uri=https://fast-gorge-90415.herokuapp.com/faceBookAuth&client_secret=f8090cc7be5e3b79f77e118eb8920a58&code="+req.query.code,
       function(error, response, body){
 
@@ -298,21 +333,21 @@ if(req.query.state === req.user.username){
         if(!error && response.statusCode == 200) {
 
           console.log("DATA: " + body);
-        var faceBookBody = JSON.parse(body);
-        console.log(faceBookBody["access_token"]);
-        User.findOneAndUpdate({username:req.user.username},{faceBookToken:faceBookBody.access_token},{new:true},
-          function(err, doc){
-            if(err){
-              console.log(err);
-              return res.redirect("/");
-            }
-            else{
-              console.log(doc);
-              req.user.faceBookToken = body.access_token;
-              return res.redirect("/");
-            }
-          });
+          var faceBookBody = JSON.parse(body);
+          console.log(faceBookBody["access_token"]);
 
+          User.findOneAndUpdate({username:req.user.username},{faceBookToken:faceBookBody.access_token},{new:true},
+            function(err, doc){
+              if(err){
+                console.log(err);
+                return res.redirect("/");
+              }
+              else{
+                console.log(doc);
+                req.user.faceBookToken = body.access_token;
+                return res.redirect("/");
+              }
+            });
         }
         else{
           console.log(error);
