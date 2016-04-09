@@ -226,7 +226,7 @@ function startRTM(accessToken){
 
   rtm.on(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED, function(startdata){
     console.log("authenticated");
-    console.log(startdata);
+    console.log(startdata.prefs);
     console.log("authenticated done");
   });
 
