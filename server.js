@@ -221,7 +221,7 @@ function startRTM(accessToken){
   rtm.start();
 
   rtm.on(SLACK_RTM_EVENTS.MESSAGE, function(message){
-    console.log(message);
+    //console.log(message);
   });
 
   rtm.on(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED, function(startdata){
