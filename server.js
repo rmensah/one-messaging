@@ -343,6 +343,7 @@ app.get("/gmailAuth", function(req, res){
 
 
 app.get('/oauthcallback', function(req, res){
+
   console.log('/oauthcallback');
   console.log(req.query.code);
 
@@ -350,7 +351,7 @@ app.get('/oauthcallback', function(req, res){
     // Now tokens contains an access_token and an optional refresh_token. Save them.
 
     if(req.user.gmailToken !== ''){
-      console.log("HELLO");
+      console.log("HELLO2");
       res.redirect("/");
     }else{
       if(!err) {
