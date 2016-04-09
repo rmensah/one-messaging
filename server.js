@@ -245,8 +245,8 @@ app.get("/slackAuth", function(req, res){
             }
             else{
               console.log(doc);
-              req.user.slackToken = body.access_token;
-              startRTM(body.access_token);
+              req.user.slackToken = stackBody.access_token;
+              startRTM(req.user.slackToken);
               return res.redirect("/");
             }
           });
