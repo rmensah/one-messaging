@@ -287,7 +287,7 @@ app.get("/gmailAuth", function(req, res){
   });
 
   console.log(url);
-  res.redirect(url);
+  res.send(url);
 
   //var url = "https://www.googleapis.com/oauth2/v4/token";
   //var oauth = {
