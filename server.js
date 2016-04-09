@@ -242,7 +242,7 @@ app.get("/slackAuth", function(req, res){
       function(error, response, body){
         if(!error && response.statusCode == 200) {
           var slackBody = JSON.parse(body);
-          console.log(slackBody["access_token"]);
+          console.log(slackBody);
           User.findOneAndUpdate({username:req.user.username},{slackToken:slackBody.access_token},{new:true},
           function(err, doc){
             if(err){
