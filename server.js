@@ -13,6 +13,7 @@ var express = require('express');
 var request = require('request');
 var app = express();
 var PORT = process.env.PORT || 3000;
+var RtmClient = require('@slack/client').RtmClient;
 var SLACK_RTM_EVENTS = require("@slack/client").RTM_EVENTS;
 var SLACK_CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
 var rtm;
