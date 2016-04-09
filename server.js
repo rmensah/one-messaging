@@ -217,7 +217,7 @@ app.post("/updateUser", function(req, res){
 function startRTM(accessToken){
   console.log("startRTM");
   console.log("accessToken is: "+accessToken);
-  rtm = new RtmClient(accessToken,{logLevel:'debug'});
+  rtm = new RtmClient(accessToken,{logLevel:'error'});
   rtm.start();
 
   rtm.on(SLACK_RTM_EVENTS.MESSAGE, function(message){
