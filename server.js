@@ -228,7 +228,7 @@ function startRTM(accessToken){
 
   rtm.on(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED, function(startdata){
     console.log("authenticated");
-    console.log(startdata.users);
+    //console.log(startdata.users);
     for(var i = 0; i < startdata.users.length; i++){
       slackUsers.push({id:startdata.users[i].id, name: startdata.users[i].name});
     }
