@@ -100,7 +100,7 @@ app.controller('loginButtonsController', ['$userService','$http','$window', func
 
         console.log(response);
         //TODO: login the user to gmail and save the token to the userservice
-        $window.open(response.url,"_self");
+        $window.open(response.data,"_self");
       })
     }
 
