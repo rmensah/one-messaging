@@ -11,6 +11,7 @@ var expressSession = require('express-session');
 var mongoose = require('mongoose');
 var express = require('express');
 var request = require('request');
+var sorts = require(__dirname+"/public/js/sortAlgorithms/sorts.js");
 var app = express();
 var PORT = process.env.PORT || 3000;
 var RtmClient = require('@slack/client').RtmClient;
@@ -22,6 +23,7 @@ var google = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
 var urlshortener = google.urlshortener('v1');
 var oauth2Client = new OAuth2("984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com", "VgS92n51AtwiYQCimdUYw9B2", "https://fast-gorge-90415.herokuapp.com/gmailAuth");
+var slackUsers = [];
 
 
 
@@ -227,6 +229,12 @@ function startRTM(accessToken){
   rtm.on(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED, function(startdata){
     console.log("authenticated");
     console.log(startdata.users);
+    for(var i = 0; i < startdata.users.length; i++){
+      slackUsers.push({id:startdata.users[i].id, name: startdata.users[i].name});
+    }
+    console.log("slackUsers: ", JSON.stringify(slackUsers));
+    slackUsers = sorts.mergeSort(slackUsers);
+    console.log("slackUsers: ", JSON.stringify(slackUsers));
     console.log("authenticated done");
   });
 
