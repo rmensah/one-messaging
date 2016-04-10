@@ -217,7 +217,7 @@ app.post('/register', function(req, res){
 
 });
 
-app.post("/updateUser", function(req, res){
+app.post("/logoutSlack", function(req, res){
 
   User.findOneAndUpdate(req.body.user._id, req.body.user, {new:true},
     function(err, doc){
@@ -226,6 +226,8 @@ app.post("/updateUser", function(req, res){
       }
       else{
         console.log(doc);
+        rtm.disconnect();
+        rtm = undefined;
         return res.send(doc);
       }
 

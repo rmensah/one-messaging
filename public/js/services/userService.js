@@ -66,11 +66,15 @@ app.factory('$userService',['$http', function($http){
 
     },
 
-    updateUser: function(user, callback){
+    logoutSlack: function(callback){
+
+      var self = this;
+      self.user.slackToken = "";
+
       $http({
-        url:"/updateUser",
+        url:"/logoutSlack",
         method:"POST",
-        data:user
+        data:self.user
       })
         .then(function successCallBack(response){
           self.user = response.data;
@@ -80,6 +84,24 @@ app.factory('$userService',['$http', function($http){
           function errorCallBack(response){
             console.log(response);
             callback(undefined);
+          }
+        )
+    },
+
+    logout: function(callback){
+      $http({
+        url:"/logout",
+        method:"POST"
+      })
+        .then(
+          function successCallBack(response){
+            if(response.data === "logout success"){
+              callback();
+            }
+          },
+          function errorCallBack(response){
+            console.log("error: ",response.data);
+            callback();
           }
         )
     }

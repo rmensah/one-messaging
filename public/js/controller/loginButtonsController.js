@@ -57,11 +57,9 @@ app.controller('loginButtonsController', ['$userService','$http','$window','$loc
 
     if(lBC.slackLoginStatus === "slack log out"){
 
-      var user = $userService;
-      user.slackToken = "";
-
-      $userService.updateUser(user, function(user){
+      $userService.logoutSlack(function(){
         lBC.slackLoginStatus = "slack log in";
+        lBC.user = $userService.user;
       });
 
     }
@@ -80,10 +78,6 @@ app.controller('loginButtonsController', ['$userService','$http','$window','$loc
   lBC.changeGmailStatus = function(){
 
     if(lBC.gmailLoginStatus === "gmail log out"){
-
-      var user = $userService;
-      user.gmailToken = "";
-
       $userService.updateUser(user, function(user){
         lBC.gmailLoginStatus = "gmail log in";
       });
@@ -108,21 +102,9 @@ app.controller('loginButtonsController', ['$userService','$http','$window','$loc
   };
 
   lBC.logOut = function(){
-    $http({
-      url:"/logout",
-      method:"POST"
-    })
-      .then(
-        function successCallBack(response){
-          if(response.data === "logout success"){
-            $location.path("/");
-          }
-        },
-        function errorCallBack(response){
-          console.log("error: ",response.data);
-          $location.path("/")
-        }
-      )
+    $userService.logout(function(){
+      $location.path("/");
+    });
   };
 
 }]);
