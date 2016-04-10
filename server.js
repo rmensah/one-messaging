@@ -464,8 +464,8 @@ app.get("/faceBookAuth", function(req, res){
 });
 
 app.get('/logout',function(req, res){
+  console.log("@#$%^&*&^%$#^&*(*&^%$$&^%$#######################");
   req.logout();
-
   res.redirect('/');
 });
 
