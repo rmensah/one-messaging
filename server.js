@@ -12,6 +12,7 @@ var mongoose = require('mongoose');
 var express = require('express');
 var request = require('request');
 var sorts = require(__dirname+"/public/js/sortAlgorithms/sorts.js");
+var search = require(__dirname+"/public/js/searchAlgorithms/search.js");
 var app = express();
 var PORT = process.env.PORT || 3000;
 var RtmClient = require('@slack/client').RtmClient;
@@ -24,7 +25,8 @@ var OAuth2 = google.auth.OAuth2;
 var urlshortener = google.urlshortener('v1');
 
 var oauth2Client = new OAuth2("984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com", "VgS92n51AtwiYQCimdUYw9B2", "https://fast-gorge-90415.herokuapp.com/oauthcallback");
-var slackUsers = [];
+var slackUsers;
+var slackChannels;
 
 
 
@@ -225,20 +227,40 @@ function startRTM(accessToken){
   rtm.start();
 
   rtm.on(SLACK_RTM_EVENTS.MESSAGE, function(message){
-    //console.log(message);
+    console.log(message);
+    console.log("object found is: ", JSON.stringify(search.binarySearch(slackUsers, message.user)));
+    console.log("channel found is: ", JSON.stringify(search.binarySearch(slackChannels, message.channel)));
   });
+
+  rtm.on(SLACK_RTM_EVENTS.GROUP_HISTORY_CHANGED, function(message){
+    console.log(message);
+  });
+
 
   rtm.on(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED, function(startdata){
     console.log("authenticated");
     //console.log(startdata.users);
+    slackUsers = [];
+    slackChannels = [];
     for(var i = 0; i < startdata.users.length; i++){
       if(!startdata.users[i].deleted){
         slackUsers.push({id:startdata.users[i].id, name: startdata.users[i].name});
       }
     }
-    console.log("slackUsers: ", JSON.stringify(slackUsers));
+
+    for(var j = 0; j < startdata.channels.length; j++){
+      if(startdata.channels[j].is_member){
+        slackChannels.push({id:startdata.channels[j].id, name: startdata.channels[j].name});
+      }
+    }
+    console.log("slackUsers: ", slackUsers.length);
     slackUsers = sorts.mergeSort(slackUsers);
-    console.log("slackUsers: ", JSON.stringify(slackUsers));
+    console.log("slackUsers: ", slackUsers.length);
+
+    console.log("slackUsers: ", slackChannels.length);
+    slackChannels = sorts.mergeSort(slackChannels);
+    console.log("slackUsers: ", slackChannels.length);
+
     console.log("authenticated done");
   });
 
