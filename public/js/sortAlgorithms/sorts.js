@@ -54,8 +54,8 @@ var mergeSortHelper = function(items, start, end){
   }
 
   var mid = Math.floor((start+end)/2);
-  var arr1 = mergeSortHelper(items, start, mid-1);
-  var arr2 = mergeSortHelper(items, mid+1, end);
+  var arr1 = mergeSortHelper(items, start, mid);
+  var arr2 = mergeSortHelper(items, mid, end);
 
   return merge(arr1, arr2);
 
