@@ -66,8 +66,8 @@ app.run(['$http','$rootScope','$location','$userService', function($http, $rootS
 
 
           var user = response.data;
+          console.log("user is: ");
           console.log(user);
-          console.log("toState: "+JSON.stringify(toState));
 
           if(user.username !== undefined && toState.name === 'login'){
             event.preventDefault();
