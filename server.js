@@ -139,6 +139,9 @@ app.post("/login", function(req, res, next){
     req.logIn(user, function(err1){
       if(err1){
         console.log("error happened at setting session");
+        if(user.gmailToken !== ""){
+          pollingInterval = setInterval(gmailMessagePull, 30000);
+        }
         return res.status(404).send(err1);
       }
       else{
@@ -375,26 +378,31 @@ app.get('/oauthcallback', function(req, res){
     console.log("HELLO");
 
 
-    if(!err) {
-      oauth2Client.setCredentials(tokens);
-      console.log(tokens);
-      console.log(tokens.access_token);
-      User.findOneAndUpdate({username:req.user.username},{gmailToken:tokens.refresh_token},{new:true},
-        function(err, doc){
-          if(err){
-            console.log(err);
-            return res.redirect("/");
-          }
-          else{
-            console.log(doc);
-            req.user.gmailToken = tokens.refresh_token;
+    if(gmailToken !== ""){
+      res.redirect("/");
+    }else{
+      if(!err) {
+        oauth2Client.setCredentials(tokens);
+        console.log(tokens);
+        console.log(tokens.access_token);
+        User.findOneAndUpdate({username:req.user.username},{gmailToken:tokens.refresh_token},{new:true},
+          function(err, doc){
+            if(err){
+              console.log(err);
+              return res.redirect("/");
+            }
+            else{
+              console.log(doc);
+              req.user.gmailToken = tokens.refresh_token;
 
-            pollingInterval = setInterval(gmailMessagePull, 30000);
+              pollingInterval = setInterval(gmailMessagePull, 30000);
 
-            return res.redirect("/");
-          }
-        });
+              return res.redirect("/");
+            }
+          });
+      }
     }
+
 
   });
 
