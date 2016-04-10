@@ -31,6 +31,7 @@ var gmail = google.gmail({ version: 'v1', auth: oauth2Client });
 
 var slackUsers;
 var slackChannels;
+var userSlackId;
 
 var pusher = Pusher.forURL(process.env.PUSHER_URL);
 
@@ -241,7 +242,7 @@ function startRTM(accessToken){
 
   rtm.on(SLACK_RTM_EVENTS.MESSAGE, function(message){
     console.log(message);
-    if(message.type==="message"){
+    if(message.type==="message" && (userSlackId !== undefined && userSlackId !== message.user)){
       var user = search.binarySearch(slackUsers, message.user);
       var channel = search.binarySearch(slackChannels, message.channel);
       pusher.trigger('slack','message', {user:user,channel:channel,text:message.text});
@@ -255,6 +256,7 @@ function startRTM(accessToken){
     //console.log(startdata.users);
     slackUsers = [];
     slackChannels = [];
+    userSlackId = startdata.self.id;
     for(var i = 0; i < startdata.users.length; i++){
       if(!startdata.users[i].deleted){
         slackUsers.push({id:startdata.users[i].id, name: startdata.users[i].name});
