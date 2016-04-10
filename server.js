@@ -378,7 +378,7 @@ app.get('/oauthcallback', function(req, res){
     console.log("HELLO");
 
 
-    if(gmailToken !== ""){
+    if(req.user.gmailToken !== ""){
       res.redirect("/");
     }else{
       if(!err) {
