@@ -246,12 +246,12 @@ function startRTM(accessToken){
 
   rtm.on(SLACK_RTM_EVENTS.MESSAGE, function(message){
     console.log(message);
-    console.log("object found is: ", JSON.stringify(search.binarySearch(slackUsers, message.user)));
-    console.log("channel found is: ", JSON.stringify(search.binarySearch(slackChannels, message.channel)));
-  });
+    if(message.type==="message"){
+      var user = search.binarySearch(slackUsers, message.user);
+      var channel = search.binarySearch(slackChannels, message.channel);
+      pusher.trigger('slack','message', {user:user,channel:channel,text:message.text});
+    }
 
-  rtm.on(SLACK_RTM_EVENTS.GROUP_HISTORY_CHANGED, function(message){
-    console.log(message);
   });
 
 
