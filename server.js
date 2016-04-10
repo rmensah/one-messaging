@@ -147,7 +147,12 @@ app.post("/login", function(req, res, next){
       }
       else{
 
-        if(user.gmailToken !== ""){
+        if(user.gmailAccessToken !== ""){
+          oauth2Client.setCredentials({
+            access_token: user.gmailAccessToken,
+            refresh_token: user.gmailRefreshToken
+          });
+
           pollingInterval = setInterval(gmailMessagePull, 30000);
         }
 
@@ -169,7 +174,8 @@ app.post('/register', function(req, res){
   //console.log(req.body);
   req.body.faceBookToken="";
   req.body.slackToken="";
-  req.body.gmailToken="";
+  req.body.gmailAccessToken="";
+  req.body.gmailRefreshToken="";
 
   bcrypt.genSalt(10, function(err, salt){
 
@@ -397,14 +403,15 @@ app.get('/oauthcallback', function(req, res){
     console.log("HELLO");
 
 
-    if(req.user.gmailToken !== ""){
+    if(req.user.gmailAccessToken !== ""){
       res.redirect("/");
     }else{
       if(!err) {
         oauth2Client.setCredentials(tokens);
+
         console.log(tokens);
         console.log(tokens.access_token);
-        User.findOneAndUpdate({username:req.user.username},{gmailToken:tokens.refresh_token},{new:true},
+        User.findOneAndUpdate({username:req.user.username},{gmailRefreshToken:tokens.refresh_token, gmailAccessToken:tokens.access_token},{new:true},
           function(err, doc){
             if(err){
               console.log(err);
@@ -412,7 +419,8 @@ app.get('/oauthcallback', function(req, res){
             }
             else{
               console.log(doc);
-              req.user.gmailToken = tokens.refresh_token;
+              req.user.gmailRefreshToken = tokens.refresh_token;
+              req.user.gmailAccessToken = tokens.access_token;
 
               pollingInterval = setInterval(gmailMessagePull, 30000);
 

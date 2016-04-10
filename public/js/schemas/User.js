@@ -9,7 +9,8 @@ var User = new Schema({
   password:String,
   faceBookToken:String,
   slackToken:String,
-  gmailToken:String
+  gmailAccessToken:String,
+  gmailRefreshToken:String
 });
 
 var user = mongoose.model('user', User);
