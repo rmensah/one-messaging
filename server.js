@@ -227,6 +227,7 @@ function startRTM(accessToken){
 
   rtm.on(SLACK_RTM_EVENTS.MESSAGE, function(message){
     console.log(message);
+    console.log("object found is: ", JSON.stringify(search.binarySearch(slackUsers, message.user)));
   });
 
   rtm.on(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED, function(startdata){
