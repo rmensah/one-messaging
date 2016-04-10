@@ -19,10 +19,22 @@ app.controller('slackController', ['$userService','Pusher','$window', function($
     };
 
     slackC.slackLogout = function(){
-      $userService.logoutSlack(function(){
-        console.log("logged out of slack");
-        slackC.user = $userService.user;
-      });
+
+      $http({
+        url:"/logoutSlack",
+        method:"POST",
+        data:{user:slackC.user}
+      })
+        .then(function successCallBack(response){
+            slackC.user = response.data;
+            $userService.user = response.data;
+          }
+          ,
+          function errorCallBack(response){
+            console.log(response);
+
+          }
+        )
     };
 
     Pusher.subscribe('slack','message', function(message){

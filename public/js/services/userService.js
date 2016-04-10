@@ -3,7 +3,7 @@
  */
 var app = angular.module('messagingApp');
 
-app.factory('$userService',['$http', function($http){
+app.factory('$userService',['$http','$location', function($http,$location){
   return{
     login: function(username, password, callback){
       var self = this;
@@ -66,29 +66,8 @@ app.factory('$userService',['$http', function($http){
 
     },
 
-    logoutSlack: function(callback){
 
-      var self = this;
-      self.user.slackToken = "";
-
-      $http({
-        url:"/logoutSlack",
-        method:"POST",
-        data:{user:self.user}
-      })
-        .then(function successCallBack(response){
-          self.user = response.data;
-          callback(self.user);
-        }
-          ,
-          function errorCallBack(response){
-            console.log(response);
-            callback(undefined);
-          }
-        )
-    },
-
-    logout: function(callback){
+    logout: function(){
       $http({
         url:"/logout",
         method:"POST"
@@ -96,12 +75,12 @@ app.factory('$userService',['$http', function($http){
         .then(
           function successCallBack(response){
             if(response.data === "logout success"){
-              callback();
+              $location.path("/");
             }
           },
           function errorCallBack(response){
             console.log("error: ",response.data);
-            callback();
+            $location.path("/");
           }
         )
     }
