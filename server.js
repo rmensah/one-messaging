@@ -11,6 +11,7 @@ var expressSession = require('express-session');
 var mongoose = require('mongoose');
 var express = require('express');
 var request = require('request');
+var Pusher = require('pusher');
 var sorts = require(__dirname+"/public/js/sortAlgorithms/sorts.js");
 var search = require(__dirname+"/public/js/searchAlgorithms/search.js");
 var app = express();
@@ -31,6 +32,12 @@ var gmail = google.gmail({ version: 'v1', auth: oauth2Client });
 var slackUsers;
 var slackChannels;
 
+var pusher = new Pusher({
+  appId:'1234',
+  key:'4321',
+  secret:'5cc36237fef6d88c39476da6b5e9a2f7'
+
+});
 
 
 
@@ -139,13 +146,18 @@ app.post("/login", function(req, res, next){
     req.logIn(user, function(err1){
       if(err1){
         console.log("error happened at setting session");
-        if(user.gmailToken !== ""){
-          pollingInterval = setInterval(gmailMessagePull, 30000);
-        }
+
         return res.status(404).send(err1);
       }
       else{
 
+        if(user.gmailToken !== ""){
+          pollingInterval = setInterval(gmailMessagePull, 30000);
+        }
+
+        if(user.slackToken !== ""){
+          startRTM(user.slackToken);
+        }
         return res.status(200).send(user);
       }
     })
