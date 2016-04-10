@@ -303,41 +303,6 @@ app.get("/gmailAuth", function(req, res){
   console.log(url);
   res.send(url);
 
-  //var url = "https://www.googleapis.com/oauth2/v4/token";
-  //var oauth = {
-  //  code: req.query.code,
-  //  client_id: "984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com",
-  //  client_secret: "VgS92n51AtwiYQCimdUYw9B2",
-  //  grant_type: 'authorization_code',
-  //  redirect_uri: "https://fast-gorge-90415.herokuapp.com/gmailAuth"
-  //}
-  //
-  //request.post(url, {form: oauth},
-  //  function (error, response, data){
-  //    console.log(response.statusMessage);
-  //
-  //    if(!error && response.statusCode == 200) {
-  //      console.log("DATA: " + data);
-  //
-  //      var gmailBody = JSON.parse(data);
-  //      console.log(gmailBody["access_token"]);
-  //      User.findOneAndUpdate({username:req.user.username},{gmailToken:gmailBody.access_token},{new:true},
-  //        function(err, doc){
-  //          if(err){
-  //            console.log(err);
-  //            return res.redirect("/");
-  //          }
-  //          else{
-  //            console.log(doc);
-  //            req.user.gmailToken = data.access_token;
-  //            return res.redirect("/");
-  //          }
-  //        });
-  //
-  //    }
-  //
-  //  });
-
 });
 
 
@@ -349,29 +314,30 @@ app.get('/oauthcallback', function(req, res){
 
   oauth2Client.getToken(req.query.code, function(err, tokens) {
     // Now tokens contains an access_token and an optional refresh_token. Save them.
+    console.log("HELLO");
 
-    if(req.user.gmailToken !== ''){
-      console.log("HELLO2");
-      res.redirect("/");
-    }else{
-      if(!err) {
-        oauth2Client.setCredentials(tokens);
-        console.log(tokens);
-        console.log(tokens.access_token);
-        User.findOneAndUpdate({username:req.user.username},{gmailToken:tokens.refresh_token},{new:true},
-          function(err, doc){
-            if(err){
-              console.log(err);
-              return res.redirect("/");
-            }
-            else{
-              console.log(doc);
-              req.user.gmailToken = tokens.refresh_token;
-              return res.redirect("/");
-            }
-          });
-      }
+
+    if(!err) {
+      oauth2Client.setCredentials(tokens);
+      console.log(tokens);
+      console.log(tokens.access_token);
+      User.findOneAndUpdate({username:req.user.username},{gmailToken:tokens.refresh_token},{new:true},
+        function(err, doc){
+          if(err){
+            console.log(err);
+            return res.redirect("/");
+          }
+          else{
+            console.log(doc);
+            req.user.gmailToken = tokens.refresh_token;
+
+            pollingInterval = setInterval(gmailMessagePull, 30000);
+
+            return res.redirect("/");
+          }
+        });
     }
+
   });
 
 });
