@@ -48,7 +48,7 @@ var mergeSortHelper = function(items, start, end){
   if((end - start)<2){
     //console.log("!!!!!!!!!!!!!!!!! reached base case !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     var arr = [];
-    console.log(start);
+    //console.log(start);
     arr.push(items[start]);
     return arr;
   }

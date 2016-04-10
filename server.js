@@ -239,8 +239,8 @@ app.post("/updateUser", function(req, res){
 });
 
 function startRTM(accessToken){
-  console.log("startRTM");
-  console.log("accessToken is: "+accessToken);
+  //console.log("startRTM");
+  //console.log("accessToken is: "+accessToken);
   rtm = new RtmClient(accessToken,{logLevel:'error'});
   rtm.start();
 
@@ -271,13 +271,13 @@ function startRTM(accessToken){
         slackChannels.push({id:startdata.channels[j].id, name: startdata.channels[j].name});
       }
     }
-    console.log("slackUsers: ", slackUsers.length);
+    //console.log("slackUsers: ", slackUsers.length);
     slackUsers = sorts.mergeSort(slackUsers);
-    console.log("slackUsers: ", slackUsers.length);
+    //console.log("slackUsers: ", slackUsers.length);
 
-    console.log("slackUsers: ", slackChannels.length);
+    //console.log("slackUsers: ", slackChannels.length);
     slackChannels = sorts.mergeSort(slackChannels);
-    console.log("slackUsers: ", slackChannels.length);
+    //console.log("slackUsers: ", slackChannels.length);
 
     console.log("authenticated done");
   });
