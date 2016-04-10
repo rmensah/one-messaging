@@ -451,6 +451,12 @@ app.get("/faceBookAuth", function(req, res){
 
 });
 
+app.get('/logout',function(req, res){
+  req.logout();
+
+  res.redirect('/');
+});
+
 
 app.listen(PORT, function(){
   console.log("listening on ", PORT);
