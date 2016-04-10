@@ -463,7 +463,7 @@ app.post('/logout',function(req, res){
   req.logout();
   req.user = undefined;
   console.log("req.user is: ",req.user);
-  res.redirect('/');
+  res.status(200).send("logout success");
 });
 
 

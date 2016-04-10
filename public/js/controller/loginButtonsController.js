@@ -3,7 +3,7 @@
  */
 var app = angular.module('messagingApp');
 
-app.controller('loginButtonsController', ['$userService','$http','$window', function($userService, $http, $window){
+app.controller('loginButtonsController', ['$userService','$http','$window','$location', function($userService, $http, $window, $location){
 
   var lBC = this;
   lBC.user = $userService.user;
@@ -112,6 +112,17 @@ app.controller('loginButtonsController', ['$userService','$http','$window', func
       url:"/logout",
       method:"POST"
     })
+      .then(
+        function successCallBack(response){
+          if(response.data === "logout success"){
+            $location.path("/");
+          }
+        },
+        function errorCallBack(response){
+          console.log("error: ",response.data);
+          $location.path("/")
+        }
+      )
   };
 
 }]);
