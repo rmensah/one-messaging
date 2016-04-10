@@ -12,6 +12,7 @@ var mongoose = require('mongoose');
 var express = require('express');
 var request = require('request');
 var sorts = require(__dirname+"/public/js/sortAlgorithms/sorts.js");
+var search = require(__dirname+"/public/js/searchAlgorithms/search.js");
 var app = express();
 var PORT = process.env.PORT || 3000;
 var RtmClient = require('@slack/client').RtmClient;
@@ -225,7 +226,7 @@ function startRTM(accessToken){
   rtm.start();
 
   rtm.on(SLACK_RTM_EVENTS.MESSAGE, function(message){
-    //console.log(message);
+    console.log(message);
   });
 
   rtm.on(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED, function(startdata){
