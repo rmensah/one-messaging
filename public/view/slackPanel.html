@@ -1,7 +1,16 @@
-<div class="col m4" ng-show="slackC.user.slackToken !== undefined">
-  <ul class="collection">
-    <li ng-repeat="message in slackC.messages">
-      <span>{{message.user.name}}: {{message.text}} <span ng-show="message.channel !== undefined"> on {{message.channel.name}}</span></span>
-    </li>
-  </ul>
+<div class="col m4">
+  <button  ng-show="slackC.user.slackToken === undefined" ng-click="slackC.slackLogin()"><img src="https://upload.wikimedia.org/wikipedia/en/7/76/Slack_Icon.png" alt=""><span>Log in</span></button>
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">Slack</span>
+      <ul class="collection" ng-show="slackC.user.slackToken !== undefined">
+        <li ng-repeat="message in slackC.messages">
+          <span>{{message.user.name}}: {{message.text}} <span ng-show="message.channel !== undefined"> on {{message.channel.name}}</span></span>
+        </li>
+      </ul>
+    </div>
+    <div class="card-action">
+      <a ng-click="slackC.slackLogout()">log out</a>
+    </div>
+  </div>
 </div>

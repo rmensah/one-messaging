@@ -31,7 +31,7 @@ app.config(['$stateProvider','$locationProvider', '$urlRouterProvider','PusherSe
         views:{
           '':{
             templateUrl:'view/user.html',
-            controller:'loginButtonsController as lBC'
+            controller:'userController as uC'
           },
           'slack@loggedin':{
             templateUrl:"view/slackPanel.html",
