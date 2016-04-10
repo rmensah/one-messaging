@@ -25,6 +25,9 @@ var OAuth2 = google.auth.OAuth2;
 var urlshortener = google.urlshortener('v1');
 
 var oauth2Client = new OAuth2("984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com", "VgS92n51AtwiYQCimdUYw9B2", "https://fast-gorge-90415.herokuapp.com/oauthcallback");
+var pollingInterval;
+var gmail = google.gmail({ version: 'v1', auth: oauth2Client });
+
 var slackUsers;
 var slackChannels;
 
