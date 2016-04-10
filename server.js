@@ -232,6 +232,11 @@ function startRTM(accessToken){
     console.log("channel found is: ", JSON.stringify(search.binarySearch(slackChannels, message.channel)));
   });
 
+  rtm.on(SLACK_RTM_EVENTS.GROUP_HISTORY_CHANGED, function(message){
+    console.log(message);
+  });
+
+
   rtm.on(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED, function(startdata){
     console.log("authenticated");
     //console.log(startdata.users);
