@@ -1,4 +1,11 @@
-<div>
+<div class="row">
+  <div ui-view="slack"></div>
+  <div ui-view="facebook"></div>
+  <div ui-view="gmail"></div>
+</div>
+
+
+<div class="row">
 
   <button ng-click="lBC.changeFacebookStatus()">{{lBC.facebookLoginStatus}}</button>
   <button ng-click="lBC.changeSlackStatus()">{{lBC.slackLoginStatus}}</button>
@@ -6,11 +13,4 @@
 
   <button ng-click="lBC.logOut()">Logout</button>
 
-</div>
-
-
-<div>
-  <div ui-view="slack"></div>
-  <div ui-view="facebook"></div>
-  <div ui-view="gmail"></div>
 </div>
