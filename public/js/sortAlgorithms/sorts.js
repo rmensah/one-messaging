@@ -13,6 +13,7 @@ var merge = function(arr1, arr2){
     if(arr1Counter < arr1.length && arr2Counter < arr2.length){
 
       if(arr1[arr1Counter].id.localeCompare(arr2[arr2Counter].id) < 0){
+        console.log("comparison is: ",arr1[arr1Counter].id.localeCompare(arr2[arr2Counter].id));
         arr3.push(arr1[arr1Counter]);
         arr1Counter++;
       }
