@@ -8,7 +8,7 @@ app.config(['$stateProvider','$locationProvider', '$urlRouterProvider','PusherSe
 
     PusherServiceProvider
       .setToken('4321')
-      .setOptions({});
+      .setOptions({cluster:'APPS'});
 
     $urlRouterProvider.otherwise("/login");
 
