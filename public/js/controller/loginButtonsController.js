@@ -105,9 +105,13 @@ app.controller('loginButtonsController', ['$userService','$http','$window', func
       })
     }
 
-  }
+  };
 
-
-
+  lBC.logOut = function(){
+    $http({
+      url:"/logout",
+      method:"GET"
+    })
+  };
 
 }]);
