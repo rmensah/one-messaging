@@ -11,6 +11,7 @@ var app = angular.module('messagingApp');
 app.controller('slackController', ['$userService','Pusher', function($userService, Pusher){
     var slackC = this;
     slackC.messages = [];
+    slackC.user = $userService.user;
     Pusher.subscribe('slack','message', function(message){
       console.log("received message");
       console.log(message);

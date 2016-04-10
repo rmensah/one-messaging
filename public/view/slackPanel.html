@@ -1,7 +1,7 @@
-<div class="col m4">
+<div class="col m4" ng-show="slackC.user.slackToken !== undefined">
   <ul class="collection">
     <li ng-repeat="message in slackC.messages">
-      <span>{{message.user.name}}: {{message.text}} <span ng-show="message.channel !== undefined">{{message.channel.name}}</span></span>
+      <span>{{message.user.name}}: {{message.text}} <span ng-show="message.channel !== undefined"> on {{message.channel.name}}</span></span>
     </li>
   </ul>
 </div>
