@@ -3,7 +3,7 @@
   <div class="card">
     <div class="card-content">
       <span class="card-title">Slack</span>
-      <ul class="collection" ng-show="slackC.user.slackToken !== undefined">
+      <ul class="collection" ng-show="slackC.user.slackToken !== ''">
         <li ng-repeat="message in slackC.messages">
           <span>{{message.user.name}}: {{message.text}} <span ng-show="message.channel !== undefined"> on {{message.channel.name}}</span></span>
         </li>
