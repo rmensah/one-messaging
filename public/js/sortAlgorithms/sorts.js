@@ -8,8 +8,8 @@ var merge = function(arr1, arr2){
   var arr1Counter = 0;
   var arr2Counter = 0;
 
-  console.log("arr1.length: ",arr1.length);
-  console.log("arr2.length: ",arr2.length);
+  //console.log("arr1.length: ",arr1.length);
+  //console.log("arr2.length: ",arr2.length);
 
   while(arr1Counter < arr1.length || arr2Counter < arr2.length){
 
@@ -37,8 +37,8 @@ var merge = function(arr1, arr2){
 
   }
 
-  console.log("arr1Counter %d ==? arr1.length %d", arr1Counter,arr1.length);
-  console.log("arr2Counter %d ==? arr2.length %d", arr2Counter,arr2.length);
+  //console.log("arr1Counter %d ==? arr1.length %d", arr1Counter,arr1.length);
+  //console.log("arr2Counter %d ==? arr2.length %d", arr2Counter,arr2.length);
 
   return arr3;
 };
