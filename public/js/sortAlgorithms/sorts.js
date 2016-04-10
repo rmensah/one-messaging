@@ -62,5 +62,5 @@ var mergeSortHelper = function(items, start, end){
 };
 
 exports.mergeSort = function(items){
-  return mergeSortHelper(items,0,items.length-1);
+  return mergeSortHelper(items,0,items.length);
 };
