@@ -146,12 +146,14 @@ app.post("/login", function(req, res, next){
     req.logIn(user, function(err1){
       if(err1){
         console.log("error happened at setting session");
-        if(user.gmailToken !== ""){
-          pollingInterval = setInterval(gmailMessagePull, 30000);
-        }
+
         return res.status(404).send(err1);
       }
       else{
+
+        if(user.gmailToken !== ""){
+          pollingInterval = setInterval(gmailMessagePull, 30000);
+        }
 
         if(user.slackToken !== ""){
           startRTM(user.slackToken);
