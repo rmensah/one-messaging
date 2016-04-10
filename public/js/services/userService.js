@@ -68,7 +68,6 @@ app.factory('$userService',['$http', function($http){
 
     updateUser: function(user, callback){
       $http({
-
         url:"/updateUser",
         method:"POST",
         data:user
@@ -84,6 +83,7 @@ app.factory('$userService',['$http', function($http){
           }
         )
     }
+
 
   }
 }]);
