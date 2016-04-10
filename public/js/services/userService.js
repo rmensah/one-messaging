@@ -74,7 +74,7 @@ app.factory('$userService',['$http', function($http){
       $http({
         url:"/logoutSlack",
         method:"POST",
-        data:self.user
+        data:{user:self.user}
       })
         .then(function successCallBack(response){
           self.user = response.data;
