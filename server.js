@@ -32,7 +32,7 @@ var gmail = google.gmail({ version: 'v1', auth: oauth2Client });
 var slackUsers;
 var slackChannels;
 
-var pusher = Pusher.forUrl(proccess.env.PUSHER_URL);
+var pusher = Pusher.forUrl(process.env.PUSHER_URL);
 
 
 
