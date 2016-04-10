@@ -8,7 +8,7 @@ var app = angular.module('messagingApp');
  * userService is a service that is available to all controller. The service keeps user information and contains
  * login and registration functions for the user. for more info look at userService.js
  */
-app.controller('slackController', ['$userService','Pusher','$window', function($userService, Pusher, $window){
+app.controller('slackController', ['$userService','Pusher','$window','$http', function($userService, Pusher, $window, $http){
     var slackC = this;
     slackC.messages = [];
     slackC.user = $userService.user;
