@@ -1,10 +1,14 @@
 /**
  * Created by alemjc on 3/30/16.
  */
-var app = angular.module('messagingApp', ['ngRoute','ngCookies','ui.router']);
+var app = angular.module('messagingApp', ['ngRoute','ngCookies','ui.router','doowb.angular-pusher']);
 
-app.config(['$stateProvider','$locationProvider', '$urlRouterProvider',
-  function($stateProvider, $locationProvider, $urlRouterProvider){
+app.config(['$stateProvider','$locationProvider', '$urlRouterProvider','PusherServiceProvider',
+  function($stateProvider, $locationProvider, $urlRouterProvider, PusherServiceProvider){
+
+    PusherServiceProvider
+      .setToken('4321')
+      .setOptions({});
 
     $urlRouterProvider.otherwise("/login");
 
