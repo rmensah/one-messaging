@@ -20,6 +20,7 @@ app.controller('slackController', ['$userService','Pusher','$window', function($
 
     slackC.slackLogout = function(){
       $userService.logoutSlack(function(){
+        console.log("logged out of slack");
         slackC.user = $userService.user;
       });
     };

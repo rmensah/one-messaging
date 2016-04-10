@@ -9,6 +9,7 @@ app.controller('userController', ['$userService','$http','$window','$location', 
 
   uC.logOut = function(){
     $userService.logout(function(){
+      console.log("login out of application");
       $location.path("/");
     });
   };

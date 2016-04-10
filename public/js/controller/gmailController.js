@@ -13,6 +13,7 @@ app.controller('gmailController', ['$userService','$http','$window','Pusher', fu
     gC.user = $userService.user;
 
     gC.gmailLogin = function(){
+      console.log("login to gmail");
         $http({
             url:"/gmailAuth",
             method:"GET"
