@@ -462,6 +462,7 @@ app.get('/logout',function(req, res){
   console.log("@#$%^&*&^%$#^&*(*&^%$$&^%$#######################");
   req.logout();
   req.user = undefined;
+  console.log("req.user is: ",req.user);
   res.redirect('/');
 });
 
