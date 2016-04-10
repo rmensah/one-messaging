@@ -153,7 +153,7 @@ app.post("/login", function(req, res, next){
       }
       else{
 
-        if(user.slackToken !== undefined){
+        if(user.slackToken !== ""){
           startRTM(user.slackToken);
         }
         return res.status(200).send(user);
