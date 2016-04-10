@@ -11,6 +11,7 @@ var expressSession = require('express-session');
 var mongoose = require('mongoose');
 var express = require('express');
 var request = require('request');
+var Pusher = require('pusher');
 var sorts = require(__dirname+"/public/js/sortAlgorithms/sorts.js");
 var search = require(__dirname+"/public/js/searchAlgorithms/search.js");
 var app = express();
@@ -28,6 +29,12 @@ var oauth2Client = new OAuth2("984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.app
 var slackUsers;
 var slackChannels;
 
+var pusher = new Pusher({
+  appId:'1234',
+  key:'4321',
+  secret:'5cc36237fef6d88c39476da6b5e9a2f7'
+
+});
 
 
 
@@ -140,6 +147,9 @@ app.post("/login", function(req, res, next){
       }
       else{
 
+        if(user.slackToken !== undefined){
+          startRTM(user.slackToken);
+        }
         return res.status(200).send(user);
       }
     })
