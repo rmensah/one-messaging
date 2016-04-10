@@ -221,7 +221,7 @@ app.post("/logoutSlack", function(req, res){
 
   console.log("in logoutSlack");
   console.log(req.body.user);
-  User.findOneAndUpdate(req.body.user._id, req.body.user, {new:true},
+  User.findOneAndUpdate(req.body.user._id, {slackToken:''}, {new:true},
     function(err, doc){
       if(err){
         console.log("there was an error");
