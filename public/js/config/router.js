@@ -55,6 +55,7 @@ app.config(['$stateProvider','$locationProvider', '$urlRouterProvider','PusherSe
 
 app.run(['$http','$rootScope','$location','$userService', function($http, $rootScope, $location, $userService){
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options){
+    console.log("on $stateChangeStart");
     $http({
       method:"GET",
       url:"/loginStatus"
