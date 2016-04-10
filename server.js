@@ -306,6 +306,37 @@ app.get("/gmailAuth", function(req, res){
 });
 
 
+function gmailMessagePull(){
+
+  gmail.users.messages.list({
+    q: "is:unread",
+    userId: 'me'
+  }, function(err, response) {
+
+    console.log("AFTER MESSAGE REQUEST");
+    if(err){
+      console.log(err);
+    }else{
+
+      console.log(response);
+      gmail.users.messages.get({
+        'userId': 'me',
+        'id': response.messages[0].id
+      }, function(err, response){
+
+        console.log("AFTER MESSAGE ID REQUEST");
+        if(err){
+          console.log(err);
+        }else {
+          console.log(response.payload.headers);
+        }
+      });
+    }
+  });
+}
+
+
+
 
 app.get('/oauthcallback', function(req, res){
 
