@@ -26,6 +26,7 @@ var urlshortener = google.urlshortener('v1');
 
 var oauth2Client = new OAuth2("984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com", "VgS92n51AtwiYQCimdUYw9B2", "https://fast-gorge-90415.herokuapp.com/oauthcallback");
 var slackUsers = [];
+var slackChannels = [];
 
 
 
@@ -228,6 +229,7 @@ function startRTM(accessToken){
   rtm.on(SLACK_RTM_EVENTS.MESSAGE, function(message){
     console.log(message);
     console.log("object found is: ", JSON.stringify(search.binarySearch(slackUsers, message.user)));
+    console.log("channel found is: ", JSON.stringify(search.binarySearch(slackChannels, message.channel)));
   });
 
   rtm.on(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED, function(startdata){
@@ -238,9 +240,20 @@ function startRTM(accessToken){
         slackUsers.push({id:startdata.users[i].id, name: startdata.users[i].name});
       }
     }
+
+    for(var j = 0; j < startdata.channels.length; j++){
+      if(startdata.channels[j].is_member){
+        slackChannels.push({id:startdata.channels[j].id, name: startdata.channels[j].name});
+      }
+    }
     console.log("slackUsers: ", slackUsers.length);
     slackUsers = sorts.mergeSort(slackUsers);
     console.log("slackUsers: ", slackUsers.length);
+
+    console.log("slackUsers: ", slackChannels.length);
+    slackChannels = sorts.mergeSort(slackChannels);
+    console.log("slackUsers: ", slackChannels.length);
+
     console.log("authenticated done");
   });
 
