@@ -1,7 +1,7 @@
 <!--TODO: Thinking of making this operate by using ui-router. A routing can be set such that the home will be a
     TODO: login page and another route will be a registration page.-->
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="messagingApp" lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="../css/styles.css">
   <base href="/">
 </head>
-<body ng-app="messagingApp">
-  <div ng-controller="mainController">
+<body ng-controller="mainController">
+
     <!--Nav Bar-->
     <nav>
       <div class="nav-wrapper">
@@ -21,10 +21,9 @@
         </ul>
       </div>
     </nav>
-  </div>
-  
 
-  <div ui-view></div>
+    <div ui-view></div>
+
   
    <footer>
       <div class="footer-copyright">
