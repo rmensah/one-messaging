@@ -231,6 +231,9 @@ app.post("/logoutSlack", function(req, res){
         console.log("user logged out of slack");
         console.log(doc);
         rtm.disconnect();
+        rtm.removeAllListeners(SLACK_RTM_EVENTS.MESSAGE);
+        rtm.removeAllListeners(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED);
+        rtm.removeAllListeners(SLACK_CLIENT_EVENTS.RTM_CONNECTION_OPENED);
         rtm = undefined;
         req.user.slackToken = "";
         return res.send(doc);
