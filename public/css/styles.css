@@ -20,9 +20,15 @@ footer {
 .gmailImg {
   width:100px; /* you can use % */
   height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto
 }
 
 .slackImg {
   width:100px; /* you can use % */
   height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto
 }
