@@ -272,6 +272,11 @@ function startRTM(accessToken){
     console.log(message);
   });
 
+  rtm.on(SLACK_RTM_EVENTS.CHANNEL_HISTORY_CHANGED, function(message){
+    console.log("channel history changed");
+    console.log(message);
+  });
+
   rtm.on(SLACK_RTM_EVENTS.GROUP_HISTORY_CHANGED, function(message){
     console.log("group history changed");
     console.log(message);
