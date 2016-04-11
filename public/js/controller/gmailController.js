@@ -11,6 +11,7 @@ var app = angular.module('messagingApp');
 app.controller('gmailController', ['$userService','$http','$window','Pusher', function($userService,$http, $window, Pusher){
     var gC = this;
     gC.user = $userService.user;
+    gC.messages = [];
 
     gC.gmailLogin = function(){
       console.log("login to gmail");
@@ -38,5 +39,11 @@ app.controller('gmailController', ['$userService','$http','$window','Pusher', fu
           gC.user = response.data;
       });
     }
+
+    Pusher.subscribe('gmail','unreadMail', function(unreadMail){
+      console.log("received emails");
+      console.log(unreadMail);
+      gC.messages = unreadMail;
+    });
 
 }]);

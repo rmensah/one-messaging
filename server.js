@@ -408,6 +408,7 @@ function gmailMessagePull(){
             counter++;
             if(counter >= len){
               console.log("PUSH TO ANGULAR");
+              pusher.trigger('gmail','unreadMail', messageArray);
             }
           }
         });
