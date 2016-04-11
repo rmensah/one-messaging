@@ -27,7 +27,16 @@ app.controller('gmailController', ['$userService','$http','$window','Pusher', fu
     };
 
     gC.gmailLogout = function(){
+      console.log("gmail logout");
 
+      $http({
+        url: "/gmailLogout",
+        method: "GET"
+      }).then(function successCallBack(response){
+          console.log("successful logout");
+          $userService.user = response.data;
+          gC.user = response.data;
+      });
     }
 
 }]);

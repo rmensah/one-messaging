@@ -352,7 +352,8 @@ app.get("/gmailAuth", function(req, res){
 
   var url = oauth2Client.generateAuthUrl({
     access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-    scope: 'https://www.googleapis.com/auth/gmail.readonly' // If you only need one scope you can pass it as string
+    scope: 'https://www.googleapis.com/auth/gmail.readonly', // If you only need one scope you can pass it as string
+    approval_prompt: 'force'
   });
 
   console.log(url);
@@ -433,6 +434,26 @@ app.get('/oauthcallback', function(req, res){
 
   });
 
+});
+
+
+
+app.get('/gmailLogout', function(req, res){
+  User.findOneAndUpdate({username:req.user.username},{gmailRefreshToken:"", gmailAccessToken:""},{new:true},
+    function(err, doc){
+      if(err){
+        console.log(err);
+        return res.redirect("/");
+      }
+      else{
+        console.log(doc);
+        req.user.gmailRefreshToken = "";
+        req.user.gmailAccessToken = "";
+
+        clearInterval(pollingInterval);
+        res.status(200).send(doc);
+      }
+    });
 });
 
 
