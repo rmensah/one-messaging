@@ -577,6 +577,6 @@ app.post('/logout',function(req, res){
 
 app.listen(PORT, function(){
   console.log("listening on ", PORT);
-  mongoose.connect('mongodb://heroku_80c4pl5t:1pkn0mmchnqm34rf4c6lgkruf7@ds051720.mlab.com:51720/heroku_80c4pl5t');
-  //mongoose.connect('mongodb://localhost/onemessaging');
+  //mongoose.connect('mongodb://heroku_80c4pl5t:1pkn0mmchnqm34rf4c6lgkruf7@ds051720.mlab.com:51720/heroku_80c4pl5t');
+  mongoose.connect('mongodb://localhost/onemessaging');
 });
