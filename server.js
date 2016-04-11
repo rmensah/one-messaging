@@ -566,7 +566,9 @@ app.get("/faceBookAuth", function(req, res){
 
 app.post('/logout',function(req, res){
   console.log("@#$%^&*&^%$#^&*(*&^%$$&^%$#######################");
-  stopSlackRTM();
+  if(rtm !== undefined){
+    stopSlackRTM();
+  }
   req.logout();
   req.user = undefined;
   console.log("req.user is: ",req.user);
