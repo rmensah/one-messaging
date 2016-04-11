@@ -240,6 +240,7 @@ app.post("/logoutSlack", function(req, res){
         rtm.removeAllListeners(SLACK_RTM_EVENTS.MESSAGE);
         rtm.removeAllListeners(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED);
         rtm.removeAllListeners(SLACK_CLIENT_EVENTS.RTM_CONNECTION_OPENED);
+        rtm.removeAllListeners(SLACK_RTM_EVENTS.CHANNEL_CREATED);
         rtm = undefined;
         req.user.slackToken = "";
         return res.send(doc);
@@ -270,16 +271,10 @@ function startRTM(accessToken){
   rtm.on(SLACK_RTM_EVENTS.CHANNEL_CREATED, function(message){
     console.log("channel created");
     console.log(message);
-  });
-
-  rtm.on(SLACK_RTM_EVENTS.CHANNEL_HISTORY_CHANGED, function(message){
-    console.log("channel history changed");
-    console.log(message);
-  });
-
-  rtm.on(SLACK_RTM_EVENTS.GROUP_HISTORY_CHANGED, function(message){
-    console.log("group history changed");
-    console.log(message);
+    if(message.is_channel){
+      slackChannels.push({id:message.id,name:message.name});
+      slackChannels = sorts.insertionSort(items);
+    }
   });
 
 
