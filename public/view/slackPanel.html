@@ -3,19 +3,18 @@
     <img src="https://upload.wikimedia.org/wikipedia/en/7/76/Slack_Icon.png" alt="" class="slackImg">
   </a>
 
-  <!--<div class="col xs6 s6 m4">-->
-    <div class="card"  ng-show="slackC.user.slackToken !== ''">
-      <div class="card-content">
-        <span class="card-title">Slack</span>
-        <ul class="collection">
-          <li ng-repeat="message in slackC.messages">
-            <span>{{message.user.name}}: {{message.text}} <span ng-show="message.channel !== undefined"> on {{message.channel.name}}</span></span>
-          </li>
-        </ul>
-      </div>
-      <div class="card-action">
-        <a ng-click="slackC.slackLogout()" href="#!">log out</a>
-      </div>
+  <div class="card"  ng-show="slackC.user.slackToken !== ''">
+    <div class="card-content">
+      <span class="card-title">Slack</span>
+      <ul class="collection">
+        <li ng-repeat="message in slackC.messages">
+          <span>{{message.user.name}}: {{message.text}} <span ng-show="message.channel !== undefined"> on {{message.channel.name}}</span></span>
+        </li>
+      </ul>
     </div>
-  <!--</div>-->
+    <div class="card-action">
+      <a ng-click="slackC.slackLogout()" href="#!">log out</a>
+    </div>
+  </div>
+
 </div>

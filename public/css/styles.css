@@ -32,3 +32,9 @@ footer {
   margin-left: auto;
   margin-right: auto
 }
+
+.card-content {
+  height: 350px;
+  width: auto;
+  overflow: scroll;
+}
