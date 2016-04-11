@@ -416,7 +416,7 @@ function gmailMessagePull(req){
       var counter = 0;
       var messageArray = [];
 
-      if(response.messages.length === undefined){
+      if(response.messages === undefined){
         messageArray.push({
           snippet: '',
           fromEmail: ''
