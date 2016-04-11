@@ -373,20 +373,29 @@ function gmailMessagePull(){
     if(err){
       console.log(err);
     }else{
-
       console.log(response);
-      gmail.users.messages.get({
-        'userId': 'me',
-        'id': response.messages[0].id
-      }, function(err, response){
 
-        console.log("AFTER MESSAGE ID REQUEST");
-        if(err){
-          console.log(err);
-        }else {
-          console.log(response.payload.headers);
-        }
-      });
+      var counter = 0;
+      for(var i = 0; i < response.length; i++){
+
+        gmail.users.messages.get({
+          'userId': 'me',
+          'id': response.messages[i].id
+        }, function(err, response){
+
+          console.log("AFTER MESSAGE ID REQUEST");
+          if(err){
+            console.log(err);
+          }else {
+            console.log(response.snippet);
+            counter++;
+            if(counter >= response.length){
+              console.log("PUSH TO ANGULAR");
+            }
+          }
+        });
+      }
+
     }
   });
 }
