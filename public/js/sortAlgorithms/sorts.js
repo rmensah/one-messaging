@@ -72,7 +72,7 @@ exports.insertionSort = function(items){
 
     var temp = i;
 
-    while(temp > 0 && items[temp] < items[temp-1]){
+    while(temp > 0 && items[temp].id.localeCompare(items[temp-1].id) < 0){
 
       var tmpVal = items[temp];
       items[temp] = items[temp-1];

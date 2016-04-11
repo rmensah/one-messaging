@@ -273,7 +273,9 @@ function startRTM(accessToken){
     console.log(message);
     if(message.is_channel){
       slackChannels.push({id:message.id,name:message.name});
+      console.log(slackChannels);
       slackChannels = sorts.insertionSort(slackChannels);
+      console.log(slackChannels);
     }
   });
 
