@@ -223,6 +223,15 @@ app.post('/register', function(req, res){
 
 });
 
+function stopSlackRTM(){
+  rtm.removeAllListeners(SLACK_RTM_EVENTS.MESSAGE);
+  rtm.removeAllListeners(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED);
+  rtm.removeAllListeners(SLACK_CLIENT_EVENTS.RTM_CONNECTION_OPENED);
+  rtm.removeAllListeners(SLACK_RTM_EVENTS.CHANNEL_CREATED);
+  rtm.disconnect('', undefined);
+  rtm = undefined;
+}
+
 app.post("/logoutSlack", function(req, res){
 
   console.log("in logoutSlack");
@@ -236,12 +245,7 @@ app.post("/logoutSlack", function(req, res){
       else{
         console.log("user logged out of slack");
         console.log(doc);
-        rtm.removeAllListeners(SLACK_RTM_EVENTS.MESSAGE);
-        rtm.removeAllListeners(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED);
-        rtm.removeAllListeners(SLACK_CLIENT_EVENTS.RTM_CONNECTION_OPENED);
-        rtm.removeAllListeners(SLACK_RTM_EVENTS.CHANNEL_CREATED);
-        rtm.disconnect();
-        rtm = undefined;
+        stopSlackRTM();
         req.user.slackToken = "";
         return res.send(doc);
       }
@@ -541,6 +545,7 @@ app.get("/faceBookAuth", function(req, res){
 
 app.post('/logout',function(req, res){
   console.log("@#$%^&*&^%$#^&*(*&^%$$&^%$#######################");
+  stopSlackRTM();
   req.logout();
   req.user = undefined;
   console.log("req.user is: ",req.user);
