@@ -3,46 +3,46 @@
   <div class="nav-wrapper">
     <a href="#!" class="brand-logo center">1View</a>
   </div>
-
-  <div class="container">
-    <div class="row">
-      <div class="col m4"></div>
-      <div class="col m4">
-        <h1>Register</h1>
-        <form ng-submit="regC.register()">  
-
-          <div class="row">
-            <div class="input-field col s12">
-              <input ng-model="regC.username" id="username" type="text" class="validate"> 
-              <label for="username">Username</label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="input-field col s12">
-              <input ng-model="regC.password" id="password" type="password" class="validate"> 
-              <label for="password">Password</label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="input-field col s12">
-              <input ng-model="regC.verifyPassword" id="confirmpassword" type="password" class="validate">
-              <label for="confirmpassword">Confirm Password</label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col s12">
-              <p ng-show="regC.showRegErrs">Please make sure that all fields are filled and that your password matches!</p>
-              <button type="submit" name="action">Submit</button>
-              <a href="/login"> Login!</a>
-            </div>
-          </div>
-        </form>
-
-      </div>
-      <div class="col m4"></div>
-    </div>
-  </div>
 </nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col m4"></div>
+    <div class="col m4">
+      <h1>Register</h1>
+      <form ng-submit="regC.register()">  
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input ng-model="regC.username" id="username" type="text" class="validate"> 
+            <label for="username">Username</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input ng-model="regC.password" id="password" type="password" class="validate"> 
+            <label for="password">Password</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input ng-model="regC.verifyPassword" id="confirmpassword" type="password" class="validate">
+            <label for="confirmpassword">Confirm Password</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <p ng-show="regC.showRegErrs">Please make sure that all fields are filled and that your password matches!</p>
+            <button type="submit" name="action">Submit</button>
+            <a href="/login"> Login!</a>
+          </div>
+        </div>
+      </form>
+
+    </div>
+    <div class="col m4"></div>
+  </div>
+</div>
