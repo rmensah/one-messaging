@@ -5,7 +5,7 @@
     <div class="card-content">
       <span class="card-title">Gmail</span>
       <ul class="collection">
-        <li ng-repeat="unreadMail in gC.messages|date:'yyyy-MM-dd HH:mm:ss Z'">
+        <li ng-repeat="unreadMail in gC.messages|date:'yyyy-MM-dd HH:mm:ss Z : timezone'">
           <span>{{unreadMail.date}}, {{unreadMail.fromEmail}}: {{unreadMail.snippet}}</span>
         </li>
       </ul>
