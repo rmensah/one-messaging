@@ -259,11 +259,21 @@ function startRTM(accessToken){
   rtm.on(SLACK_RTM_EVENTS.MESSAGE, function(message){
     console.log(message);
     if(message.type==="message" && (userSlackId !== undefined && userSlackId !== message.user)){
+
+      if(message.subtype !== null && message.subtype === "channel_join"){
+
+      }
+
       var user = search.binarySearch(slackUsers, message.user);
       var channel = search.binarySearch(slackChannels, message.channel);
       pusher.trigger('slack','message', {user:user,channel:channel,text:message.text});
     }
 
+  });
+
+  rtm.on(SLACK_RTM_EVENTS.CHANNEL_CREATED, function(message){
+    console.log("channel created");
+    console.log(message);
   });
 
 

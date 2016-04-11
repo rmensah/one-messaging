@@ -64,3 +64,24 @@ var mergeSortHelper = function(items, start, end){
 exports.mergeSort = function(items){
   return mergeSortHelper(items,0,items.length);
 };
+
+
+exports.insertionSort = function(items){
+
+  for(var i = 1; i < items.length; i++){
+
+    var temp = i;
+
+    while(temp > 0 && items[temp] < items[temp-1]){
+
+      var tmpVal = items[temp];
+      items[temp] = items[temp-1];
+      items[temp-1] = tmpVal;
+
+      temp--;
+    }
+
+  }
+
+  return items;
+};
