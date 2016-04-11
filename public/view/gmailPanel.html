@@ -6,7 +6,7 @@
       <span class="card-title">Gmail</span>
       <ul class="collection">
         <li ng-repeat="unreadMail in gC.messages|orderBy: 'snippet'">
-          <span>{{unreadMail.fromEmail}}: {{unreadMail.snippet}}</span>
+          <span>{{unreadMail.date}}, {{unreadMail.fromEmail}}: {{unreadMail.snippet}}</span>
         </li>
       </ul>
     </div>
