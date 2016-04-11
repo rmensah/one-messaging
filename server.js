@@ -398,10 +398,10 @@ function gmailMessagePull(){
                 console.log("FROM");
                 console.log(response.payload.headers[j].value);
 
-                messageArray = {
+                messageArray.push({
                   snippet: response.snippet,
                   fromEmail: response.payload.headers[j].value
-                };
+                });
               }
             }
 
