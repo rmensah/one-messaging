@@ -9,7 +9,7 @@
       <ul class="collection">
         <li ng-repeat="unreadMail in gC.messages| orderBy: snippet">
           <div ng-if="unreadMail.fromEmail == ''">
-
+            <p>{{unreadMail.snippet}}</p>
           </div>
           <div ng-if="unreadMail.fromEmail != ''">
             <p>From: {{unreadMail.fromEmail}}</p>

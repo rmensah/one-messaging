@@ -418,7 +418,7 @@ function gmailMessagePull(req){
 
       if(response.messages === undefined){
         messageArray.push({
-          snippet: '',
+          snippet: 'No unread emails..',
           fromEmail: ''
         });
 
