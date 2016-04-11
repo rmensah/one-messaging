@@ -413,7 +413,6 @@ function gmailMessagePull(req){
       var counter = 0;
       var len = response.messages.length;
       var messageArray = [];
-      var from;
       console.log(len);
       for(var i = 0; i < len; i++){
 
@@ -433,16 +432,10 @@ function gmailMessagePull(req){
               if(response.payload.headers[j].name === "From"){
                 console.log("FROM");
                 console.log(response.payload.headers[j].value);
-                from = response.payload.headers[j].value;
-              }
 
-              if(response.payload.headers[j].name === "Date"){
-                console.log("DATE");
-                console.log(response.payload.headers[j].value);
                 messageArray.push({
                   snippet: response.snippet,
-                  fromEmail: from,
-                  date: response.payload.headers[j].value
+                  fromEmail: response.payload.headers[j].value
                 });
               }
             }
