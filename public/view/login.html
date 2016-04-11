@@ -1,34 +1,40 @@
-<div class="container">
-
-  <div class="row">
-    <div class="col m4"></div>
-    <div class="col m4">
-      <h1>Login</h1>
-      <form ng-submit="loginC.login()">  
-        <div class="row">
-          <div class="input-field col s12">
-            <input ng-model="loginC.username" id="lgusername" type="text" class="validate"> 
-            <label for="lgusername">Username</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s12">
-            <input ng-model="loginC.password" id="lgpassword" type="password" class="validate"> 
-            <label for="lgpassword">Password</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col s12">
-            <p ng-show="loginC.showLoginErrs">Username or password is incorrect</p>
-            <button type="submit" name="action">Submit</button>
-            <a href="/register">Sign Up!</a>
-          </div>
-        </div>
-
-      </form>
-    </div>
-    <div class="col m4"></div>
+<!--Nav Bar-->
+<nav>
+  <div class="nav-wrapper">
+    <a href="#!" class="brand-logo center">1View</a>
   </div>
-</div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col m4"></div>
+      <div class="col m4">
+        <h1>Login</h1>
+        <form ng-submit="loginC.login()">  
+          <div class="row">
+            <div class="input-field col s12">
+              <input ng-model="loginC.username" id="lgusername" type="text" class="validate"> 
+              <label for="lgusername">Username</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input ng-model="loginC.password" id="lgpassword" type="password" class="validate"> 
+              <label for="lgpassword">Password</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+              <p ng-show="loginC.showLoginErrs">Username or password is incorrect</p>
+              <button type="submit" name="action">Submit</button>
+              <a href="/register">Sign Up!</a>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="col m4"></div>
+    </div>
+  </div>
+</nav>
