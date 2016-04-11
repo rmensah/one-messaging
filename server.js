@@ -376,10 +376,11 @@ function gmailMessagePull(){
       console.log(response);
 
       var counter = 0;
-      console.log(response.messages.length);
-      for(var i = 0; i < response.messages.length; i++){
+      var len = response.messages.length;
+      console.log(len);
+      for(var i = 0; i < len; i++){
 
-        console.log("in for loop");
+        console.log("in for loop %s", i);
         gmail.users.messages.get({
           'userId': 'me',
           'id': response.messages[i].id
@@ -391,7 +392,7 @@ function gmailMessagePull(){
           }else {
             console.log(response.snippet);
             counter++;
-            if(counter >= response.messages.length){
+            if(counter >= len){
               console.log("PUSH TO ANGULAR");
             }
           }
