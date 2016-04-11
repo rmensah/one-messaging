@@ -1,3 +1,7 @@
+body {
+  background-color: #E0D4B4;
+}
+
 .col{
   min-height: 1px;
 }
@@ -6,9 +10,9 @@ nav {
 	background-color: #F86547;
 }
 
- footer {
-    background-color: #F86547;
-    width: 100%;
-    bottom: 0;
-    position: fixed;
-  }
+footer {
+  background-color: #F86547;
+  width: 100%;
+  bottom: 0;
+  position: fixed;
+}
