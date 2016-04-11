@@ -271,8 +271,8 @@ function startRTM(accessToken){
   rtm.on(SLACK_RTM_EVENTS.CHANNEL_CREATED, function(message){
     console.log("channel created");
     console.log(message);
-    if(message.is_channel){
-      slackChannels.push({id:message.id,name:message.name});
+    if(message.type=== "channel_created" && message.channel.is_channel){
+      slackChannels.push({id:message.channel.id,name:message.channel.name});
       console.log(slackChannels);
       slackChannels = sorts.insertionSort(slackChannels);
       console.log(slackChannels);
