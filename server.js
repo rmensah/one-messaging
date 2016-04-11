@@ -376,8 +376,10 @@ function gmailMessagePull(){
       console.log(response);
 
       var counter = 0;
+      console.log(response.length);
       for(var i = 0; i < response.length; i++){
 
+        console.log("in for loop");
         gmail.users.messages.get({
           'userId': 'me',
           'id': response.messages[i].id
