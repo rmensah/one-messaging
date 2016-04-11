@@ -236,11 +236,11 @@ app.post("/logoutSlack", function(req, res){
       else{
         console.log("user logged out of slack");
         console.log(doc);
-        rtm.disconnect('', undefined);
         rtm.removeAllListeners(SLACK_RTM_EVENTS.MESSAGE);
         rtm.removeAllListeners(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED);
         rtm.removeAllListeners(SLACK_CLIENT_EVENTS.RTM_CONNECTION_OPENED);
         rtm.removeAllListeners(SLACK_RTM_EVENTS.CHANNEL_CREATED);
+        rtm.disconnect();
         rtm = undefined;
         req.user.slackToken = "";
         return res.send(doc);
