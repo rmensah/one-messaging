@@ -224,6 +224,8 @@ app.post('/register', function(req, res){
 });
 
 function stopSlackRTM(){
+  console.log(SLACK_RTM_EVENTS.MESSAGE);
+  console.log(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED);
   rtm.removeAllListeners(SLACK_RTM_EVENTS.MESSAGE);
   rtm.removeAllListeners(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED);
   rtm.removeAllListeners(SLACK_CLIENT_EVENTS.RTM_CONNECTION_OPENED);
