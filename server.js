@@ -260,10 +260,6 @@ function startRTM(accessToken){
     console.log(message);
     if(message.type==="message" && (userSlackId !== undefined && userSlackId !== message.user)){
 
-      if(message.subtype !== null && message.subtype === "channel_join"){
-
-      }
-
       var user = search.binarySearch(slackUsers, message.user);
       var channel = search.binarySearch(slackChannels, message.channel);
       pusher.trigger('slack','message', {user:user,channel:channel,text:message.text});
@@ -273,6 +269,11 @@ function startRTM(accessToken){
 
   rtm.on(SLACK_RTM_EVENTS.CHANNEL_CREATED, function(message){
     console.log("channel created");
+    console.log(message);
+  });
+
+  rtm.on(SLACK_RTM_EVENTS.GROUP_HISTORY_CHANGED, function(message){
+    console.log("group history changed");
     console.log(message);
   });
 
