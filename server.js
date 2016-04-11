@@ -414,43 +414,53 @@ function gmailMessagePull(req){
       console.log(response);
 
       var counter = 0;
-      var len = response.messages.length;
       var messageArray = [];
-      console.log(len);
-      for(var i = 0; i < len; i++){
 
-        console.log("in for loop %s", i);
-        gmail.users.messages.get({
-          'userId': 'me',
-          'id': response.messages[i].id
-        }, function(err, response){
+      if(response.messages.length === undefined){
+        messageArray.push({
+          snippet: '',
+          fromEmail: ''
+        });
+      }else{
+        var len = response.messages.length;
 
-          console.log("AFTER MESSAGE ID REQUEST");
-          if(err){
-            console.log(err);
-          }else {
-            console.log(response.snippet);
+        console.log(len);
+        for(var i = 0; i < len; i++){
 
-            for(var j = 0; j < response.payload.headers.length; j++){
-              if(response.payload.headers[j].name === "From"){
-                console.log("FROM");
-                console.log(response.payload.headers[j].value);
+          console.log("in for loop %s", i);
+          gmail.users.messages.get({
+            'userId': 'me',
+            'id': response.messages[i].id
+          }, function(err, response){
 
-                messageArray.push({
-                  snippet: response.snippet,
-                  fromEmail: response.payload.headers[j].value
-                });
+            console.log("AFTER MESSAGE ID REQUEST");
+            if(err){
+              console.log(err);
+            }else {
+              console.log(response.snippet);
+
+              for(var j = 0; j < response.payload.headers.length; j++){
+                if(response.payload.headers[j].name === "From"){
+                  console.log("FROM");
+                  console.log(response.payload.headers[j].value);
+
+                  messageArray.push({
+                    snippet: response.snippet,
+                    fromEmail: response.payload.headers[j].value
+                  });
+                }
+              }
+
+              counter++;
+              if(counter >= len){
+                console.log("PUSH TO ANGULAR");
+                pusher.trigger('gmail','unreadMail', messageArray);
               }
             }
-
-            counter++;
-            if(counter >= len){
-              console.log("PUSH TO ANGULAR");
-              pusher.trigger('gmail','unreadMail', messageArray);
-            }
-          }
-        });
+          });
+        }
       }
+
     }
   });
 }
