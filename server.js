@@ -389,6 +389,24 @@ function gmailMessagePull(){
     console.log("AFTER MESSAGE REQUEST");
     if(err){
       console.log(err);
+      if(err.code == 401){
+        oauth2Client.refreshAccessToken(function(err, tokens) {
+          // your access_token is now refreshed and stored in oauth2Client
+          // store these new tokens in a safe place (e.g. database)
+
+          User.findOneAndUpdate({username:req.user.username},{gmailRefreshToken:tokens.refresh_token, gmailAccessToken:tokens.access_token},{new:true},
+            function(err, doc){
+              if(err){
+                console.log(err);
+              }
+              else{
+                console.log(doc);
+                req.user.gmailRefreshToken = tokens.refresh_token;
+                req.user.gmailAccessToken = tokens.access_token;
+              }
+            });
+        });
+      }
     }else{
       console.log(response);
 
