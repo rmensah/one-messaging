@@ -393,7 +393,7 @@ function gmailMessagePull(){
           }else {
             console.log(response.snippet);
 
-            for(var j = 0; j < response.payload.headers[j].length; j++){
+            for(var j = 0; j < response.payload.headers.length; j++){
               if(response.payload.headers[j].name === "From"){
                 console.log("FROM");
                 console.log(response.payload.headers[j].value);
