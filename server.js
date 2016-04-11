@@ -377,6 +377,7 @@ function gmailMessagePull(){
 
       var counter = 0;
       var len = response.messages.length;
+      var messageArray = [];
       console.log(len);
       for(var i = 0; i < len; i++){
 
@@ -391,6 +392,19 @@ function gmailMessagePull(){
             console.log(err);
           }else {
             console.log(response.snippet);
+
+            for(var j = 0; j < response.payload.headers[j].length; j++){
+              if(response.payload.headers[j].name === "From"){
+                console.log("FROM");
+                console.log(response.payload.headers[j].value);
+
+                messageArray = {
+                  snippet: response.snippet,
+                  fromEmail: response.payload.headers[j].value
+                };
+              }
+            }
+
             counter++;
             if(counter >= len){
               console.log("PUSH TO ANGULAR");
