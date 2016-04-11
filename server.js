@@ -153,7 +153,7 @@ app.post("/login", function(req, res, next){
             refresh_token: user.gmailRefreshToken
           });
 
-          pollingInterval = setInterval(gmailMessagePull, 30000);
+          pollingInterval = setInterval(gmailMessagePull, 30000, req);
         }
 
         if(user.slackToken !== ""){
@@ -375,7 +375,7 @@ app.get("/gmailAuth", function(req, res){
 });
 
 
-function gmailMessagePull(){
+function gmailMessagePull(req){
 
   gmail.users.messages.list({
     q: "is:unread",
@@ -481,7 +481,7 @@ app.get('/oauthcallback', function(req, res){
               req.user.gmailRefreshToken = tokens.refresh_token;
               req.user.gmailAccessToken = tokens.access_token;
 
-              pollingInterval = setInterval(gmailMessagePull, 30000);
+              pollingInterval = setInterval(gmailMessagePull, 30000, req);
 
               return res.redirect("/");
             }
