@@ -421,6 +421,8 @@ function gmailMessagePull(req){
           snippet: '',
           fromEmail: ''
         });
+
+        pusher.trigger('gmail','unreadMail', messageArray);
       }else{
         var len = response.messages.length;
 
