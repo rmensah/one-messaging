@@ -1,5 +1,8 @@
 <div class="col m4">
-  <button  ng-show="slackC.user.slackToken === ''" ng-click="slackC.slackLogin()"><img src="https://upload.wikimedia.org/wikipedia/en/7/76/Slack_Icon.png" alt=""><span>Log in</span></button>
+  <a ng-show="slackC.user.slackToken === ''" ng-click="slackC.slackLogin()" title="Slack Login" href="#!">
+    <img src="https://upload.wikimedia.org/wikipedia/en/7/76/Slack_Icon.png" alt="" class="slackImg">
+  </a>
+
   <div class="card"  ng-show="slackC.user.slackToken !== ''">
     <div class="card-content">
       <span class="card-title">Slack</span>
