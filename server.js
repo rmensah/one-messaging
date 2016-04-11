@@ -451,7 +451,6 @@ function gmailMessagePull(req){
           }
         });
       }
-
     }
   });
 }
