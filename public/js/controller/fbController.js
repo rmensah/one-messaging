@@ -10,6 +10,7 @@ var app = angular.module('messagingApp');
  */
 app.controller('fbController', ['$userService','$window', function($userService, $window){
     var fbC = this;
+    fbC.user = $userService.user;
     fbC.facebookLogin = function(){
       $window.open("https://www.facebook.com/dialog/oauth?client_id="+"597182890448198&response_type=code"+"&state="+$userService.user.username+"&redirect_uri=https://fast-gorge-90415.herokuapp.com/faceBookAuth"
         ,"_self");
