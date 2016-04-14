@@ -1,7 +1,16 @@
-<div class="col m4">
-  <button ng-show="fbC.user.faceBookToken === ''" ng-click="fbC.facebookLogin()"><fb:login-button show-faces="true" max-rows="1" 
-  size="large"></fb:login-button><span>Log in</span></button>
-  <div ng-show="fbC.user.faceBookToken !== ''">
-    <p>Richard updates go here.</p>
-  </div>
+<div class="col xs6 s6 m4">
+ <a ng-show="fbC.user.faceBookToken === ''" ng-click="fbC.facebookLogin()" title="Facebook Login" href="#!">
+   <img src="../images/FB-f-Logo__blue_512.png" class="gmailImg">
+ </a>
+
+ <div class="card" ng-show="fbC.user.faceBookToken !== ''">
+   <div class="card-content">
+     <span class="card-title">Facebook</span>
+
+   </div>
+   <div class="card-action">
+     <a ng-click="fbC.facebookLogout()">log out</a>
+   </div>
+ </div>
+
 </div>
