@@ -6,6 +6,18 @@ body {
   min-height: 1px;
 }
 
+
+header, main, footer {
+  padding-left: 240px;
+}
+
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
+}
+
+
 nav {
 	background-color: #F86547;
 }
@@ -17,24 +29,74 @@ footer {
   position: fixed;
 }
 
-.gmailImg {
-  width:100px; /* you can use % */
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto
-}
-
-.slackImg {
-  width:100px; /* you can use % */
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto
-}
-
 .collection {
-  height: 250px;
+  height: 150px;
   width: auto;
   overflow: scroll;
+  background-color: #FCF9EA !important;
+  margin: -1% 0 0 0;
 }
+
+.card-title{
+  margin: -10% 0 0 0;
+  color: #FFD8A6;
+}
+
+.btnName{
+  float: right;
+  margin: 10% 20% 0 0;
+  color: #FCF9EA;
+  position: relative;
+  font-size: 20px;
+}
+
+
+#allbtn{
+  margin: 10px 0px 10px 0px;
+}
+
+
+/* FOR GMAIL */
+#gmailImg {
+  width:100px; /* you can use % */
+  height: auto;
+  margin-left: 10%;
+  position: relative;
+}
+
+.gbutton {
+  width:350px; /* you can use % */
+  height: auto;
+  background-color: #5E3448;
+  display: block;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px 10px 10px 10px;
+}
+
+/* FOR SLACK */
+#slackImg {
+  width:100px; /* you can use % */
+  height: auto;
+  margin-left: 10%;
+  position: relative;
+}
+
+
+/* FOR TWITTER */
+#twitterImg {
+  width:100px; /* you can use % */
+  height: auto;
+  margin-left: 10%;
+  position: relative;
+}
+
+
+.card{
+  background-color: #5E3448;
+}
+
+
+.waves-effect, .card .card-action{
+  z-index: 0;
