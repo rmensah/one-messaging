@@ -164,6 +164,18 @@ app.post("/login", function(req, res, next){
           pollingInterval = setInterval(gmailMessagePull, 30000, req);
         }
 
+        if(user.twitterAccessToken !== ""){
+
+          setTimeout(function() {
+            console.log('first 10 secs');
+            twitterPull(req);
+
+            tweetPollingInterval = setInterval(twitterPull, 90000, req);
+
+          }, 10000);
+        }
+
+
         if(user.slackToken !== ""){
           startRTM(user.slackToken);
         }
