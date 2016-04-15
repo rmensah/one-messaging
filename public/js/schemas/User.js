@@ -7,7 +7,10 @@ var Schema = mongoose.Schema;
 var User = new Schema({
   username:String,
   password:String,
-  faceBookToken:String,
+    twitterRequestToken:String,
+  twitterRequestTokenSecret:String,
+  twitterAccessToken:String,
+  twitterAccessTokenSecret:String,
   slackToken:String,
   gmailAccessToken:String,
   gmailRefreshToken:String
