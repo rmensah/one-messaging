@@ -24,9 +24,9 @@ var rtm;
 var tweetPollingInterval;
 var twitterAPI = require('node-twitter-api');
 var twitter = new twitterAPI({
-  consumerKey: 'f6meSQ2uovbZYMWzi6aah1Lof',
-  consumerSecret: '42Kbp0C8Nm9KSpS0F3JSzzsjIWneCglQSXUKdGTh6BWaneVvG2',
-  callback: 'https://protected-lowlands-50484.herokuapp.com/twitterAuthCallback'
+  consumerKey: 'k7HeFGmemKJUbCKGndCjtZ6rO',
+  consumerSecret: 'KRc1ctuhqmWkB2iLKb8qCRmBSANpEbylReJ4xS90imfj95Eyf2',
+  callback: 'https://fast-gorge-90415.herokuapp.com/twitterAuthCallback'
 });
 
 var google = require('googleapis');
