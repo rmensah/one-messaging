@@ -1,0 +1,29 @@
+<div class="col xs12 s12 m12">
+  <div class="gbutton">
+    <a ng-show="twC.user.twitterRequestToken === ''" ng-click="twC.twitterLogin()" title="Twitter Login">
+      <img src="../images/TwitterLogo_55acee.png" id="twitterImg">
+      <span class="btnName">TWITTER</span>
+    </a>
+  </div>
+
+  <div class="card" ng-show="twC.user.twitterRequestToken !== ''">
+    <div class="card-content">
+      <span class="card-title">Twitter</span>
+      <ul class="collection">
+        <li ng-repeat="tweets in twC.tweets">
+          <div>
+            <p>Name: {{tweets.name}}</p>
+            <p>Created At: {{tweets.created_at}}</p>
+            <p>Screen Name: {{tweets.screen_name}}</p>
+            <p>Text: {{tweets.text}}</p>
+          </div>
+          </br>
+        </li>
+      </ul>
+    </div>
+    <div class="card-action">
+      <a ng-click="twC.twitterLogout()">Log Out</a>
+    </div>
+  </div>
+
+</div>

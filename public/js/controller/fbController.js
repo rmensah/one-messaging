@@ -17,21 +17,19 @@ app.controller('fbController', ['$userService','$window', function($userService,
     };
 
     fbC.facebookLogout = function(){
-
     	var _self = this;
-
   FB.logout(function(response) {
-
     $rootScope.$apply(function() { 
-
       $rootScope.user = _self.user = {}; 
 
     }); 
-
   });
-
-
   };
 
+  Pusher.subscribe('facebook','message', function(message){
+      console.log("received message");
+      console.log(message);
+      fbC.messages.push(message);
+    });
 
 }]);
