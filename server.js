@@ -541,8 +541,144 @@ app.get('/gmailLogout', function(req, res){
 });
 
 
+app.get('/twitterAuth', function(req, res){
+
+  console.log("/twitterAuth");
+
+  if(req.user.twitterRequestToken !== ""){
+    console.log("twitter already has a token");
+    res.redirect("/");
+  }else{
+    console.log("twitter getrequesttoken");
+    twitter.getRequestToken(function(error, requestToken, requestTokenSecret, results){
+      if (error) {
+        console.log("Error getting OAuth request token : " + error);
+      } else {
+        console.log("getting twitter access token");
+
+        //store token and tokenSecret somewhere, you'll need them later; redirect user
+        User.findOneAndUpdate({username:req.user.username},{twitterRequestToken: requestToken, twitterRequestTokenSecret: requestTokenSecret},{new:true},
+          function(err, doc){
+            if(err){
+              console.log(err);
+              return res.redirect("/");
+            }
+            else{
+              console.log(doc);
+              req.user.twitterRequestToken = requestToken;
+              req.user.twitterRequestTokenSecret = requestTokenSecret;
+
+              var url2 = twitter.getAuthUrl(req.user.twitterRequestToken);
+              res.send(url2);
+
+            }
+          });
+      }
+    });
+  }
+});
 
 
+function twitterPull(req){
+
+  var twitterArray = [];
+  var counter = 0;
+
+  console.log("Twitter Pull");
+  twitter.getTimeline('home_timeline', {
+    count: 5
+  }, req.user.twitterAccessToken, req.user.twitterAccessTokenSecret, function(error, data, response) {
+    if (error) {
+      // something went wrong
+      console.log("ERRRRRRROOOORRRRRR in get timeline");
+      console.log(error);
+    } else {
+      console.log("SUCCESSSSSSSSSSSSS in get timeline");
+      // data contains the data sent by twitter
+
+      var len = data.length;
+      for(var i = 0; i < len; i++){
+
+        console.log("//////////////////////////////////////////////////////////");
+        twitterArray.push({
+          name: data[i].user.name,
+          screen_name: '@'+data[i].user.screen_name,
+          text: data[i].text,
+          image: data[i].user.profile_image_url_https,
+          created_at: data[i].created_at
+        });
+
+        counter++;
+        if(counter >= len){
+          console.log("PUSH TO ANGULAR");
+          console.log(twitterArray);
+          pusher.trigger('twitter','tweets', twitterArray);
+        }
+      }
+    }
+  });
+
+
+}
+
+app.get('/twitterAuthCallback', function(req, res){
+  console.log('/twitterAuthCallback');
+
+  console.log(req.query);
+
+  twitter.getAccessToken(req.user.twitterRequestToken, req.user.twitterRequestTokenSecret, req.query.oauth_verifier, function(error, accessToken, accessTokenSecret, results) {
+    if (error) {
+      console.log(error);
+    } else {
+      //store accessToken and accessTokenSecret somewhere (associated to the user)
+      //Step 4: Verify Credentials belongs here
+      User.findOneAndUpdate({username:req.user.username},{twitterAccessToken: accessToken, twitterAccessTokenSecret: accessTokenSecret},{new:true},
+        function(err, doc){
+          if(err){
+            console.log(err);
+            return res.redirect("/");
+          }
+          else{
+            console.log(doc);
+            req.user.twitterAccessToken = accessToken;
+            req.user.twitterAccessTokenSecret = accessTokenSecret;
+
+
+            console.log("------------BEFORE GETTIMELINE");
+            twitter.getTimeline('home_timeline', {
+              count: 5
+            }, req.user.twitterAccessToken, req.user.twitterAccessTokenSecret, function(error, data, response) {
+                if (error) {
+                  // something went wrong
+                  console.log("ERRRRRRROOOORRRRRR in get timeline");
+                  console.log(error);
+                  return res.redirect("/");
+                } else {
+                  console.log("SUCCESSSSSSSSSSSSS in get timeline");
+                  // data contains the data sent by twitter
+
+
+                  console.log("in twitter callback with firstCall = 1");
+                  //twitterPull(req);
+
+                  setTimeout(function() {
+                    console.log('first 10 secs');
+                    twitterPull(req);
+
+                    tweetPollingInterval = setInterval(twitterPull, 90000, req);
+
+                  }, 10000);
+
+                  return res.redirect("/");
+                }
+              })
+          }
+        });
+
+    }
+  });
+
+});
 
 
 app.get('/twitterLogout', function(req, res){
