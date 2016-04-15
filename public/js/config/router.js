@@ -37,9 +37,9 @@ app.config(['$stateProvider','$locationProvider', '$urlRouterProvider','PusherSe
             templateUrl:"view/slackPanel.html",
             controller:'slackController as slackC'
           },
-          'facebook@loggedin':{
-            templateUrl:"view/facebookPanel.html",
-            controller:'fbController as fbC'
+          'twitter@loggedin':{
+            templateUrl:"view/twitterPanel.html",
+            controller:'twController as twC'
           },
           'gmail@loggedin':{
             templateUrl:"view/gmailPanel.html",
