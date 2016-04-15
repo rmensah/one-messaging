@@ -95,8 +95,13 @@ footer {
 
 .card{
   background-color: #5E3448;
+  width: 750px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
-.waves-effect, .card .card-action{
+.waves-effect, .card .card-action {
   z-index: 0;
+}
