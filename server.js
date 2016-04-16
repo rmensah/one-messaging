@@ -161,7 +161,15 @@ app.post("/login", function(req, res, next){
             refresh_token: user.gmailRefreshToken
           });
 
-          pollingInterval = setInterval(gmailMessagePull, 30000, req);
+          //pollingInterval = setInterval(gmailMessagePull, 30000, req);
+
+          setTimeout(function() {
+            console.log('first 10 secs');
+            gmailMessagePull(req);
+
+            pollingInterval = setInterval(gmailMessagePull, 60000, req);
+
+          }, 10000);
         }
 
         if(user.twitterAccessToken !== ""){
@@ -517,7 +525,14 @@ app.get('/oauthcallback', function(req, res){
                 req.user.gmailRefreshToken = tokens.refresh_token;
                 req.user.gmailAccessToken = tokens.access_token;
 
-                pollingInterval = setInterval(gmailMessagePull, 30000, req);
+                setTimeout(function() {
+                  console.log('first 10 secs');
+                  gmailMessagePull(req);
+
+                  pollingInterval = setInterval(gmailMessagePull, 60000, req);
+
+                }, 10000);
+
 
                 return res.redirect("/");
               }
@@ -548,6 +563,10 @@ app.get('/gmailLogout', function(req, res){
 });
 
 
+
+//////////////////////////////////////////////////////
+//     Handles Twitters Authentication Request      //
+//////////////////////////////////////////////////////
 app.get('/twitterAuth', function(req, res){
 
   console.log("/twitterAuth");
@@ -585,27 +604,27 @@ app.get('/twitterAuth', function(req, res){
 });
 
 
+
+/////////////////////////////////////////////////////////////
+//     Handles Twitters Request To Users Home Timeline     //
+/////////////////////////////////////////////////////////////
 function twitterPull(req){
 
   var twitterArray = [];
   var counter = 0;
 
-  console.log("Twitter Pull");
   twitter.getTimeline('home_timeline', {
     count: 5
   }, req.user.twitterAccessToken, req.user.twitterAccessTokenSecret, function(error, data, response) {
     if (error) {
       // something went wrong
-      console.log("ERRRRRRROOOORRRRRR in get timeline");
       console.log(error);
     } else {
-      console.log("SUCCESSSSSSSSSSSSS in get timeline");
-      // data contains the data sent by twitter
 
+      // data contains the data sent by twitter
       var len = data.length;
       for(var i = 0; i < len; i++){
 
-        console.log("//////////////////////////////////////////////////////////");
         twitterArray.push({
           name: data[i].user.name,
           screen_name: '@'+data[i].user.screen_name,
@@ -623,10 +642,13 @@ function twitterPull(req){
       }
     }
   });
-
-
 }
 
+
+
+/////////////////////////////////////////////
+//        Handles Twitters Callback        //
+////////////////////////////////////////////
 app.get('/twitterAuthCallback', function(req, res){
 
   console.log('/twitterAuthCallback');
@@ -637,7 +659,6 @@ app.get('/twitterAuthCallback', function(req, res){
   }else{
     twitter.getAccessToken(req.user.twitterRequestToken, req.user.twitterRequestTokenSecret, req.query.oauth_verifier, function(error, accessToken, accessTokenSecret, results) {
       if (error) {
-        console.log("GETTING GMAIL ACCESS TOKEN");
         console.log(error);
         res.redirect("/");
       } else {
@@ -654,24 +675,15 @@ app.get('/twitterAuthCallback', function(req, res){
               req.user.twitterAccessToken = accessToken;
               req.user.twitterAccessTokenSecret = accessTokenSecret;
 
-
-              console.log("------------BEFORE GETTIMELINE");
               twitter.getTimeline('home_timeline', {
                 count: 5
               }, req.user.twitterAccessToken, req.user.twitterAccessTokenSecret, function(error, data, response) {
                 if (error) {
-                  // something went wrong
-                  console.log("ERRRRRRROOOORRRRRR in get timeline");
                   console.log(error);
                   return res.redirect("/");
                 } else {
-                  console.log("SUCCESSSSSSSSSSSSS in get timeline");
+
                   // data contains the data sent by twitter
-
-
-                  console.log("in twitter callback with firstCall = 1");
-                  //twitterPull(req);
-
                   setTimeout(function() {
                     console.log('first 10 secs');
                     twitterPull(req);
@@ -685,13 +697,16 @@ app.get('/twitterAuthCallback', function(req, res){
               })
             }
           });
-
       }
     });
   }
 });
 
 
+
+/////////////////////////////////////////////
+//        Handles Twitter Logout           //
+////////////////////////////////////////////
 app.get('/twitterLogout', function(req, res){
 
   console.log('/twitterLogout');
@@ -717,12 +732,9 @@ app.get('/twitterLogout', function(req, res){
 
 
 
-
-
-
-
-
-
+/////////////////////////////////////////////
+//        Handles Logout Of Our App        //
+////////////////////////////////////////////
 app.post('/logout',function(req, res){
   console.log("@#$%^&*&^%$#^&*(*&^%$$&^%$#######################");
   if(rtm !== undefined){
@@ -731,10 +743,16 @@ app.post('/logout',function(req, res){
   req.logout();
   req.user = undefined;
   console.log("req.user is: ",req.user);
+  clearInterval(tweetPollingInterval);
+  clearInterval(pollingInterval);
   res.status(200).send("logout success");
 });
 
 
+
+/////////////////////////////////////////////
+//            Listens To Port              //
+////////////////////////////////////////////
 app.listen(PORT, function(){
   console.log("listening on ", PORT);
   mongoose.connect('mongodb://heroku_80c4pl5t:1pkn0mmchnqm34rf4c6lgkruf7@ds051720.mlab.com:51720/heroku_80c4pl5t');
