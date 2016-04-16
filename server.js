@@ -419,7 +419,6 @@ function gmailMessagePull(req){
         oauth2Client.refreshAccessToken(function(err, tokens) {
           // your access_token is now refreshed and stored in oauth2Client
           // store these new tokens in a safe place (e.g. database)
-
           User.findOneAndUpdate({username:req.user.username},{gmailRefreshToken:tokens.refresh_token, gmailAccessToken:tokens.access_token},{new:true},
             function(err, doc){
               if(err){
@@ -449,10 +448,8 @@ function gmailMessagePull(req){
       }else{
         var len = response.messages.length;
 
-        console.log(len);
         for(var i = 0; i < len; i++){
 
-          console.log("in for loop %s", i);
           gmail.users.messages.get({
             'userId': 'me',
             'id': response.messages[i].id
@@ -485,7 +482,6 @@ function gmailMessagePull(req){
           });
         }
       }
-
     }
   });
 }
@@ -545,7 +541,6 @@ app.get('/gmailLogout', function(req, res){
         console.log(doc);
         req.user.gmailRefreshToken = "";
         req.user.gmailAccessToken = "";
-
         clearInterval(pollingInterval);
         res.status(200).send(doc);
       }
@@ -561,14 +556,14 @@ app.get('/twitterAuth', function(req, res){
     console.log("twitter already has a token");
     res.redirect("/");
   }else{
-    console.log("twitter getrequesttoken");
+
     twitter.getRequestToken(function(error, requestToken, requestTokenSecret, results){
       if (error) {
         console.log("Error getting OAuth request token : " + error);
+        res.redirect("/");
       } else {
-        console.log("getting twitter access token");
+        console.log("Getting twitter access token");
 
-        //store token and tokenSecret somewhere, you'll need them later; redirect user
         User.findOneAndUpdate({username:req.user.username},{twitterRequestToken: requestToken, twitterRequestTokenSecret: requestTokenSecret},{new:true},
           function(err, doc){
             if(err){
@@ -582,7 +577,6 @@ app.get('/twitterAuth', function(req, res){
 
               var url2 = twitter.getAuthUrl(req.user.twitterRequestToken);
               res.send(url2);
-
             }
           });
       }
@@ -634,8 +628,8 @@ function twitterPull(req){
 }
 
 app.get('/twitterAuthCallback', function(req, res){
-  console.log('/twitterAuthCallback');
 
+  console.log('/twitterAuthCallback');
   console.log(req.query);
 
   twitter.getAccessToken(req.user.twitterRequestToken, req.user.twitterRequestTokenSecret, req.query.oauth_verifier, function(error, accessToken, accessTokenSecret, results) {
