@@ -356,7 +356,7 @@ function startRTM(accessToken){
     }
     console.log("slackUsers: ", slackUsers.length);
     slackUsers = sorts.mergeSort(slackUsers);
-    console.log("slackUsers: ", slackUsers.length);
+    console.log("slackUsers: ", slackUsers);
 
     //console.log("slackUsers: ", slackChannels.length);
     slackChannels = sorts.mergeSort(slackChannels);
