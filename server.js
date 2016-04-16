@@ -351,9 +351,9 @@ function startRTM(accessToken){
         slackChannels.push({id:startdata.channels[j].id, name: startdata.channels[j].name});
       }
     }
-    //console.log("slackUsers: ", slackUsers.length);
+    console.log("slackUsers: ", slackUsers.length);
     slackUsers = sorts.mergeSort(slackUsers);
-    //console.log("slackUsers: ", slackUsers.length);
+    console.log("slackUsers: ", slackUsers.length);
 
     //console.log("slackUsers: ", slackChannels.length);
     slackChannels = sorts.mergeSort(slackChannels);
