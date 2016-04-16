@@ -8,7 +8,7 @@ exports.binarySearch = function(items, id){
   console.log(id);
   console.log("-------------------------");
   var start = 0;
-  var end = items.length;
+  var end = items.length-1;
 
   while(start<end){
 
