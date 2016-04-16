@@ -10,7 +10,7 @@ exports.binarySearch = function(items, id){
   var start = 0;
   var end = items.length-1;
 
-  while(start<end){
+  while(start<=end){
 
     var mid = Math.floor((start+end)/2);
 
