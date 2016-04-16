@@ -312,7 +312,9 @@ function startRTM(accessToken){
 
       var pusherMessage = {user:user,channel:channel,text:message.text};
       if(message.text.indexOf("/giphy") !== -1){
-        pusherMessage.image_url = message.attachments[0].image_url;
+        if(message.attachments !== undefined && message.attachments !== null){
+          pusherMessage.image_url = message.attachments[0].image_url;
+        }
 
       }
       pusher.trigger('slack','message', pusherMessage);
