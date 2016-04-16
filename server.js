@@ -499,42 +499,37 @@ app.get('/oauthcallback', function(req, res){
   console.log(req.query);
   console.log(req.query.code);
 
+  if(req.query.code === undefined){
+    res.redirect("/");
+  }else{
+    oauth2Client.getToken(req.query.code, function(err, tokens) {
 
+      // Now tokens contains an access_token and an optional refresh_token. Save them.
+      if(req.user.gmailAccessToken !== ""){
+        res.redirect("/");
+      }else{
+        if(!err) {
+          oauth2Client.setCredentials(tokens);
+          User.findOneAndUpdate({username:req.user.username},{gmailRefreshToken:tokens.refresh_token, gmailAccessToken:tokens.access_token},{new:true},
+            function(err, doc){
+              if(err){
+                console.log(err);
+                return res.redirect("/");
+              }
+              else{
+                console.log(doc);
+                req.user.gmailRefreshToken = tokens.refresh_token;
+                req.user.gmailAccessToken = tokens.access_token;
 
-  oauth2Client.getToken(req.query.code, function(err, tokens) {
-    // Now tokens contains an access_token and an optional refresh_token. Save them.
-    console.log("HELLO");
+                pollingInterval = setInterval(gmailMessagePull, 30000, req);
 
-    if(req.user.gmailAccessToken !== ""){
-      res.redirect("/");
-    }else{
-      if(!err) {
-        oauth2Client.setCredentials(tokens);
-
-        console.log(tokens);
-        console.log(tokens.access_token);
-        User.findOneAndUpdate({username:req.user.username},{gmailRefreshToken:tokens.refresh_token, gmailAccessToken:tokens.access_token},{new:true},
-          function(err, doc){
-            if(err){
-              console.log(err);
-              return res.redirect("/");
-            }
-            else{
-              console.log(doc);
-              req.user.gmailRefreshToken = tokens.refresh_token;
-              req.user.gmailAccessToken = tokens.access_token;
-
-              pollingInterval = setInterval(gmailMessagePull, 30000, req);
-
-              return res.redirect("/");
-            }
-          });
+                return res.redirect("/");
+              }
+            });
+        }
       }
-    }
-
-
-  });
-
+    });
+  }
 });
 
 
