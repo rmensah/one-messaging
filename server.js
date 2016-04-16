@@ -9,7 +9,6 @@ var passport = require('passport');
 var bcrypt = require('bcryptjs');
 var expressSession = require('express-session');
 var mongoose = require('mongoose');
-var express = require('express');
 var request = require('request');
 var Pusher = require('pusher');
 var sorts = require(__dirname+"/public/js/sortAlgorithms/sorts.js");
@@ -43,13 +42,9 @@ var userSlackId;
 
 var pusher = Pusher.forURL(process.env.PUSHER_URL);
 
-
-
 app.use(express.static(__dirname + "/public"));
-
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());
-
 app.use(expressSession({
   secret: '5cc36237fef6d88c39476da6b5e9a2f7',
   resave: true,
@@ -59,10 +54,12 @@ app.use(expressSession({
   }
 }));
 
+
+
 app.use(passport.initialize());
 app.use(passport.session());
-
 var User = require(__dirname + "/public/js/schemas/User.js");
+
 
 passport.use(new LocalStrategy({
     usernameField:"username",
@@ -102,6 +99,7 @@ passport.use(new LocalStrategy({
 ));
 
 
+
 passport.serializeUser(function(user, done){
   done(null, user._id);
 });
@@ -122,6 +120,11 @@ app.get("/", function(req,res){
   res.sendFile(__dirname + "/public/view/index.html");
 });
 
+
+
+//////////////////////////////////////////////////////
+//        Handles The Login Status To Our App       //
+//////////////////////////////////////////////////////
 app.get("/loginStatus", function(req, res){
   console.log("getting logging status");
   console.log(req.user);
@@ -129,6 +132,10 @@ app.get("/loginStatus", function(req, res){
 });
 
 
+
+//////////////////////////////////////////////////////
+//            Handles The Login To Our App          //
+//////////////////////////////////////////////////////
 app.post("/login", function(req, res, next){
   passport.authenticate('local', function(err, user){
 
@@ -161,13 +168,11 @@ app.post("/login", function(req, res, next){
             refresh_token: user.gmailRefreshToken
           });
 
-          //pollingInterval = setInterval(gmailMessagePull, 30000, req);
-
           setTimeout(function() {
             console.log('first 10 secs');
             gmailMessagePull(req);
 
-            pollingInterval = setInterval(gmailMessagePull, 60000, req);
+            pollingInterval = setInterval(gmailMessagePull, 120000, req);
 
           }, 10000);
         }
@@ -190,16 +195,17 @@ app.post("/login", function(req, res, next){
         return res.status(200).send(user);
       }
     })
-
-
   })(req, res, next);
 });
 
 
+
+//////////////////////////////////////////////////////
+//        Handles The Registration To Our App       //
+//////////////////////////////////////////////////////
 app.post('/register', function(req, res){
 
-  //console.log("in register");
-  //console.log(req.body);
+
   req.body.faceBookToken="";
   req.body.slackToken="";
   req.body.gmailAccessToken="";
@@ -239,18 +245,18 @@ app.post('/register', function(req, res){
                 }
               })
             }
-
           });
-
         }
-
       });
     }
-
   });
-
 });
 
+
+
+//////////////////////////////////////////////////////
+//         Stops Slacks Real Time Messaging         //
+//////////////////////////////////////////////////////
 function stopSlackRTM(){
   console.log(SLACK_RTM_EVENTS.MESSAGE);
   console.log(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED);
@@ -263,6 +269,11 @@ function stopSlackRTM(){
   rtm = undefined;
 }
 
+
+
+/////////////////////////////////////////////
+//        Handles Slacks Logout            //
+/////////////////////////////////////////////
 app.post("/logoutSlack", function(req, res){
 
   console.log("in logoutSlack");
@@ -286,9 +297,13 @@ app.post("/logoutSlack", function(req, res){
 
 });
 
+
+
+//////////////////////////////////////////////////////
+// Handles The Start of Slacks Real Time Messaging  //
+//////////////////////////////////////////////////////
 function startRTM(accessToken){
-  //console.log("startRTM");
-  //console.log("accessToken is: "+accessToken);
+
   rtm = new RtmClient(accessToken,{logLevel:'error'});
   rtm.start();
 
@@ -350,6 +365,10 @@ function startRTM(accessToken){
 }
 
 
+
+//////////////////////////////////////////////////////
+//       Handles Slacks Authentication Request      //
+//////////////////////////////////////////////////////
 app.get("/slackAuth", function(req, res){
 
   console.log("/slackAuth");
@@ -387,17 +406,15 @@ app.get("/slackAuth", function(req, res){
         }
       });
   }
-
-
 });
 
 
 
+//////////////////////////////////////////////////////
+//       Handles Gmails Authentication Request      //
+//////////////////////////////////////////////////////
 app.get("/gmailAuth", function(req, res){
 
-
-  //after oauth save the token in the database, just return res.redirect("/");
-  //and make sure you req.user.gmailToken = data.access_token;
   console.log("/gmailAuth");
   console.log(req.query);
 
@@ -413,6 +430,10 @@ app.get("/gmailAuth", function(req, res){
 });
 
 
+
+/////////////////////////////////////////////////////////////
+//        Handles Gmails Request To Get Unread Emails      //
+/////////////////////////////////////////////////////////////
 function gmailMessagePull(req){
 
   gmail.users.messages.list({
@@ -441,7 +462,6 @@ function gmailMessagePull(req){
         });
       }
     }else{
-      console.log(response);
 
       var counter = 0;
       var messageArray = [];
@@ -496,7 +516,9 @@ function gmailMessagePull(req){
 
 
 
-
+/////////////////////////////////////////////
+//         Handles Gmails Callback         //
+////////////////////////////////////////////
 app.get('/oauthcallback', function(req, res){
 
   console.log('/oauthcallback');
@@ -529,7 +551,7 @@ app.get('/oauthcallback', function(req, res){
                   console.log('first 10 secs');
                   gmailMessagePull(req);
 
-                  pollingInterval = setInterval(gmailMessagePull, 60000, req);
+                  pollingInterval = setInterval(gmailMessagePull, 120000, req);
 
                 }, 10000);
 
@@ -545,6 +567,9 @@ app.get('/oauthcallback', function(req, res){
 
 
 
+/////////////////////////////////////////////
+//        Handles Gmails Logout            //
+/////////////////////////////////////////////
 app.get('/gmailLogout', function(req, res){
   User.findOneAndUpdate({username:req.user.username},{gmailRefreshToken:"", gmailAccessToken:""},{new:true},
     function(err, doc){
@@ -706,7 +731,7 @@ app.get('/twitterAuthCallback', function(req, res){
 
 /////////////////////////////////////////////
 //        Handles Twitter Logout           //
-////////////////////////////////////////////
+/////////////////////////////////////////////
 app.get('/twitterLogout', function(req, res){
 
   console.log('/twitterLogout');
