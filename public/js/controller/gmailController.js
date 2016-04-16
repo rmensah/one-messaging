@@ -20,9 +20,8 @@ app.controller('gmailController', ['$userService','$http','$window','Pusher', fu
             method:"GET"
         }).then(function successCallBack(response){
             console.log("BACK");
-
             console.log(response);
-            //TODO: login the user to gmail and save the token to the userservice
+
             $window.open(response.data,"_self");
         })
     };

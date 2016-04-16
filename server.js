@@ -349,14 +349,12 @@ app.get("/slackAuth", function(req, res){
   if(req.query.state === req.user.username){
     request("https://slack.com/api/oauth.access?client_id="+"9328545702.31568401990&"+
       "client_secret=09490261d44c791db569237175161947&code="+req.query.code,
+
       function(error, response, body){
         if(!error && response.statusCode == 200) {
           var slackBody = JSON.parse(body);
 
-          console.log("SLACK BODY/////////////////////////////////");
-          console.log(slackBody);
           if(slackBody.access_token === undefined){
-            console.log("ERROR FROM SLACKBODY.ACCESS TOKEN");
             return res.redirect('/');
           }else{
             User.findOneAndUpdate({username:req.user.username},{slackToken:slackBody.access_token},{new:true},
@@ -367,7 +365,6 @@ app.get("/slackAuth", function(req, res){
                 }
                 else{
                   console.log(doc);
-
                   req.user.slackToken = slackBody.access_token;
                   startRTM(req.user.slackToken);
                   return res.redirect("/");
@@ -380,7 +377,7 @@ app.get("/slackAuth", function(req, res){
           console.log(error);
           res.redirect("/");
         }
-      })
+      });
   }
 
 
@@ -396,10 +393,9 @@ app.get("/gmailAuth", function(req, res){
   console.log("/gmailAuth");
   console.log(req.query);
 
-
   var url = oauth2Client.generateAuthUrl({
     access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-    scope: 'https://www.googleapis.com/auth/gmail.readonly', // If you only need one scope you can pass it as string
+    scope: 'https://www.googleapis.com/auth/gmail.readonly',
     approval_prompt: 'force'
   });
 
@@ -502,10 +498,11 @@ app.get('/oauthcallback', function(req, res){
   console.log('/oauthcallback');
   console.log(req.query.code);
 
+
+
   oauth2Client.getToken(req.query.code, function(err, tokens) {
     // Now tokens contains an access_token and an optional refresh_token. Save them.
     console.log("HELLO");
-
 
     if(req.user.gmailAccessToken !== ""){
       res.redirect("/");
