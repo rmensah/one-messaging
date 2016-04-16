@@ -1,12 +1,12 @@
 <div class="col xs12 s12 m12">
   <div class="gbutton">
-    <a ng-show="twC.user.twitterRequestToken === ''" ng-click="twC.twitterLogin()" title="Twitter Login">
+    <a ng-show="twC.user.twitterAccessToken === ''" ng-click="twC.twitterLogin()" title="Twitter Login">
       <img src="../images/TwitterLogo_55acee.png" id="twitterImg">
       <span class="btnName">TWITTER</span>
     </a>
   </div>
 
-  <div class="card" ng-show="twC.user.twitterRequestToken !== ''">
+  <div class="card" ng-show="twC.user.twitterAccessToken !== ''">
     <div class="card-content">
       <span class="card-title">Twitter</span>
       <ul class="collection">
