@@ -254,8 +254,7 @@ app.post('/register', function(req, res){
 //         Stops Slacks Real Time Messaging         //
 //////////////////////////////////////////////////////
 function stopSlackRTM(){
-  console.log(SLACK_RTM_EVENTS.MESSAGE);
-  console.log(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED);
+  console.log("in slack RTM");
   console.log(rtm);
   rtm.removeAllListeners(SLACK_RTM_EVENTS.MESSAGE);
   rtm.removeAllListeners(SLACK_CLIENT_EVENTS.RTM.AUTHENTICATED);
@@ -767,6 +766,7 @@ app.get('/twitterLogout', function(req, res){
 app.post('/logout',function(req, res){
   console.log("@#$%^&*&^%$#^&*(*&^%$$&^%$#######################");
   if(rtm !== undefined){
+    console.log("logging out calling stopSlackRTM");
     stopSlackRTM();
   }
   req.logout();
