@@ -353,20 +353,25 @@ app.get("/slackAuth", function(req, res){
         if(!error && response.statusCode == 200) {
           var slackBody = JSON.parse(body);
           console.log(slackBody);
-          User.findOneAndUpdate({username:req.user.username},{slackToken:slackBody.access_token},{new:true},
-          function(err, doc){
-            if(err){
-              console.log(err);
-              return res.redirect("/");
-            }
-            else{
-              console.log(doc);
 
-              req.user.slackToken = slackBody.access_token;
-              startRTM(req.user.slackToken);
-              return res.redirect("/");
-            }
-          });
+          if(slackBody.access_token === undefined){
+            return res.redirect('/');
+          }else{
+            User.findOneAndUpdate({username:req.user.username},{slackToken:slackBody.access_token},{new:true},
+              function(err, doc){
+                if(err){
+                  console.log(err);
+                  return res.redirect("/");
+                }
+                else{
+                  console.log(doc);
+
+                  req.user.slackToken = slackBody.access_token;
+                  startRTM(req.user.slackToken);
+                  return res.redirect("/");
+                }
+              });
+          }
 
         }
         else{
