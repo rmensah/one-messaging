@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 var User = new Schema({
   username:String,
   password:String,
-    twitterRequestToken:String,
+  twitterRequestToken:String,
   twitterRequestTokenSecret:String,
   twitterAccessToken:String,
   twitterAccessTokenSecret:String,

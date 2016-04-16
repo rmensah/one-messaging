@@ -554,7 +554,7 @@ app.get('/twitterAuth', function(req, res){
 
   if(req.user.twitterRequestToken !== ""){
     console.log("twitter already has a token");
-    res.redirect("/");
+    res.redirect("/twitterAuthCallback");
   }else{
 
     twitter.getRequestToken(function(error, requestToken, requestTokenSecret, results){
