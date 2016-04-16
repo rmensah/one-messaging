@@ -16,8 +16,8 @@
           </span>
 
           <span ng-show="message.image_url != undefined && message.image_url != null && message.image_url != ''">
-            {{message.user.name}} sent giphy <span ng-show="message.channel !== undefined"> on {{message.channel.name}}</span>
-            <img src="{{message.image_url}}">
+            {{message.user.name}}<span ng-show="message.channel !== undefined"> on {{message.channel.name}}</span>
+            <img src="{{message.image_url}}" id="giphyimg">
           </span>
         </li>
       </ul>
