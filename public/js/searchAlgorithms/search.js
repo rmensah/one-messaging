@@ -6,6 +6,7 @@ exports.binarySearch = function(items, id){
 
   console.log("in binary search");
   console.log(id);
+  console.log("-------------------------");
   var start = 0;
   var end = items.length;
 
