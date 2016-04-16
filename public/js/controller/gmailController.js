@@ -1,6 +1,3 @@
-/**
- * Created by alemjc on 4/2/16.
- */
 var app = angular.module('messagingApp');
 
 

@@ -1,7 +1,3 @@
-/**
- * Created by alemjc on 3/26/16.
- */
-
 var express = require('express');
 var bodyparser = require('body-parser');
 var LocalStrategy = require('passport-local').Strategy;
