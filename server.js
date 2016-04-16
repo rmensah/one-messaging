@@ -172,7 +172,7 @@ app.post("/login", function(req, res, next){
             console.log('first 10 secs');
             gmailMessagePull(req);
 
-            pollingInterval = setInterval(gmailMessagePull, 120000, req);
+            pollingInterval = setInterval(gmailMessagePull, 60000, req);
 
           }, 10000);
         }
@@ -551,7 +551,7 @@ app.get('/oauthcallback', function(req, res){
                   console.log('first 10 secs');
                   gmailMessagePull(req);
 
-                  pollingInterval = setInterval(gmailMessagePull, 120000, req);
+                  pollingInterval = setInterval(gmailMessagePull, 60000, req);
 
                 }, 10000);
 
