@@ -552,10 +552,9 @@ app.get('/twitterAuth', function(req, res){
 
   console.log("/twitterAuth");
 
-  if(req.user.twitterRequestToken !== ""){
+  if(req.user.twitterAccessToken !== ""){
     console.log("twitter already has a token");
-    var url2 = twitter.getAuthUrl(req.user.twitterRequestToken);
-    res.send(url2);
+    res.redirect("/");
   }else{
 
     twitter.getRequestToken(function(error, requestToken, requestTokenSecret, results){
