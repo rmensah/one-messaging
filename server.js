@@ -496,6 +496,7 @@ function gmailMessagePull(req){
 app.get('/oauthcallback', function(req, res){
 
   console.log('/oauthcallback');
+  console.log(req.query);
   console.log(req.query.code);
 
 
