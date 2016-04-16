@@ -303,10 +303,14 @@ function startRTM(accessToken){
   rtm.start();
 
   rtm.on(SLACK_RTM_EVENTS.MESSAGE, function(message){
+    console.log("got message////////");
     console.log(message);
     if(message.type==="message" && (userSlackId !== undefined && userSlackId !== message.user)){
 
+      console.log("getting user through binary search");
       var user = search.binarySearch(slackUsers, message.user);
+      console.log("user is: ");
+      console.log(user);
       var channel = search.binarySearch(slackChannels, message.channel);
 
       var pusherMessage = {user:user,channel:channel,text:message.text};
