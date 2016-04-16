@@ -4,6 +4,8 @@
 
 exports.binarySearch = function(items, id){
 
+  console.log("in binary search");
+  console.log(id);
   var start = 0;
   var end = items.length;
 
@@ -11,6 +13,7 @@ exports.binarySearch = function(items, id){
 
     var mid = Math.floor((start+end)/2);
 
+    console.log(items[mid].id);
     if(items[mid].id.localeCompare(id) === 0){
       return items[mid];
     }

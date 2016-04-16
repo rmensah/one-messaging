@@ -365,6 +365,7 @@ function startRTM(accessToken){
     console.log("authenticated done");
   });
 
+
   rtm.on(SLACK_CLIENT_EVENTS.RTM_CONNECTION_OPENED, function(){
     console.log("slack rtm connection opened");
   });
