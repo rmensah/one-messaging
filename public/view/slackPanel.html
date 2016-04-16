@@ -11,7 +11,13 @@
       <span class="card-title">Slack</span>
       <ul class="collection">
         <li ng-repeat="message in slackC.messages">
-          <span>{{message.user.name}}: {{message.text}} <span ng-show="message.channel !== undefined"> on {{message.channel.name}}</span></span>
+          <span ng-if="message.image_url == undefined && message.image_url == null && message.image_url == ''">
+            {{message.user.name}}: {{message.text}} <span ng-show="message.channel !== undefined"> on {{message.channel.name}}</span>
+          </span>
+
+          <span ng-show="message.image_url != undefined && message.image_url != null && message.image_url != ''">
+            <img src="message.image_url">
+          </span>
         </li>
       </ul>
     </div>
