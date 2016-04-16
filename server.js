@@ -632,28 +632,33 @@ app.get('/twitterAuthCallback', function(req, res){
   console.log('/twitterAuthCallback');
   console.log(req.query);
 
-  twitter.getAccessToken(req.user.twitterRequestToken, req.user.twitterRequestTokenSecret, req.query.oauth_verifier, function(error, accessToken, accessTokenSecret, results) {
-    if (error) {
-      console.log(error);
-    } else {
-      //store accessToken and accessTokenSecret somewhere (associated to the user)
-      //Step 4: Verify Credentials belongs here
-      User.findOneAndUpdate({username:req.user.username},{twitterAccessToken: accessToken, twitterAccessTokenSecret: accessTokenSecret},{new:true},
-        function(err, doc){
-          if(err){
-            console.log(err);
-            return res.redirect("/");
-          }
-          else{
-            console.log(doc);
-            req.user.twitterAccessToken = accessToken;
-            req.user.twitterAccessTokenSecret = accessTokenSecret;
+  if(req.query.oauth_verifier === undefined){
+    res.redirect("/");
+  }else{
+    twitter.getAccessToken(req.user.twitterRequestToken, req.user.twitterRequestTokenSecret, req.query.oauth_verifier, function(error, accessToken, accessTokenSecret, results) {
+      if (error) {
+        console.log("GETTING GMAIL ACCESS TOKEN");
+        console.log(error);
+        res.redirect("/");
+      } else {
+        //store accessToken and accessTokenSecret somewhere (associated to the user)
+        //Step 4: Verify Credentials belongs here
+        User.findOneAndUpdate({username:req.user.username},{twitterAccessToken: accessToken, twitterAccessTokenSecret: accessTokenSecret},{new:true},
+          function(err, doc){
+            if(err){
+              console.log(err);
+              return res.redirect("/");
+            }
+            else{
+              console.log(doc);
+              req.user.twitterAccessToken = accessToken;
+              req.user.twitterAccessTokenSecret = accessTokenSecret;
 
 
-            console.log("------------BEFORE GETTIMELINE");
-            twitter.getTimeline('home_timeline', {
-              count: 5
-            }, req.user.twitterAccessToken, req.user.twitterAccessTokenSecret, function(error, data, response) {
+              console.log("------------BEFORE GETTIMELINE");
+              twitter.getTimeline('home_timeline', {
+                count: 5
+              }, req.user.twitterAccessToken, req.user.twitterAccessTokenSecret, function(error, data, response) {
                 if (error) {
                   // something went wrong
                   console.log("ERRRRRRROOOORRRRRR in get timeline");
@@ -678,12 +683,12 @@ app.get('/twitterAuthCallback', function(req, res){
                   return res.redirect("/");
                 }
               })
-          }
-        });
+            }
+          });
 
-    }
-  });
-
+      }
+    });
+  }
 });
 
 
