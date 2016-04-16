@@ -12,7 +12,7 @@ exports.binarySearch = function(items, id){
 
   while(start<end){
 
-    var mid = Math.floor((start+end)/2);
+    var mid = Math.ceil((start+end)/2);
 
     console.log(items[mid].id);
     if(items[mid].id.localeCompare(id) === 0){
