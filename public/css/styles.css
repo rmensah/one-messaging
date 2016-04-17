@@ -31,7 +31,9 @@ footer {
 
 #footer {
   color: white;
+  text-align: center;
 }
+
 
 .btn {
   background-color: #D65822 !important;
