@@ -32,18 +32,18 @@ nav {
 /* FOR INDEX */
 footer {
   background-color: #2C2723;
+  /*width: 100%;*/
+  /*bottom: 0;*/
+  /*position: fixed;*/
+  display: block;
+  position: absolute;
   width: 100%;
-  bottom: 0;
-  position: fixed;
+  bottom: 0px;
 }
 
 #footer {
   color: white;
   text-align: center;
-  display: block;
-  position: absolute;
-  width: 100%;
-  bottom: 0px;
 }
 
 .btn {
