@@ -7,7 +7,7 @@ body {
 }
 
 
-header, main, footer {
+header, main{
   padding-left: 240px;
 }
 
@@ -22,6 +22,7 @@ nav {
   background-color: #2C2723;
 }
 
+/* FOR INDEX */
 footer {
   background-color: #2C2723;
   width: 100%;
@@ -34,10 +35,10 @@ footer {
   text-align: center;
 }
 
-
 .btn {
   background-color: #D65822 !important;
 }
+/* FOR INDEX */
 
 
 .collection {
