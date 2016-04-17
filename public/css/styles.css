@@ -19,15 +19,24 @@ header, main, footer {
 
 
 nav {
-	background-color: #F86547;
+  background-color: #2C2723;
 }
 
 footer {
-  background-color: #F86547;
+  background-color: #2C2723;
   width: 100%;
   bottom: 0;
   position: fixed;
 }
+
+#footer {
+  color: white;
+}
+
+.btn {
+  background-color: #D65822 !important;
+}
+
 
 .collection {
   height: 150px;
