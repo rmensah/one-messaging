@@ -1,20 +1,18 @@
 body {
   background-color: #FCF9EA;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+  /*display: flex;*/
+  /*min-height: 100vh;*/
+  /*flex-direction: column;*/
 }
 
-
-main {
-  flex: 1 0 auto;
-}
+/*main {*/
+  /*flex: 1 0 auto;*/
+/*}*/
 
 
 .col{
   min-height: 1px;
 }
-
 
 header, main{
   padding-left: 240px;
@@ -42,6 +40,10 @@ footer {
 #footer {
   color: white;
   text-align: center;
+  display: block;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
 }
 
 .btn {
