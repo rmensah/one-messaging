@@ -1,13 +1,6 @@
 body {
   background-color: #FCF9EA;
-  /*display: flex;*/
-  /*min-height: 100vh;*/
-  /*flex-direction: column;*/
 }
-
-/*main {*/
-  /*flex: 1 0 auto;*/
-/*}*/
 
 
 .col{
@@ -32,13 +25,9 @@ nav {
 /* FOR INDEX */
 footer {
   background-color: #2C2723;
-  /*width: 100%;*/
-  /*bottom: 0;*/
-  /*position: fixed;*/
-  display: block;
-  position: absolute;
   width: 100%;
-  bottom: 0px;
+  bottom: 0;
+  position: fixed;
 }
 
 #footer {
