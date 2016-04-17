@@ -57,7 +57,7 @@ footer {
 .btnName{
   float: right;
   margin: 10% 20% 0 0;
-  color: #FCF9EA;
+  color: #D65822;
   position: relative;
   font-size: 20px;
 }
@@ -111,7 +111,7 @@ footer {
 
 
 .card{
-  background-color: #5E3448;
+  background-color: #D65822;
   width: 750px;
   display: block;
   margin-left: auto;
