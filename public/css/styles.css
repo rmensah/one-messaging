@@ -117,7 +117,7 @@ footer {
 
 .gcard {
   margin-bottom: 10%;
-  margin-top: -10%;
+  margin-top: -5%;
 }
 
 
@@ -129,6 +129,7 @@ footer {
 @media only screen and (max-width : 600px) {
   .gcard {
     margin-bottom: 20%;
+    margin-top: -8%;
   }
 
   .card{
