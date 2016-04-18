@@ -120,17 +120,9 @@ footer {
 }
 
 
-/*#gmailbutton{*/
-  /*width:350px; !* you can use % *!*/
-  /*height: auto;*/
-  /*background-color: #2C2723;*/
-  /*display: block;*/
-  /*margin-top: 20px;*/
-  /*margin-left: auto;*/
-  /*margin-right: auto;*/
-  /*margin-bottom: 10%;*/
-  /*border-radius: 10px 10px 10px 10px;*/
-/*}*/
+#gmailbutton{
+  margin-bottom: 10%;
+}
 
 
 @media only screen and (max-width : 600px) {
@@ -146,17 +138,9 @@ footer {
     margin-right: auto;
   }
 
-  /*#gmailbutton{*/
-    /*width:350px; !* you can use % *!*/
-    /*height: auto;*/
-    /*background-color: #2C2723;*/
-    /*display: block;*/
-    /*margin-top: 20px;*/
-    /*margin-left: auto;*/
-    /*margin-right: auto;*/
-    /*margin-bottom: 20%;*/
-    /*border-radius: 10px 10px 10px 10px;*/
-  /*}*/
+  #gmailbutton{
+    margin-bottom: 20%;
+  }
 }
 
 
