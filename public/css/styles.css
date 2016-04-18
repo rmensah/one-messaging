@@ -59,13 +59,17 @@ footer {
 
 .card-title{
   margin: -10% 0 0 0;
-  color: #FFD8A6;
+  color: #2C2723;
+}
+
+.card-action{
+  color: #2C2723;
 }
 
 .btnName{
   float: right;
   margin: 10% 20% 0 0;
-  color: #D65822;
+  color: #FCF9EA;
   position: relative;
   font-size: 20px;
 }
@@ -118,7 +122,7 @@ footer {
 #gmailbutton{
   width:350px; /* you can use % */
   height: auto;
-  background-color: #5E3448;
+  background-color: #2C2723;
   display: block;
   margin-top: 20px;
   margin-left: auto;
@@ -144,7 +148,7 @@ footer {
   #gmailbutton{
     width:350px; /* you can use % */
     height: auto;
-    background-color: #5E3448;
+    background-color: #2C2723;
     display: block;
     margin-top: 20px;
     margin-left: auto;
