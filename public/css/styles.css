@@ -115,9 +115,9 @@ footer {
   height:120px;
 }
 
-.gcard {
-  margin-bottom: 10%;
-}
+/*.gcard {*/
+  /*margin-bottom: 10%;*/
+/*}*/
 
 
 #gmailbutton{
@@ -126,9 +126,9 @@ footer {
 
 
 @media only screen and (max-width : 600px) {
-  .gcard {
-    margin-bottom: 20%;
-  }
+  /*.gcard {*/
+    /*margin-bottom: 20%;*/
+  /*}*/
 
   .card{
     background-color: #D65822;
