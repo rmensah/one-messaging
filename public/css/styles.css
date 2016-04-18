@@ -17,6 +17,14 @@ header, main{
   }
 }
 
+.card{
+  background-color: #D65822;
+  width: 75%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 nav {
   background-color: #2C2723;
@@ -156,13 +164,6 @@ footer {
 }
 
 
-.card{
-  background-color: #D65822;
-  width: 75%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
 
 
 .waves-effect, .card .card-action {
