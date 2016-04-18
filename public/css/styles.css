@@ -115,20 +115,20 @@ footer {
   height:120px;
 }
 
-/*.gcard {*/
-  /*margin-bottom: 10%;*/
-/*}*/
-
-
-#gmailbutton{
+.gcard {
   margin-bottom: 10%;
 }
 
 
+/*#gmailbutton{*/
+  /*margin-bottom: 10%;*/
+/*}*/
+
+
 @media only screen and (max-width : 600px) {
-  /*.gcard {*/
-    /*margin-bottom: 20%;*/
-  /*}*/
+  .gcard {
+    margin-bottom: 20%;
+  }
 
   .card{
     background-color: #D65822;
@@ -138,9 +138,9 @@ footer {
     margin-right: auto;
   }
 
-  #gmailbutton{
-    margin-bottom: 20%;
-  }
+  /*#gmailbutton{*/
+    /*margin-bottom: 20%;*/
+  /*}*/
 }
 
 
