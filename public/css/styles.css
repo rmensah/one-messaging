@@ -117,8 +117,13 @@ footer {
 
 .gcard {
   margin-bottom: 10%;
+  margin-top: 0%;
 }
 
+
+#gmailbutton{
+  margin-bottom: 10%;
+}
 
 
 @media only screen and (max-width : 600px) {
@@ -134,6 +139,10 @@ footer {
     margin-right: auto;
   }
 
+  #gmailbutton{
+    margin-bottom: 20%;
+    margin-top: 0%;
+  }
 }
 
 
