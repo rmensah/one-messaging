@@ -60,9 +60,10 @@ footer {
 .card-title{
   margin: -10% 0 0 0;
   color: #2C2723;
+  font-weight: bold;
 }
 
-.card-action{
+.card-action a{
   color: #2C2723;
 }
 
@@ -130,6 +131,7 @@ footer {
   margin-bottom: 10%;
   border-radius: 10px 10px 10px 10px;
 }
+
 
 
 @media only screen and (max-width : 600px) {
