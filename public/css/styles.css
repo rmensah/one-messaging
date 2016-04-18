@@ -117,14 +117,12 @@ footer {
 
 .gcard {
   margin-bottom: 10%;
-  margin-top: 0%;
+  margin-top: -10%;
 }
 
 
 #gmailbutton{
   margin-bottom: 10%;
-  margin-top: -20%;
-  position: relative;
 }
 
 
@@ -143,8 +141,6 @@ footer {
 
   #gmailbutton{
     margin-bottom: 20%;
-    margin-top: -20%;
-    position: relative;
   }
 }
 
