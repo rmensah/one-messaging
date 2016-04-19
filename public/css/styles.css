@@ -13,7 +13,7 @@ header, main{
 
 
 .textdescription{
-  font-size: 120% !important;
+  font-size: 110% !important;
   font-weight: bold;
   color: #20457C;
 }
@@ -168,6 +168,8 @@ footer {
 
 #twitterIcon {
   float: left;
+  padding: 1px;
+  border-radius: 10px 10px 10px 10px;
 }
 
 
