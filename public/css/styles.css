@@ -11,6 +11,18 @@ header, main{
   padding-left: 240px;
 }
 
+
+.textdescription{
+  font-size: 120% !important;
+  font-weight: bold;
+  color: #20457C;
+}
+
+.card-content li p {
+  font-family: 'Open Sans', sans-serif;
+}
+
+
 @media only screen and (max-width : 992px) {
   header, main, footer {
     padding-left: 0;
@@ -154,14 +166,12 @@ footer {
   position: relative;
 }
 
-
+#twitterIcon {
+  float: left;
+}
 
 
 .waves-effect, .card .card-action {
   z-index: 0;
 }
 
-
-span .textdescription {
-  font-family: 'Roboto', sans-serif;
-}
