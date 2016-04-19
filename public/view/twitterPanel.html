@@ -13,9 +13,8 @@
         <li ng-repeat="tweets in twC.tweets">
           <div>
             <img src="{{tweets.image}}" id="twitterIcon">
-            <p><span class="textdescription">Name: </span>{{tweets.name}}</p>
+            <p><span class="textdescription">Name: </span>{{tweets.name}} {{tweets.screen_name}}</p>
             <p><span class="textdescription">Created At: </span>{{tweets.created_at}}</p>
-            <p><span class="textdescription">Screen Name: </span>{{tweets.screen_name}}</p>
             <p><span class="textdescription">Text: </span>{{tweets.text}}</p>
           </div>
           </br>
