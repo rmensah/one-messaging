@@ -160,3 +160,8 @@ footer {
 .waves-effect, .card .card-action {
   z-index: 0;
 }
+
+
+.textdescription {
+  font-family: 'Roboto', sans-serif;
+}

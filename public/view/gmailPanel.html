@@ -12,11 +12,11 @@
       <ul class="collection">
         <li ng-repeat="unreadMail in gC.messages| orderBy: snippet">
           <div ng-if="unreadMail.fromEmail == ''">
-            <p>{{unreadMail.snippet}}</p>
+            <p><span class="textdescription">{{unreadMail.snippet}}</span></p>
           </div>
           <div ng-if="unreadMail.fromEmail != ''">
-            <p>From: {{unreadMail.fromEmail}}</p>
-            <p>About: {{unreadMail.snippet}}</p>
+            <p><span class="textdescription">From: </span>{{unreadMail.fromEmail}}</p>
+            <p><span class="textdescription">About: </span>{{unreadMail.snippet}}</p>
           </div>
           </br>
         </li>
