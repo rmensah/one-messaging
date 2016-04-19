@@ -177,3 +177,40 @@ footer {
   z-index: 0;
 }
 
+
+
+#twitterTag{
+  width: 100px;
+  height: auto;
+  margin-top: -3%;
+  margin-right: 0;
+  margin-left: -2%;
+  float: left;
+}
+#gmailTag {
+  width:85px; /* you can use % */
+  height: auto;
+  margin-top: -1%;
+  margin-right: 2%;
+  float: left;
+}
+@media only screen and (max-width : 800px) {
+  #gmailTag {
+    width:85px; /* you can use % */
+    height: auto;
+    margin-top: -2%;
+    margin-right: 2%;
+    float: left;
+  }
+  #twitterTag{
+    width: 100px;
+    height: auto;
+    margin-top: -5%;
+    margin-right: 0;
+    margin-left: -4%;
+    float: left;
+  }
+}
+.card .card-content .card-title {
+  line-height: 0px !important;
+}
