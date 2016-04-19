@@ -18,7 +18,7 @@ header, main{
 }
 
 .card{
-  background-color: #D65822;
+  background-color: #2C2723;
   width: 75%;
   display: block;
   margin-left: auto;
@@ -59,12 +59,12 @@ footer {
 
 .card-title{
   margin: -10% 0 0 0;
-  color: #2C2723;
+  color: #FCF9EA;
   font-weight: bold;
 }
 
 .card-action a{
-  color: #2C2723;
+  color: #FCF9EA !important;
 }
 
 .btnName{
@@ -133,7 +133,7 @@ footer {
   }
 
   .card{
-    background-color: #D65822;
+    background-color: #2C2723;
     width: 100%;
     display: block;
     margin-left: auto;
