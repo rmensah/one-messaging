@@ -223,14 +223,14 @@ slideRight
   animation-name: slideRight;
   -webkit-animation-name: slideRight;
 
-  animation-duration: 1s;
-  -webkit-animation-duration: 1s;
+  animation-duration: 3s;
+  -webkit-animation-duration: 10s;
 
   animation-timing-function: ease-in-out;
   -webkit-animation-timing-function: ease-in-out;
 
   visibility: visible !important;
-  transition-delay: 20s;
+  animation-delay: 20s;
 }
 
 @keyframes slideRight {
