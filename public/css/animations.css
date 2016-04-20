@@ -218,21 +218,6 @@ slideRight
   visibility: visible !important;
 }
 
-
-.slideRightTwo{
-  animation-name: slideRight;
-  -webkit-animation-name: slideRight;
-
-  animation-duration: 3s;
-  -webkit-animation-duration: 10s;
-
-  animation-timing-function: ease-in-out;
-  -webkit-animation-timing-function: ease-in-out;
-
-  visibility: visible !important;
-  animation-delay: 20s;
-}
-
 @keyframes slideRight {
   0% {
     transform: translateX(-150%);
