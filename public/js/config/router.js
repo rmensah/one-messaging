@@ -72,12 +72,27 @@ app.run(['$http','$rootScope','$location','$userService', function($http, $rootS
           console.log("state is: ");
           console.log(toState.name);
 
-          if(user.username !== undefined && toState.name === 'login'){
-            event.preventDefault();
-            console.log("getting user service and routing user to user homepage.");
-            $userService.user = user;
-            $location.path("/user/"+$userService.user.username);
+          if(toState.name === 'login'){
+
+            if(user.username !== undefined){
+              event.preventDefault();
+              console.log("getting user service and routing user to user homepage.");
+              $userService.user = user;
+              $location.path("/user/"+$userService.user.username);
+            }
+
           }
+
+          else if(toState.name === 'loggedin'){
+            if(user.username != undefined){
+              $userService.user = user;
+            }
+            else{
+              event.preventDefault();
+              $location.path("/login");
+            }
+          }
+
 
         },
         function errorCallBack(response){
