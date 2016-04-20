@@ -10,6 +10,8 @@ app.controller('gmailController', ['$userService','$http','$window','Pusher', fu
     gC.user = $userService.user;
     gC.messages = [];
 
+    console.log("user in gmail is ", gC.user);
+
     gC.gmailLogin = function(){
       console.log("login to gmail");
         $http({
@@ -34,7 +36,7 @@ app.controller('gmailController', ['$userService','$http','$window','Pusher', fu
           $userService.user = response.data;
           gC.user = response.data;
       });
-    }
+    };
 
     Pusher.subscribe('gmail','unreadMail', function(unreadMail){
       console.log("received emails");
