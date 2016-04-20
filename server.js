@@ -496,7 +496,7 @@ function gmailMessagePull(req){
                   console.log(response.payload.headers[j].value);
 
                   messageArray.push({
-                    snippet: response.snippet,
+                    snippet: response.snippet.replace('&#39;', '\''),
                     fromEmail: response.payload.headers[j].value
                   });
                 }
