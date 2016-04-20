@@ -69,9 +69,12 @@ app.run(['$http','$rootScope','$location','$userService', function($http, $rootS
           var user = response.data;
           console.log("user is: ");
           console.log(user);
+          console.log("state is: ");
+          console.log(toState.name);
 
           if(user.username !== undefined && toState.name === 'login'){
             event.preventDefault();
+            console.log("getting user service and routing user to user homepage.");
             $userService.user = user;
             $location.path("/user/"+$userService.user.username);
           }
