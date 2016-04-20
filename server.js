@@ -109,13 +109,6 @@ passport.deserializeUser(function(id, done){
 
 
 
-app.get("/", function(req,res){
-
-  console.log("at index");
-  console.log("cookie: "+JSON.stringify(req.user));
-  res.sendFile(__dirname + "/public/view/index.html");
-});
-
 
 
 //////////////////////////////////////////////////////
@@ -780,6 +773,14 @@ app.post('/logout',function(req, res){
   clearInterval(tweetPollingInterval);
   clearInterval(pollingInterval);
   res.status(200).send("logout success");
+});
+
+
+app.get("*", function(req,res){
+
+  console.log("at index");
+  console.log("cookie: "+JSON.stringify(req.user));
+  res.sendFile(__dirname + "/public/view/index.html");
 });
 
 
