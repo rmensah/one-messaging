@@ -230,7 +230,7 @@ slideRight
   -webkit-animation-timing-function: ease-in-out;
 
   visibility: visible !important;
-  transition-delay: 2s;
+  transition-delay: 20s;
 }
 
 @keyframes slideRight {
