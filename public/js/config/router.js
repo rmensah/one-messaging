@@ -84,7 +84,7 @@ app.run(['$http','$rootScope','$location','$userService', function($http, $rootS
           }
 
           else if(toState.name === 'loggedin'){
-            if(user.username != undefined){
+            if(user.username !== undefined){
               $userService.user = user;
             }
             else{
