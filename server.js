@@ -21,14 +21,14 @@ var twitterAPI = require('node-twitter-api');
 var twitter = new twitterAPI({
   consumerKey: 'k7HeFGmemKJUbCKGndCjtZ6rO',
   consumerSecret: 'KRc1ctuhqmWkB2iLKb8qCRmBSANpEbylReJ4xS90imfj95Eyf2',
-  callback: 'https://fast-gorge-90415.herokuapp.com/twitterAuthCallback'
+  callback: 'https://one-view.herokuapp.com/twitterAuthCallback'
 });
 
 var google = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
 var urlshortener = google.urlshortener('v1');
 
-var oauth2Client = new OAuth2("984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com", "VgS92n51AtwiYQCimdUYw9B2", "https://fast-gorge-90415.herokuapp.com/oauthcallback");
+var oauth2Client = new OAuth2("984356963831-0pfq9l1t3mnnlr0i2lec28pmvdhdmm2k.apps.googleusercontent.com", "VgS92n51AtwiYQCimdUYw9B2", "https://one-view.herokuapp.com/oauthcallback");
 var pollingInterval;
 var gmail = google.gmail({ version: 'v1', auth: oauth2Client });
 
