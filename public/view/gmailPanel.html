@@ -6,7 +6,7 @@
     </a>
   </div>
 
-  <div class="card gcard z-depth-5 fadeIn" ng-show="gC.user.gmailAccessToken !== ''">
+  <div class="card gcard z-depth-5" ng-show="gC.user.gmailAccessToken !== ''">
     <div class="card-content">
       <span class="card-title"><img src="https://lh6.ggpht.com/8-N_qLXgV-eNDQINqTR-Pzu5Y8DuH0Xjz53zoWq_IcBNpcxDL_gK4uS_MvXH00yN6nd4=w300" id="gmailTag"> Gmail </span>
       <ul class="collection">
@@ -22,8 +22,8 @@
         </li>
       </ul>
     </div>
-    <div class="card-action">
-      <a ng-click="gC.gmailLogout()" class="hvr-grow">Log out</a>
+    <div class="card-action hvr-grow">
+      <a ng-click="gC.gmailLogout()">Log out</a>
     </div>
   </div>
 
