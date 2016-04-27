@@ -209,11 +209,20 @@ footer {
     margin-left: -4%;
     float: left;
   }
+
+  .theicon {
+    visibility: hidden;
+  }
 }
+
 .card .card-content .card-title {
   line-height: 0px !important;
 }
 
+
+form {
+  padding-bottom: 50%;
+}
 
 
 
